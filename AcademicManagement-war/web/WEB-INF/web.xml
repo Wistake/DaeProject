@@ -42,6 +42,7 @@
             <web-resource-name>Admin services</web-resource-name>
             <description/>
             <url-pattern>/webapi/students/all</url-pattern>
+            <url-pattern>/webapi/administrators/all</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>

@@ -1,5 +1,6 @@
 package ejbs;
 
+import dtos.AdministratorDTO;
 import dtos.StudentDTO;
 import exceptions.EntityDoesNotExistException;
 import exceptions.EntityExistsException;
@@ -19,6 +20,8 @@ public class ConfigBean {
     @EJB
     private CourseBean courseBean;
     @EJB
+    private CargoBean cargoBean;
+    @EJB
     private StudentBean studentBean;
     @EJB
     private SubjectBean subjectBean;
@@ -31,21 +34,18 @@ public class ConfigBean {
     public void populateDB() {
 
         try {
-            courseBean.create(1, "EI");
-            courseBean.create(2, "IS");
-            courseBean.create(3, "JDM");
-            courseBean.create(4, "SIS");
-            courseBean.create(5, "MEI-CM");
-            courseBean.create(6, "MGSIM");
+            courseBean.create(1, "Google");
+            courseBean.create(2, "Twitter");
+            courseBean.create(3, "Amazon");
+            courseBean.create(4, "Facebook");
+            courseBean.create(5, "Alibaba");
+            courseBean.create(6, "Ebay");
+            
+            cargoBean.create(1, "Chefe");
 
-            studentBean.create(new StudentDTO("1111111", "Manuel", "Manuel", "dae.ei.ipleiria@gmail.com", 1, null));
-            studentBean.create(new StudentDTO("2222222", "Antonio", "António", "dae.ei.ipleiria@gmail.com", 1, null));
-            studentBean.create(new StudentDTO("3333333", "Ana", "Ana", "dae.ei.ipleiria@gmail.com", 2, null));
-            studentBean.create(new StudentDTO("4444444", "Jose", "José", "dae.ei.ipleiria@gmail.com", 2, null));
-            studentBean.create(new StudentDTO("5555555", "Maria", "Maria", "dae.ei.ipleiria@gmail.com", 3, null));
-            studentBean.create(new StudentDTO("6666666", "Joaquim", "Joaquim", "dae.ei.ipleiria@gmail.com", 3, null));
-            studentBean.create(new StudentDTO("7777777", "Alzira", "Alzira", "dae.ei.ipleiria@gmail.com", 4, null));
-            studentBean.create(new StudentDTO("8888888", "Pedro", "Pedro", "dae.ei.ipleiria@gmail.com", 4, null));
+            studentBean.create(new StudentDTO("1111111", "111", "Travessa das Cenas", "987654321", 1, null));
+            studentBean.create(new StudentDTO("2222222", "111", "Buraca", "900000000", 2, null));
+            studentBean.create(new StudentDTO("3333333", "111", "Debaixo da Ponte", "911111111", 3, null));
 
             subjectBean.create(1, "P1", 1, 1, "2015/2016");
             subjectBean.create(2, "PA", 1, 2, "2015/2016");
@@ -59,7 +59,6 @@ public class ConfigBean {
             studentBean.enrollStudentInSubject("1111111", 2);
             studentBean.enrollStudentInSubject("2222222", 3);
             studentBean.enrollStudentInSubject("2222222", 4);
-
             studentBean.enrollStudentInSubject("3333333", 5);
             studentBean.enrollStudentInSubject("3333333", 6);
             studentBean.enrollStudentInSubject("4444444", 6);
@@ -69,9 +68,11 @@ public class ConfigBean {
             teacherBean.create("t2", "t2", "t2", "t2@ipleiria.pt", "O2");
             teacherBean.create("t3", "t3", "t3", "t3@ipleiria.pt", "O3");
 
-            administratorBean.create("a1", "a1", "a1", "a1@ipleiria.pt");
-            administratorBean.create("a2", "a2", "a2", "a2@ipleiria.pt");
-            administratorBean.create("a3", "a3", "a3", "a3@ipleiria.pt");
+            //administratorBean.create("a1", "a1", "a1", "a1@ipleiria.pt");
+            //administratorBean.create("a2", "a2", "a2", "a2@ipleiria.pt");
+            //administratorBean.create("a3", "a3", "a3", "a3@ipleiria.pt");
+            
+            administratorBean.create(new AdministratorDTO("a1", "a1", "a1", "a1@ipleiria.pt", 1, null));
 
         } catch (EntityDoesNotExistException
                 | EntityExistsException

@@ -1,5 +1,6 @@
 package web;
 
+import dtos.AdministratorDTO;
 import dtos.CourseDTO;
 import dtos.DocumentDTO;
 import dtos.StudentDTO;
@@ -28,6 +29,8 @@ import util.URILookup;
 public class AdministratorManager implements Serializable {
 
     private static final Logger logger = Logger.getLogger("web.AdministratorManager");
+    
+    private AdministratorDTO adminDTO;
 
     private StudentDTO currentStudent;
 
@@ -73,6 +76,20 @@ public class AdministratorManager implements Serializable {
         }
         return null;
     }
+    
+    public List<AdministratorDTO> getAllAdministrators() {
+        List<AdministratorDTO> administrators = null;
+        try {
+            administrators = client.target(URILookup.getBaseAPI())
+                    .path("/administrators/all")
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<List<AdministratorDTO>>() {
+                    });
+        } catch (Exception e) {
+            logger.warning("Problem getting all students in method getAllAdministrators.");
+        }
+        return administrators;
+    }
 
     public List<StudentDTO> getAllStudents() {
         List<StudentDTO> students = null;
@@ -103,6 +120,22 @@ public class AdministratorManager implements Serializable {
         }
         return null;
     }
+    
+    public String updateAdminREST1() {
+        try {
+            client.target(URILookup.getBaseAPI())
+                    .path("/administrators/updateREST1")
+                    .path(adminDTO.getUsername())
+                    .path(adminDTO.getPassword())
+                    .path(adminDTO.getName())
+                    .request(MediaType.APPLICATION_XML)
+                    .put(Entity.xml(adminDTO.getEmail()));
+            return "admin_index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", logger);
+        }
+        return null;
+    }
 
     public String updateStudentREST2() {
         try {
@@ -110,6 +143,19 @@ public class AdministratorManager implements Serializable {
                     .path("/students/updateREST2")
                     .request(MediaType.APPLICATION_XML)
                     .put(Entity.xml(currentStudent));
+            return "admin_index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", logger);
+        }
+        return null;
+    }
+    
+    public String updateAdminREST2() {
+        try {
+            client.target(URILookup.getBaseAPI())
+                    .path("/administrators/updateREST2")
+                    .request(MediaType.APPLICATION_XML)
+                    .put(Entity.xml(adminDTO));
             return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", logger);
@@ -208,6 +254,14 @@ public class AdministratorManager implements Serializable {
 
     public void setCurrentStudent(StudentDTO currentStudent) {
         this.currentStudent = currentStudent;
+    }
+    
+    public AdministratorDTO getCurrentAdmin() {
+        return adminDTO;
+    }
+
+    public void setCurrentAdmin(AdministratorDTO adminDTO) {
+        this.adminDTO = adminDTO;
     }
 
     public StudentDTO getNewStudent() {
