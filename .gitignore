@@ -39,9 +39,6 @@ AcademicManagement-war/build/web/WEB-INF/classes/web/AdministratorManager$4.clas
 AcademicManagement-war/build/web/WEB-INF/classes/web/AdministratorManager$3.class
 AcademicManagement-war/build/web/WEB-INF/classes/web/AdministratorManager$2.class
 AcademicManagement-war/build/web/WEB-INF/classes/web/AdministratorManager$1.class
-AcademicManagement-ejb/src/java/entities/Cargo.java
-AcademicManagement-ejb/src/java/ejbs/CargoBean.java
-AcademicManagement-ejb/src/java/dtos/CargoDTO.java
 dist/gfdeploy/AcademicManagement/AcademicManagement-war_war/WEB-INF/classes/web/AdministratorManager.class
 dist/gfdeploy/AcademicManagement/AcademicManagement-war_war/WEB-INF/classes/web/AdministratorManager$4.class
 dist/gfdeploy/AcademicManagement/AcademicManagement-war_war/WEB-INF/classes/web/AdministratorManager$3.class
