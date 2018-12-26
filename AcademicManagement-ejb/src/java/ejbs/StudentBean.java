@@ -90,6 +90,24 @@ public class StudentBean extends Bean<Student>{
         }
     }
     
+    StudentDTO studentToDTO(Student student) {
+        return new StudentDTO(
+                student.getUsername(),
+                null,
+                student.getName(),
+                student.getEmail(),
+                student.getCourse().getCode(),
+                student.getCourse().getName());
+    }
+
+    List<StudentDTO> studentsToDTOs(List<Student> students) {
+        List<StudentDTO> dtos = new ArrayList<>();
+        for (Student s : students) {
+            dtos.add(studentToDTO(s));
+        }
+        return dtos;
+    }   
+    
     public void update(
             String username,
             String password,
@@ -264,21 +282,5 @@ public class StudentBean extends Bean<Student>{
         }                
     }
     
-    StudentDTO studentToDTO(Student student) {
-        return new StudentDTO(
-                student.getUsername(),
-                null,
-                student.getName(),
-                student.getEmail(),
-                student.getCourse().getCode(),
-                student.getCourse().getName());
-    }
-
-    List<StudentDTO> studentsToDTOs(List<Student> students) {
-        List<StudentDTO> dtos = new ArrayList<>();
-        for (Student s : students) {
-            dtos.add(studentToDTO(s));
-        }
-        return dtos;
-    }    
+     
 }

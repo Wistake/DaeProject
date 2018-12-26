@@ -2,6 +2,7 @@ package ejbs;
 
 import dtos.AdministratorDTO;
 import dtos.StudentDTO;
+import dtos.TemplateDTO;
 import exceptions.EntityDoesNotExistException;
 import exceptions.EntityExistsException;
 import exceptions.MyConstraintViolationException;
@@ -29,6 +30,8 @@ public class ConfigBean {
     private AdministratorBean administratorBean;
     @EJB
     private TeacherBean teacherBean;
+    @EJB
+    private TemplateBean templateBean;
 
     @PostConstruct
     public void populateDB() {
@@ -42,6 +45,7 @@ public class ConfigBean {
             courseBean.create(6, "Ebay");
             
             cargoBean.create(1, "Chefe");
+            cargoBean.create(2, "Sub-Chefe");
 
             studentBean.create(new StudentDTO("1111111", "111", "Travessa das Cenas", "987654321", 1, null));
             studentBean.create(new StudentDTO("2222222", "111", "Buraca", "900000000", 2, null));
@@ -67,12 +71,14 @@ public class ConfigBean {
             teacherBean.create("t1", "t1", "t1", "t1@ipleiria.pt", "O1");
             teacherBean.create("t2", "t2", "t2", "t2@ipleiria.pt", "O2");
             teacherBean.create("t3", "t3", "t3", "t3@ipleiria.pt", "O3");
-
-            //administratorBean.create("a1", "a1", "a1", "a1@ipleiria.pt");
-            //administratorBean.create("a2", "a2", "a2", "a2@ipleiria.pt");
-            //administratorBean.create("a3", "a3", "a3", "a3@ipleiria.pt");
             
             administratorBean.create(new AdministratorDTO("a1", "a1", "a1", "a1@ipleiria.pt", 1, null));
+            administratorBean.create(new AdministratorDTO("a2", "a2", "a2", "a2@ipleiria.pt", 2, null));
+            
+            //falta dar add do software
+            //templateBean.create(1, "Primeiro Template");
+            templateBean.create(new TemplateDTO(1, "Primeiro Template"));
+            
 
         } catch (EntityDoesNotExistException
                 | EntityExistsException

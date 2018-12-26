@@ -3,6 +3,7 @@ package web;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -12,7 +13,7 @@ import util.URILookup;
 
 @ManagedBean
 @SessionScoped
-public class UploadManager {
+public class UploadManager implements Serializable{
 
     UploadedFile file;
     

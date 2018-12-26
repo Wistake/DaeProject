@@ -5,11 +5,14 @@ import dtos.CourseDTO;
 import dtos.DocumentDTO;
 import dtos.StudentDTO;
 import dtos.SubjectDTO;
+import dtos.TemplateDTO;
+import ejbs.TemplateBean;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -43,7 +46,12 @@ public class AdministratorManager implements Serializable {
     private UIComponent component;
 
     private Client client;
-
+    
+    private TemplateDTO templateDTO;
+    
+    private TemplateDTO newTemplate;
+    
+    
     @ManagedProperty("#{userManager}")
     UserManager userManager;
 
@@ -52,6 +60,7 @@ public class AdministratorManager implements Serializable {
 
     public AdministratorManager() {
         newStudent = new StudentDTO();
+        newTemplate = new TemplateDTO();
         client = ClientBuilder.newClient();
     }
 
@@ -77,6 +86,20 @@ public class AdministratorManager implements Serializable {
         return null;
     }
     
+    public String createTemplate() {
+        try {
+            client.target(URILookup.getBaseAPI())
+                    .path("/templates/create")
+                    .request(MediaType.APPLICATION_XML)
+                    .post(Entity.xml(newTemplate));
+            clearNewTemplate();
+            return "admin_index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", component, logger);
+        }
+        return null;
+    }
+    
     public List<AdministratorDTO> getAllAdministrators() {
         List<AdministratorDTO> administrators = null;
         try {
@@ -86,9 +109,37 @@ public class AdministratorManager implements Serializable {
                     .get(new GenericType<List<AdministratorDTO>>() {
                     });
         } catch (Exception e) {
-            logger.warning("Problem getting all students in method getAllAdministrators.");
+            logger.warning("Problem getting all admins in method getAllAdministrators.");
         }
         return administrators;
+    }
+    
+    public Collection<TemplateDTO> getAllTemplates() {
+        Collection<TemplateDTO> templates = null;
+        try {
+            templates = client.target(URILookup.getBaseAPI())
+                    .path("/templates/all")
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<Collection<TemplateDTO>>() {
+                    });
+        } catch (Exception e) {
+            logger.warning("Problem getting all templates in method getAllTemplates."+e.getMessage());
+        }
+        return templates;
+    }
+    
+    public Collection<CourseDTO> getAllCourses() {
+        Collection<CourseDTO> courses = null;
+        try {
+            courses = client.target(URILookup.getBaseAPI())
+                    .path("/courses/all")
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<Collection<CourseDTO>>() {
+                    });
+        } catch (Exception e) {
+            logger.warning("Problem getting all courses in method getAllCourses.");
+        }
+        return courses;
     }
 
     public List<StudentDTO> getAllStudents() {
@@ -136,6 +187,34 @@ public class AdministratorManager implements Serializable {
         }
         return null;
     }
+    
+    public String updateTemplateREST1() {
+        try {
+            client.target(URILookup.getBaseAPI())
+                    .path("/templates/updateREST1")
+                    .path(templateDTO.getDescricao())
+                    .request(MediaType.APPLICATION_XML)
+                    .put(Entity.xml(templateDTO.getIdName()));
+            return "admin_index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", logger);
+        }
+        return null;
+    }
+    
+    public String updateTemplateREST2() {
+        try {
+            client.target(URILookup.getBaseAPI())
+                    .path("/templates/updateREST2")
+                    .request(MediaType.APPLICATION_XML)
+                    .put(Entity.xml(templateDTO));
+            return "admin_index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", logger);
+        }
+        return null;
+    }
+    
 
     public String updateStudentREST2() {
         try {
@@ -178,19 +257,6 @@ public class AdministratorManager implements Serializable {
         }
     }
 
-    public Collection<CourseDTO> getAllCourses() {
-        Collection<CourseDTO> courses = null;
-        try {
-            courses = client.target(URILookup.getBaseAPI())
-                    .path("/courses/all")
-                    .request(MediaType.APPLICATION_XML)
-                    .get(new GenericType<Collection<CourseDTO>>() {
-                    });
-        } catch (Exception e) {
-            logger.warning("Problem getting all courses in method getAllCourses.");
-        }
-        return courses;
-    }
 
     public Collection<SubjectDTO> getCurrentStudentSubjects() {
         Collection<SubjectDTO> subjects = null;
@@ -247,6 +313,11 @@ public class AdministratorManager implements Serializable {
         newStudent.setEmail(null);
         newStudent.setCourseCode(0);
     }
+    
+    private void clearNewTemplate() {
+        newTemplate.setIdName(0);
+        newTemplate.setDescricao(null);
+    }
 
     public StudentDTO getCurrentStudent() {
         return currentStudent;
@@ -267,10 +338,26 @@ public class AdministratorManager implements Serializable {
     public StudentDTO getNewStudent() {
         return newStudent;
     }
+    
+    public TemplateDTO getNewTemplate() {
+        return newTemplate;
+    }
 
     public void setNewStudent(StudentDTO newStudent) {
         this.newStudent = newStudent;
     }
+
+    public TemplateDTO getTemplateDTO() {
+        return templateDTO;
+    }
+
+    public void setTemplateDTO(TemplateDTO templateDTO) {
+        this.templateDTO = templateDTO;
+    }
+    
+    
+    
+    
 
     public UIComponent getComponent() {
         return component;

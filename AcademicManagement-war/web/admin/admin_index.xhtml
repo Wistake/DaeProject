@@ -78,12 +78,38 @@
                     </p:column>
 
                 </p:dataTable>
-
-            </h:form>
-            &nbsp;
+                
+                &nbsp;
             <h:link value="New Client" outcome="admin_students_create" class="btn btn-primary"/>
             &nbsp;
+            <br/>
+            <h5>Templates</h5>
+                <p:dataTable
+                    var="template"
+                    summary="List of all Templates"
+                    value="#{administratorManager.allTemplates}">
+
+                    <p:column headerText="Id">
+                        <h:outputText value="${template.idName}" />
+                    </p:column>
+                    
+                    <p:column headerText="Nome">
+                        <h:outputText value="${template.descricao}" />
+                    </p:column>
+                    
+                    <!--<p:column headerText="Software">
+                        <h:outputText value="${template}" />
+                    </p:column>-->
+                    
+                    <!-- Falta das add das actions-->
+                    
+        
+                </p:dataTable>
+                <br/>
+                <h:link value="New Template" outcome="admin_templates_create" class="btn btn-primary"/>
             &nbsp;
+            </h:form>
+            
             <h:outputScript library="js" name="bootstrap.min.js"/>
         </ui:define>
     </ui:composition>

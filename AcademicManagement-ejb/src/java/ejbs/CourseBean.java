@@ -15,10 +15,12 @@ import javax.ws.rs.core.MediaType;
 
 @Stateless
 @Path("/courses")
-public class CourseBean  extends Bean<Course>{
+public class CourseBean extends Bean<Course>{
 
     @PersistenceContext
     EntityManager em;
+    
+    //Falta getAll courses para mostrar na dropdown do create/update ???
 
     public void create(int code, String name) {
         try {
