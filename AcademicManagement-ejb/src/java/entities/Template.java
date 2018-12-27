@@ -20,29 +20,29 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "TEMPLATES")
 @NamedQueries({
     @NamedQuery(name = "getAllTemplates",
             query = "SELECT t FROM Template t")})
 public class Template implements Serializable{
+    
     @Id
-    private Integer idName;
+    private int idName;
     
     //@NotNull
-    @OneToMany(mappedBy = "template", cascade = CascadeType.REMOVE)
-    private List<Software> software;
+    /*@OneToMany(mappedBy = "template", cascade = CascadeType.REMOVE)
+    private List<Software> software; */
     
     @NotNull
     private String descricao;
     
     public Template() {
-        this.software = new LinkedList<>();
+        //this.software = new LinkedList<>();
     }
 
     public Template(Integer idName, String descricao) {
         this.idName = idName;
         this.descricao = descricao;
-        this.software = new LinkedList<>();
+        //this.software = new LinkedList<>();
     }
     
     public void reset() {
@@ -51,13 +51,13 @@ public class Template implements Serializable{
         
     } 
 
-    public List<Software> getSoftware() {
+    /*public List<Software> getSoftware() {
         return software;
     }
 
     public void setSoftware(List<Software> software) {
         this.software = software;
-    }
+    }*/
     
     public Integer getIdName() {
         return idName;

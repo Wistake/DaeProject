@@ -5,12 +5,13 @@
  */
 package ejbs;
 
+import entities.Software;
 import entities.Template;
 
 /**
  *
  * @author sergi
  */
-public class SoftwareBean extends Bean<Template>{
+public class SoftwareBean extends Bean<Software>{
     
 }

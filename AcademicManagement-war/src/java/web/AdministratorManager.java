@@ -33,7 +33,7 @@ public class AdministratorManager implements Serializable {
 
     private static final Logger logger = Logger.getLogger("web.AdministratorManager");
     
-    private AdministratorDTO adminDTO;
+    private AdministratorDTO currentAdmin;
 
     private StudentDTO currentStudent;
 
@@ -57,7 +57,9 @@ public class AdministratorManager implements Serializable {
 
     @ManagedProperty(value = "#{uploadManager}")
     private UploadManager uploadManager;
-
+    
+    //private TemplateBean templateBean;
+    
     public AdministratorManager() {
         newStudent = new StudentDTO();
         newTemplate = new TemplateDTO();
@@ -95,7 +97,7 @@ public class AdministratorManager implements Serializable {
             clearNewTemplate();
             return "admin_index?faces-redirect=true";
         } catch (Exception e) {
-            FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", component, logger);
+            FacesExceptionHandler.handleException(e, "UUnexpected error! Try again latter!", component, logger);
         }
         return null;
     }
@@ -114,13 +116,13 @@ public class AdministratorManager implements Serializable {
         return administrators;
     }
     
-    public Collection<TemplateDTO> getAllTemplates() {
-        Collection<TemplateDTO> templates = null;
+    public List<TemplateDTO> getAllTemplates() {
+        List<TemplateDTO> templates = null;
         try {
             templates = client.target(URILookup.getBaseAPI())
                     .path("/templates/all")
                     .request(MediaType.APPLICATION_XML)
-                    .get(new GenericType<Collection<TemplateDTO>>() {
+                    .get(new GenericType<List<TemplateDTO>>() {
                     });
         } catch (Exception e) {
             logger.warning("Problem getting all templates in method getAllTemplates."+e.getMessage());
@@ -176,11 +178,11 @@ public class AdministratorManager implements Serializable {
         try {
             client.target(URILookup.getBaseAPI())
                     .path("/administrators/updateREST1")
-                    .path(adminDTO.getUsername())
-                    .path(adminDTO.getPassword())
-                    .path(adminDTO.getName())
+                    .path(currentAdmin.getUsername())
+                    .path(currentAdmin.getPassword())
+                    .path(currentAdmin.getName())
                     .request(MediaType.APPLICATION_XML)
-                    .put(Entity.xml(adminDTO.getEmail()));
+                    .put(Entity.xml(currentAdmin.getEmail()));
             return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", logger);
@@ -234,7 +236,7 @@ public class AdministratorManager implements Serializable {
             client.target(URILookup.getBaseAPI())
                     .path("/administrators/updateREST2")
                     .request(MediaType.APPLICATION_XML)
-                    .put(Entity.xml(adminDTO));
+                    .put(Entity.xml(currentAdmin));
             return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", logger);
@@ -254,6 +256,21 @@ public class AdministratorManager implements Serializable {
                     .delete();
         } catch (Exception e) {
             logger.warning("Problem removing a student in method removeStudent.");
+        }
+    }
+    
+    public void removeAdmin(ActionEvent event) {
+        try {
+            UIParameter param = (UIParameter) event.getComponent().findComponent("deleteAdminId");
+            String id = param.getValue().toString();
+
+            client.target(URILookup.getBaseAPI())
+                    .path("/administrators/remove")
+                    .path(id)
+                    .request(MediaType.APPLICATION_XML)
+                    .delete();
+        } catch (Exception e) {
+            logger.warning("Problem removing a admin in method removeAdmin.");
         }
     }
 
@@ -328,11 +345,11 @@ public class AdministratorManager implements Serializable {
     }
     
     public AdministratorDTO getCurrentAdmin() {
-        return adminDTO;
+        return currentAdmin;
     }
 
-    public void setCurrentAdmin(AdministratorDTO adminDTO) {
-        this.adminDTO = adminDTO;
+    public void setCurrentAdmin(AdministratorDTO currentAdmin) {
+        this.currentAdmin = currentAdmin;
     }
 
     public StudentDTO getNewStudent() {

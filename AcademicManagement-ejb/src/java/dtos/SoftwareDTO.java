@@ -5,7 +5,6 @@
  */
 package dtos;
 
-import entities.Template;
 
 /**
  *
@@ -15,13 +14,11 @@ public class SoftwareDTO {
     private long id;
     private String baseVersion;
     private String name;
-    private Template template;
     
     public void reset(){
         id = 0;
         name = null;
         baseVersion = null;
-        template = null;
     }
     
     
