@@ -21,9 +21,6 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "SOFTWARES",
-        uniqueConstraints
-        = @UniqueConstraint(columnNames = {"NAME"}))
 @NamedQueries({
     @NamedQuery(name = "getAllSoftware",
             query = "SELECT s FROM Software s ORDER BY s.name")})

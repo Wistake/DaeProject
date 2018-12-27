@@ -74,9 +74,9 @@ public class ConfigBean {
             
             administratorBean.create(new AdministratorDTO("a1", "a1", "a1", "a1@ipleiria.pt", 1, null));
             administratorBean.create(new AdministratorDTO("a2", "a2", "a2", "a2@ipleiria.pt", 2, null));
+            administratorBean.create(new AdministratorDTO("a3", "a3", "a3", "a3@ipleiria.pt", 2, null));
             
             //falta dar add do software
-            //templateBean.create(1, "Primeiro Template");
             templateBean.create(new TemplateDTO(1, "Primeiro Template"));
             
 

@@ -19,8 +19,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -87,6 +89,68 @@ public class AdministratorBean extends Bean<Administrator>{
         try {
             Administrator admin = em.find(Administrator.class, username);
             return administratorsToDTOs(admin);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+    
+    @DELETE
+    @Path("/remove/{username}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})    
+    public void remove(@PathParam("username") String username){
+        try {
+            Administrator admin = em.find(Administrator.class, username);
+            if (admin == null) {
+                return;
+            }
+            em.remove(admin);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }        
+    }
+    
+    @PUT
+    @Path("updateREST1/{username}/{password}/{name}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})    
+    public void updateREST1(
+            @PathParam("username") String username,
+            @PathParam("password") String password,
+            @PathParam("name") String name,
+            String email) {
+        try {
+                        
+            Administrator admin = em.find(Administrator.class, username);
+            if (admin == null) {
+                return;
+            }
+            admin.setPassword(password);
+            admin.setName(name);
+            admin.setEmail(email);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
+    @PUT
+    @Path("/updateREST2")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void updateREST2(AdministratorDTO admininDTO)
+            throws EntityDoesNotExistException, MyConstraintViolationException {
+        try {
+            
+            Administrator admin = em.find(Administrator.class, admininDTO.getUsername());
+            if (admin == null) {
+                throw new EntityDoesNotExistException("There is no administrator with that username.");
+            }
+
+            admin.setPassword(admininDTO.getPassword());
+            admin.setName(admininDTO.getName());
+            admin.setEmail(admininDTO.getEmail());
+
+        } catch (EntityDoesNotExistException e) {
+            throw e;
+        } catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(Utils.getConstraintViolationMessages(e));
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }

@@ -18,27 +18,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TemplateDTO implements Serializable{
     private Integer idName;
     private String descricao;
-    private List<Software> software;
+    //private List<Software> software;
     
     public TemplateDTO(){
         //software = new LinkedList<>();
     }
 
     public TemplateDTO(Integer idName, String descricao) {
-        this();
         this.idName = idName;
         this.descricao = descricao;
         //software = new LinkedList<>();
     }
 
 
-    public List<Software> getSoftware() {
-        return software;
+    /*public List<Software> getSoftware() {
+    //    return software;
     }
 
     public void setSoftware(List<Software> software) {
-        this.software = software;
-    }
+        //this.software = software;
+    }*/
     
     
     public void reset(){

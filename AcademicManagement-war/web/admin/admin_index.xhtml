@@ -30,6 +30,26 @@
                     <p:column headerText="E-mail">
                         <h:outputText value="${administrator.email}" />
                     </p:column>
+                    
+                    <p:column headerText="Actions">
+                       <h:commandLink 
+                           value="Consultar" 
+                           action="admin_details?faces-redirect=true">
+                           <f:setPropertyActionListener
+                               target="#{administratorManager.currentAdmin}" value="#{administrator}" />                            
+                       </h:commandLink>
+                       &nbsp;
+                       <h:commandLink value="Update" action="admin_update?faces-redirect=true">
+                           <f:setPropertyActionListener target="#{administratorManager.currentAdmin}" value="#{administrator}" />
+                       </h:commandLink>
+                       &nbsp;
+                       <h:commandLink 
+                           value="Remove" 
+                           actionListener="#{administratorManager.removeAdmin}">
+                           <f:param name="deleteAdminId" id="deleteAdminId"
+                                    value="#{administrator.username}" />
+                       </h:commandLink>
+                   </p:column>
         
                 </p:dataTable>
                 <br/>

@@ -16,15 +16,23 @@ and open the template in the editor.
         <h:form>
 
             <h:panelGrid columns="3">
-
+                <h:outputLabel for="idName" value="id Name " />
+                <h:inputText
+                    id="idName"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: idName cannot be empty"
+                    value="#{administratorManager.newTemplate.idName}">
+                </h:inputText>
+                <h:message for="descricao" errorStyle="color:red" />
+                
                 <h:outputLabel for="descricao" value="Descrição: " />
                 <h:inputText
                     id="descricao"
                     size="20"
                     required="true"
                     requiredMessage="Error: Descrição cannot be empty"
-                    value="#{administratorManager.newStudent.username}">
-                    <f:validator validatorId="usernameValidator"/>
+                    value="#{administratorManager.newTemplate.descricao}">
                 </h:inputText>
                 <h:message for="descricao" errorStyle="color:red" />
 <!--
