@@ -1,5 +1,6 @@
 package ejbs;
 
+import dtos.StudentDTO;
 import dtos.SubjectDTO;
 import entities.Course;
 import entities.Student;
@@ -15,13 +16,15 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Stateless
 @Path("/subjects")
-public class SubjectBean extends Bean<Student> {
-
+public class SubjectBean extends Bean<Student, StudentDTO, String> {
+    
+    
+}
+/*
     @PersistenceContext
     EntityManager em;
 
@@ -92,5 +95,6 @@ public class SubjectBean extends Bean<Student> {
         }
         return dtos;
     }    
-    
-}
+    */
+
+

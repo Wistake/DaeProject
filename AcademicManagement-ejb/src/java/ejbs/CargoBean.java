@@ -17,12 +17,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Stateless
 @Path("/cargos")
-public class CargoBean extends Bean<Course>{
+public class CargoBean extends Bean<Cargo, CargoDTO, Integer>{
+    
+}
+    
+    
+    /*
     @PersistenceContext
     EntityManager em;
     
@@ -59,4 +63,5 @@ public class CargoBean extends Bean<Course>{
             throw new EJBException(e.getMessage());
         }        
     }    
-}
+    */
+

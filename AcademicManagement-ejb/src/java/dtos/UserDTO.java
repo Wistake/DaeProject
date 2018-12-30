@@ -1,14 +1,16 @@
 package dtos;
 
 import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
-public class UserDTO implements Serializable{
-
-    protected String username;
-    protected String password;    
-    protected String name;
-    protected String email;
-
+public class UserDTO implements DTO{
+    protected @Getter @Setter String username;
+    protected @Getter @Setter String password;    
+    protected @Getter @Setter String name;
+    protected @Getter @Setter String email;
+    
     public UserDTO() {
     }    
     
@@ -18,6 +20,24 @@ public class UserDTO implements Serializable{
         this.name = name;
         this.email = email;
     }
+    
+    @Override
+    public void clear() {
+        username = null;
+        password = null;
+        name = null;
+        email = null;
+    }
+
+    /*
+    protected String username;
+    protected String password;    
+    protected String name;
+    protected String email;
+
+    
+    
+    
     
     public void reset() {
         setUsername(null);
@@ -57,4 +77,5 @@ public class UserDTO implements Serializable{
     public void setEmail(String email) {
         this.email = email;
     }
+    */
 }

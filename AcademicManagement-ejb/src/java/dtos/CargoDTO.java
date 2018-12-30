@@ -9,21 +9,29 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Getter;
+import lombok.Setter;
 
 @XmlRootElement(name = "Cargo")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class CargoDTO implements Serializable{
-    private int code;
-    private String name;
+//@XmlAccessorType(XmlAccessType.FIELD)
+public class CargoDTO implements DTO{
+    private @Getter @Setter Integer code;
+    private @Getter @Setter String name;
 
     public CargoDTO() {
     }
     
-    public CargoDTO(int code, String name) {
+    public CargoDTO(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
-
+    
+    @Override
+    public void clear() {
+        code = null;
+        name = null;
+    }
+/*
     public int getCode() {
         return code;
     }
@@ -39,5 +47,5 @@ public class CargoDTO implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-    
+    */
 }

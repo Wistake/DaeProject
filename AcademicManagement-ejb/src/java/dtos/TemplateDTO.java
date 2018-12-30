@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "Template")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TemplateDTO implements Serializable{
+public class TemplateDTO implements DTO{
     private Integer idName;
     private String descricao;
     //private List<Software> software;
@@ -30,6 +30,11 @@ public class TemplateDTO implements Serializable{
         //software = new LinkedList<>();
     }
 
+    @Override
+    public void clear() {
+        idName = null;
+        descricao = null;
+    }
 
     /*public List<Software> getSoftware() {
     //    return software;

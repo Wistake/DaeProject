@@ -10,13 +10,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Stateless
 @Path("/courses")
-public class CourseBean extends Bean<Course>{
-
+public class CourseBean extends Bean<Course, CourseDTO, Integer>{
+/*
     @PersistenceContext
     EntityManager em;
     
@@ -54,5 +53,5 @@ public class CourseBean extends Bean<Course>{
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }        
-    }    
+    }    */
 }

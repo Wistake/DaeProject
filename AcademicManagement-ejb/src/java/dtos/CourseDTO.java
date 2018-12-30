@@ -4,27 +4,31 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Getter;
+import lombok.Setter;
 
 @XmlRootElement(name = "Course")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class CourseDTO implements Serializable{
+//@XmlAccessorType(XmlAccessType.FIELD)
+public class CourseDTO implements DTO{
 
-    private int code;
-    private String name;
+    private @Getter @Setter Integer code;
+    private @Getter @Setter String name;
     
     public CourseDTO(){
     }
     
-    public CourseDTO(int code, String name){
+    public CourseDTO(Integer code, String name){
         this.code = code;
         this.name = name;
     }
     
-    public void reset(){
-        code = 0;
+    
+    @Override
+    public void clear() {
+        code = null;
         name = null;
     }
-
+/*
     public int getCode() {
         return code;
     }
@@ -40,5 +44,5 @@ public class CourseDTO implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-
+*/
 }

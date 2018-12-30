@@ -11,21 +11,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "getAllAdministrators",
+    @NamedQuery(name = "Administrator.all",
             query = "SELECT a FROM Administrator a ORDER BY a.name")})
-public class Administrator extends User implements Serializable {
-
+@NoArgsConstructor
+public class Administrator extends User{
+    
     @ManyToOne
     @JoinColumn(name = "CARGO_CODE")
-    @NotNull
-    private Cargo cargo;
+    private @Getter @Setter Cargo cargo;
     
-    public Administrator() {
-    }
-
     public Administrator(
             String username,
             String password,
@@ -37,7 +37,7 @@ public class Administrator extends User implements Serializable {
         cargo.addAdministrator(this);
     }
 
-
+/*
     public Cargo getCargo() {
         return cargo;
     }
@@ -45,5 +45,5 @@ public class Administrator extends User implements Serializable {
     public void setCargo(Cargo cargo) {
         this.cargo = cargo;
     }
-
+*/
 }

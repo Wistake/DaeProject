@@ -13,11 +13,12 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -26,11 +27,223 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import util.URILookup;
+import lombok.Getter;
+import lombok.Setter;
+import javax.ejb.EJBException;
+//import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+
+import javax.ws.rs.core.Response;
 
 @ManagedBean
 @SessionScoped
+@Named
 public class AdministratorManager implements Serializable {
+    private final Logger logger = Logger.getLogger("web.AdministratorManager");
+    private final String baseUri = "http://localhost:8080/AcademicManagement-war/api";
+        
+    private Client client;
+            
+    private @Getter @Setter UIComponent component;
+    
+    private @Getter @Setter StudentDTO newStudent;
+    private @Getter @Setter StudentDTO currentStudent;
+    
+    private @Getter @Setter AdministratorDTO currentAdmin;
+    private @Getter @Setter AdministratorDTO newAdmin;
+    
+    private @Getter @Setter TemplateDTO newTemplate;
 
+    public AdministratorManager() {
+        newStudent = new StudentDTO();
+        currentStudent = new StudentDTO();
+        client = ClientBuilder.newClient();
+        //newTemplate = new TemplateDTO();
+    }
+    
+    public List<AdministratorDTO> getAllAdministrators(){
+         try {          
+            return client.target(baseUri)
+                        .path("/administrators")
+                        .request(MediaType.APPLICATION_XML)
+                        .get(new GenericType<List<AdministratorDTO>>() {});
+            
+        } catch (Exception e) {
+            String em = e.getMessage();
+            logger.warning(e.getMessage());
+            return null;
+        }
+    }
+   
+    public String createAdmin(){
+        try{
+           
+            client.target(baseUri)
+                    .path("/administrators")
+                    .request(MediaType.APPLICATION_XML).post(Entity.xml(newAdmin));
+            newAdmin.clear();
+            return "/users/list.xhtml?faces-redirect=true";
+        }catch(Exception e){
+            FacesExceptionHandler.handleException(e, e.getMessage(), logger);
+            logger.warning(e.getMessage());
+            return "admin_create_admin";
+        }
+    }
+   
+    public String updateAdmin(){
+        try {
+            client.target(baseUri)
+                    .path("/administrators")
+                    .request(MediaType.APPLICATION_XML).put(Entity.xml(currentAdmin));
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Problem updating template in method updateAdmin", logger);
+            return null;
+        }
+        return "/users/list.xhtml?facelet-redirect=true";
+    }
+   
+    public String removeAdmin(ActionEvent event){
+        try {
+            UIParameter param = (UIParameter) event.getComponent().findComponent("deleteAdminId");
+            String username = param.getValue().toString();
+            client.target(baseUri).path("admins/" + username).request().delete();
+        }
+       
+        catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Problem removing a template in method removeAdmin", logger);
+            return null;
+        }
+        return "index?faces-redirect=true";
+    }
+
+    
+    private void addHeaderBASIC() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Application app = context.getApplication();
+        UserManager userManager = app.evaluateExpressionGet(context, "#{userManager}", UserManager.class);
+        
+        String username = userManager.getUsername();
+        String password = userManager.getPassword();
+        
+        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(username, password);
+        client.register(feature);
+    }
+    
+    
+    public List<StudentDTO> getAllStudents() {
+        try {
+            addHeaderBASIC();
+            
+            return client.target(baseUri)
+                        .path("students")
+                        .request(MediaType.APPLICATION_JSON)
+                        .get(new GenericType<List<StudentDTO>>() {});
+        } catch (EJBException e) {
+            logger.warning(e.getMessage());
+            return null;
+        } catch (Exception e) {
+            logger.warning("Unexpected error. Try again latter!");
+            return null;
+        }
+    }
+    
+    private <T> Entity<T> asJson(T instance) {
+        return Entity.entity(instance, MediaType.APPLICATION_JSON);
+    }
+    
+    public String create() {
+        try {
+            addHeaderBASIC();
+            
+            Response response = client.target(baseUri)
+                                    .path("students")
+                                    .request(MediaType.APPLICATION_JSON)
+                                    .post(asJson(newStudent));
+            
+            if (response.getStatus() != 200) {
+                // error 
+            }
+            
+            newStudent.clear();
+            return "/index?faces-redirect=true";
+        } catch (Exception e) {
+            logger.warning(e.getMessage());
+        }
+        return "/admin/students/create";
+    }
+    
+    public String update() {
+        try {
+            addHeaderBASIC();
+            
+            Response response = client.target(baseUri)
+                                    .path("students")
+                                    .request(MediaType.APPLICATION_JSON)
+                                    .put(asJson(currentStudent));
+            
+            if (response.getStatus() != 200) {
+                // error
+            }
+            
+            currentStudent.clear();
+            return "/index?faces-redirect=true";
+        } catch (Exception e) {
+            logger.warning(e.getMessage());
+        }
+        return "/admin/students/update";
+    }
+
+    public String removeStudent(ActionEvent event) {
+        try {
+            addHeaderBASIC();
+            
+            UIParameter param = (UIParameter) event.getComponent().findComponent("deleteStudentId");
+            String username = param.getValue().toString();
+            
+            client.target(baseUri).path("students/" + username).request().delete();
+            return "/index?faces-redirect=true";
+        } catch (Exception e) {
+            logger.warning(e.getMessage());
+            return "/index";
+        }
+    }
+
+    public List<CourseDTO> getAllCourses() {
+        try {
+            addHeaderBASIC();
+            
+            return client.target(baseUri)
+                        .path("courses")
+                        .request(MediaType.APPLICATION_JSON)
+                        .get(new GenericType<List<CourseDTO>>() {});
+        } catch (Exception e) {
+            logger.warning(e.getMessage());
+            return null;
+        }
+    }
+    
+    public String removeCourse(ActionEvent event){
+        try {
+            
+            UIParameter param = (UIParameter) event.getComponent().findComponent("deleteCourseId");
+            Integer code = (Integer) param.getValue();
+            
+            addHeaderBASIC();
+            
+            client.target(baseUri).path("courses/" + code).request().delete();
+            
+            return "/index?faces-redirect=true";
+        } catch (Exception e) {
+            logger.warning(e.getMessage());
+            return "/index";
+        }
+    }
+    
+    public Client getClient() {
+        return client;
+    }
+/*
     private static final Logger logger = Logger.getLogger("web.AdministratorManager");
     
     private AdministratorDTO currentAdmin;
@@ -423,4 +636,5 @@ public class AdministratorManager implements Serializable {
     public void setClient(Client client) {
         this.client = client;
     }
+*/
 }

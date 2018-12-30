@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 public class Template implements Serializable{
     
     @Id
-    private int idName;
+    private Integer idName;
     
     //@NotNull
     /*@OneToMany(mappedBy = "template", cascade = CascadeType.REMOVE)
@@ -45,11 +45,7 @@ public class Template implements Serializable{
         //this.software = new LinkedList<>();
     }
     
-    public void reset() {
-        setIdName(0);
-        setDescricao(null);
-        
-    } 
+     
 
     /*public List<Software> getSoftware() {
         return software;
@@ -57,7 +53,7 @@ public class Template implements Serializable{
 
     public void setSoftware(List<Software> software) {
         this.software = software;
-    }*/
+    }
     
     public Integer getIdName() {
         return idName;
@@ -73,7 +69,7 @@ public class Template implements Serializable{
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
+    }*/
     
     
     

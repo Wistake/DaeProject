@@ -12,13 +12,45 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "getAllStudents",
+    @NamedQuery(name = "Student.all",
             query = "SELECT s FROM Student s ORDER BY s.name")})
-public class Student extends User implements Serializable {
+public class Student extends User {
+    @ManyToOne
+    @JoinColumn(name = "COURSE_CODE")
+    @NotNull
+    private @Getter @Setter Course course;
+    
+    @NotNull
+    @ManyToMany(mappedBy = "students")
+    private @Getter @Setter List<Subject> subjects;
 
+    @OneToMany(mappedBy = "student")
+    private @Getter @Setter List<Document> documents;
+    
+    public Student() {
+        subjects = new LinkedList<>();
+        documents = new LinkedList<>();
+    }
+
+    public Student(
+            String username,
+            String password,
+            String name,
+            String email,
+            Course course) {
+        super(username, password, GROUP.Student, name, email);
+        this.course = course;
+        course.addStudent(this);
+        subjects = new LinkedList<>();
+        documents = new LinkedList<>();
+    }
+    
+/*
     @ManyToOne
     @JoinColumn(name = "COURSE_CODE")
     @NotNull
@@ -87,4 +119,5 @@ public class Student extends User implements Serializable {
     public void removeDocument(Document document) {
         this.documents.remove(document);
     }    
+    */
 }

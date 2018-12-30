@@ -12,37 +12,47 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "COURSES",
         uniqueConstraints
         = @UniqueConstraint(columnNames = {"NAME"}))
 @NamedQueries({
-    @NamedQuery(name = "getAllCourses",
+    @NamedQuery(name = "Course.all",
             query = "SELECT c FROM Course c ORDER BY c.name")})
 public class Course implements Serializable {
 
     @Id
-    private int code;
+    private @Getter @Setter Integer code;
     @NotNull
-    private String name;
+    private @Getter @Setter String name;
     @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
-    private List<Student> students;
+    private @Getter @Setter List<Student> students;
     @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
-    private List<Subject> subjects;
+    private @Getter @Setter List<Subject> subjects;
 
     public Course() {
         students = new LinkedList<>();
         subjects = new LinkedList<>();
     }
 
-    public Course(int code, String name) {
+    public Course(Integer code, String name) {
         this.code = code;
         this.name = name;
         students = new LinkedList<>();
         subjects = new LinkedList<>();        
     }
-
+    
+    public void addStudent(Student s) {
+        students.add(s);
+    }
+    
+    public void addSubject(Subject s) {
+        subjects.add(s);
+    }
+/*
     public int getCode() {
         return code;
     }
@@ -90,5 +100,5 @@ public class Course implements Serializable {
     public void removeSubject(Subject s) {
         subjects.remove(s);
     }
-    
+    */
 }

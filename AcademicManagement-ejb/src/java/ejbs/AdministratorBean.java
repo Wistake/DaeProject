@@ -6,6 +6,7 @@ import entities.Administrator;
 import entities.Cargo;
 import entities.Course;
 import entities.Student;
+import entities.UserGroup;
 import exceptions.EntityDoesNotExistException;
 import exceptions.EntityExistsException;
 import exceptions.MyConstraintViolationException;
@@ -25,13 +26,22 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import util.Encryptor;
 
 @Stateless
-@Path("/administrators")
-public class AdministratorBean extends Bean<Administrator>{
+@Path("administrators")
+public class AdministratorBean extends Bean<Administrator, AdministratorDTO, String>{
 
+    @Override
+    protected Administrator create(Administrator entity) {
+        entity.setGroup(new UserGroup(UserGroup.GROUP.Administrator, entity));
+        entity.setPassword(Encryptor.hash(entity.getPassword(), "SHA-256"));
+        return super.create(entity); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+/*
     @PersistenceContext
     EntityManager em;
     
@@ -173,5 +183,5 @@ public class AdministratorBean extends Bean<Administrator>{
                 administrator.getCargo().getCode(),
                 administrator.getCargo().getName());
     }
-    
+    */
 }

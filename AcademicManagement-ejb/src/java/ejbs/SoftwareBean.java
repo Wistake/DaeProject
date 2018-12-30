@@ -5,6 +5,7 @@
  */
 package ejbs;
 
+import dtos.SoftwareDTO;
 import entities.Software;
 import entities.Template;
 
@@ -12,6 +13,6 @@ import entities.Template;
  *
  * @author sergi
  */
-public class SoftwareBean extends Bean<Software>{
+public class SoftwareBean extends Bean<Software, SoftwareDTO, Long>{
     
 }

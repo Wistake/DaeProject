@@ -10,7 +10,7 @@ package dtos;
  *
  * @author sergi
  */
-public class SoftwareDTO {
+public class SoftwareDTO implements DTO{
     private long id;
     private String baseVersion;
     private String name;
@@ -21,5 +21,11 @@ public class SoftwareDTO {
         baseVersion = null;
     }
     
+    @Override
+    public void clear() {
+        id = 0;
+        baseVersion = null;
+        name = null;
+    }
     
 }

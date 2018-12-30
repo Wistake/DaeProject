@@ -26,7 +26,8 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "getAllConfiguration",
             query = "SELECT c FROM Configuration c ORDER BY c.id")})
 public class Configuration implements Serializable{
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     
     @ManyToOne

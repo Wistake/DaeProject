@@ -74,7 +74,7 @@ public class Subject implements Serializable {
         this.students = new LinkedList<>();
         this.teachers = new LinkedList<>();
     }
-
+/*
     public int getCode() {
         return code;
     }
@@ -146,5 +146,6 @@ public class Subject implements Serializable {
     public void removeTeacher(Teacher t) {
         teachers.remove(t);
     }
+*/
 
 }
