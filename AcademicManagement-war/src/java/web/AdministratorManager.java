@@ -118,7 +118,7 @@ public class AdministratorManager implements Serializable {
             //addHeaderBASIC();
             
             client.target(baseUri)
-                    .path("/administrators")
+                    .path("/administrators/"+currentAdmin.getUsername())
                     .request(MediaType.APPLICATION_XML).put(Entity.xml(currentAdmin));
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Problem updating template in method updateAdmin", logger);
