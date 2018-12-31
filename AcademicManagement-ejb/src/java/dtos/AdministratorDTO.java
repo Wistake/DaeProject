@@ -14,15 +14,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @XmlRootElement(name = "Administrator")
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlAccessorType(XmlAccessType.FIELD)
+@NoArgsConstructor
 public class AdministratorDTO extends UserDTO{
     
     private @Getter @Setter int cargoCode;
     private @Getter @Setter String cargoName;
-    
-    public AdministratorDTO(){
-        
-    }
     
     public AdministratorDTO(String username,
             String password,
@@ -41,48 +38,6 @@ public class AdministratorDTO extends UserDTO{
         cargoCode = 0;
         cargoName = null;
     }
-    /*
-    private int cargoCode;
-    private String cargoName;
-    
-    public AdministratorDTO(){
-        
-    }
-    
-    public AdministratorDTO(String username,
-            String password,
-            String name,
-            String email,
-            int cargoCode,
-            String cargoName) {
-        super(username, password, name, email);
-        this.cargoCode = cargoCode;
-        this.cargoName = cargoName;
-    }
-    
-    @Override
-    public void clear() {
-        super.clear();
-        setCargoCode(0);
-        setCargoName(null);
-    }
-
-    public int getCargoCode() {
-        return cargoCode;
-    }
-
-    public void setCargoCode(int cargoCode) {
-        this.cargoCode = cargoCode;
-    }
-
-    public String getCargoName() {
-        return cargoName;
-    }
-
-    public void setCargoName(String cargoName) {
-        this.cargoName = cargoName;
-    }
-*/
     
     
 }

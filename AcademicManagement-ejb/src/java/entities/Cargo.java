@@ -11,6 +11,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -33,11 +35,10 @@ import lombok.Setter;
     @NamedQuery(name = "Cargo.all",
             query = "SELECT c FROM Cargo c ORDER BY c.name")})
 public class Cargo implements Serializable {
-    //@PersistenceContext
-    //EntityManager em;// preciso???
-    
+   
     @Id
-    private @Getter @Setter Integer code;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private @Getter @Setter int cargoCode;
     
     @NotNull
     private @Getter @Setter String name;
@@ -49,68 +50,9 @@ public class Cargo implements Serializable {
         administrators = new LinkedList<>();
     }
 
-    public Cargo(int code, String name) {
-        this.code = code;
+    public Cargo( String name) {
+        this();
         this.name = name;
-        administrators = new LinkedList<>();
-    }
-    
-    public void addAdministrator(Administrator a){
-        administrators.add(a);
-    }
-    
-    public List<Administrator> getadministrators() {
-        return administrators;
-    }
-
-    public void setAdministrators(List<Administrator> administrators) {
-        this.administrators = administrators;
-    }
-    
-    public void removeAdministrator(Administrator a){
-        administrators.remove(a);
-    }
-    /*
-    @Id
-    private int code;
-    @NotNull
-    private String name;
-    
-    @OneToMany(mappedBy = "cargo", cascade = CascadeType.REMOVE)
-    private List<Administrator> administrators;
-    
-    public Cargo(){
-        administrators = new LinkedList<>();
-    }
-
-    public Cargo(int code, String name) {
-        this.code = code;
-        this.name = name;
-        administrators = new LinkedList<>();
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Administrator> getadministrators() {
-        return administrators;
-    }
-
-    public void setAdministrators(List<Administrator> administrators) {
-        this.administrators = administrators;
     }
     
     public void addAdministrator(Administrator a){
@@ -120,5 +62,4 @@ public class Cargo implements Serializable {
     public void removeAdministrator(Administrator a){
         administrators.remove(a);
     }
-    */
 }

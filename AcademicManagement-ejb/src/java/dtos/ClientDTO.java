@@ -29,7 +29,6 @@ public class ClientDTO extends UserDTO{
         this.pessoaContacto = pessoaContacto;
     }
     
-    
     @Override
     public void clear() {
         super.clear(); 

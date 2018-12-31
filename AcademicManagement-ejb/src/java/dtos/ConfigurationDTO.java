@@ -15,10 +15,10 @@ import lombok.Setter;
  *
  * @author 
  */
-@XmlRootElement(name = "Configuracao")
+@XmlRootElement(name = "Configuration")
 @NoArgsConstructor
 public class ConfigurationDTO implements DTO{
- private @Getter @Setter Integer idSoftware;
+    private @Getter @Setter Integer idSoftware;
     private @Getter @Setter Integer idConfig;
     private @Getter @Setter String descricao;
     private @Getter @Setter String nameTemplate;
