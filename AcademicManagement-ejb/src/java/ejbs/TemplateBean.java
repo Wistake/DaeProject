@@ -26,6 +26,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import exceptions.Utils;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 
 /**
  *
@@ -74,6 +77,64 @@ public class TemplateBean extends Bean<Template>{
         }
     }
     
+    
+    @PUT
+    @Path("updateREST1/{idName}/{descricao}/")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})    
+    public void updateREST1(
+            @PathParam("idName") Integer idName,
+            @PathParam("descricao") String descricao) {
+        try {
+                        
+            Template template = em.find(Template.class, idName);
+            if (template == null) {
+                return;
+            }
+            template.setIdName(idName);
+            template.setDescricao(descricao);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+
+    @PUT
+    @Path("/updateREST2")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void updateREST2(TemplateDTO templateDTO)
+            throws EntityDoesNotExistException, MyConstraintViolationException {
+        try {
+            
+            Template template = em.find(Template.class, templateDTO.getIdName());
+            if (template == null) {
+                throw new EntityDoesNotExistException("There is no template with that nameID.");
+            }
+
+            template.setIdName(templateDTO.getIdName());
+            template.setDescricao(templateDTO.getDescricao());
+
+        } catch (EntityDoesNotExistException e) {
+            throw e;
+        } catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(Utils.getConstraintViolationMessages(e));
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+    
+    @DELETE
+    @Path("/remove/{idName}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})    
+    public void remove(@PathParam("idName") Integer idName){
+        try {
+            Template template = em.find(Template.class, idName);
+            if (template == null) {
+                return;
+            }
+            em.remove(template);
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }        
+    }
     
     List<TemplateDTO> templatesToDTO(List<Template> templates) {
         List<TemplateDTO> dtos = new ArrayList<>();

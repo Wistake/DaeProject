@@ -113,7 +113,7 @@
                         <h:outputText value="${template.idName}" />
                     </p:column>
                     
-                    <p:column headerText="Nome">
+                    <p:column headerText="Descrição">
                         <h:outputText value="${template.descricao}" />
                     </p:column>
                     
@@ -121,8 +121,26 @@
                         <h:outputText value="${template}" />
                     </p:column>-->
                     
-                    <!-- Falta das add das actions-->
                     
+                    <p:column headerText="Actions">
+                       <h:commandLink 
+                           value="Consultar" 
+                           action="admin_template_details?faces-redirect=true">
+                           <f:setPropertyActionListener
+                               target="#{administratorManager.currentTemplate}" value="#{template}" />                            
+                       </h:commandLink>
+                       &nbsp;
+                       <h:commandLink value="Update" action="admin_template_update?faces-redirect=true">
+                           <f:setPropertyActionListener target="#{administratorManager.currentTemplate}" value="#{template}" />
+                       </h:commandLink>
+                       &nbsp;
+                       <h:commandLink 
+                           value="Remove" 
+                           actionListener="#{administratorManager.removeTemplate}">
+                           <f:param name="deleteTemplateId" id="deleteTemplateId"
+                                    value="#{template.idName}" />
+                       </h:commandLink>
+                   </p:column>
         
                 </p:dataTable>
                 <br/>
