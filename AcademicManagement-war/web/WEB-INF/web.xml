@@ -36,7 +36,7 @@
         <web-resource-collection>
             <web-resource-name>Admin pages</web-resource-name>
             <description/>
-            <url-pattern>/faces/admin/*</url-pattern>
+            <url-pattern>/faces/administrators/*</url-pattern>
             <url-pattern>/templates/*</url-pattern>
             <url-pattern>/users/*</url-pattern>
         </web-resource-collection>

@@ -18,7 +18,9 @@ import lombok.Setter;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Administrator.all",
-            query = "SELECT a FROM Administrator a ORDER BY a.name")})
+            query = "SELECT a FROM Administrator a ORDER BY a.name"),
+    @NamedQuery(name = "Administrator.pass", query = "SELECT a.password FROM Administrator a WHERE a.username = :username"),
+            })
 @NoArgsConstructor
 public class Administrator extends User{
     

@@ -18,6 +18,7 @@ import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -38,6 +39,23 @@ public class AdministratorBean extends Bean<Administrator, AdministratorDTO, Str
         entity.setGroup(new UserGroup(UserGroup.GROUP.Administrator, entity));
         entity.setPassword(Encryptor.hash(entity.getPassword(), "SHA-256"));
         return super.create(entity); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    protected Administrator update(Administrator entity) {
+        entity.setGroup(new UserGroup(UserGroup.GROUP.Administrator, entity));
+        Query query = createNamedQuery("Administrator.pass").setParameter("username", entity.getUsername());
+        String encryptedPassword = (String) query.getSingleResult();
+        
+        if (! entity.getPassword().equals(encryptedPassword)) {
+            encryptPassword(entity);
+        }
+        
+        return super.update(entity);
+    }
+    
+    private void encryptPassword(Administrator adminstrator) {
+        adminstrator.setPassword(Encryptor.sha256(adminstrator.getPassword()));
     }
     
     

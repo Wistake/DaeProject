@@ -94,10 +94,13 @@
                             <f:param name="deleteStudentId" id="deleteStudentId"
                                      value="#{student.username}" />
                         </h:commandLink>
-
                     </p:column>
-
                 </p:dataTable>
+                &nbsp;
+            <h:link value="New Client" outcome="admin_students_create" class="btn btn-primary"/>
+            &nbsp;
+                
+                
             </h:form>
             
             <h:outputScript library="js" name="bootstrap.min.js"/>

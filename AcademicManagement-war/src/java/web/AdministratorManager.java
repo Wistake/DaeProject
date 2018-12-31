@@ -56,15 +56,36 @@ public class AdministratorManager implements Serializable {
     private @Getter @Setter TemplateDTO newTemplate;
 
     public AdministratorManager() {
+        currentAdmin = new AdministratorDTO();
+        newAdmin = new AdministratorDTO();
         newStudent = new StudentDTO();
         currentStudent = new StudentDTO();
         client = ClientBuilder.newClient();
         //newTemplate = new TemplateDTO();
     }
     
+    private <T> Entity<T> asJson(T instance) {
+        return Entity.entity(instance, MediaType.APPLICATION_JSON);
+    }
+    
+    @PostConstruct
+    private void init() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Application app = context.getApplication();
+        UserManager userManager = app.evaluateExpressionGet(context, "#{userManager}", UserManager.class);
+        
+        String username = userManager.getUsername();
+        String password = userManager.getPassword();
+        
+        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(username, password);
+        client.register(feature);
+    }
+    
     public List<AdministratorDTO> getAllAdministrators(){
-         try {          
-            return client.target(baseUri)
+         try {   
+             //addHeaderBASIC();
+             
+             return client.target(baseUri)
                         .path("/administrators")
                         .request(MediaType.APPLICATION_XML)
                         .get(new GenericType<List<AdministratorDTO>>() {});
@@ -78,6 +99,7 @@ public class AdministratorManager implements Serializable {
    
     public String createAdmin(){
         try{
+            //addHeaderBASIC();
            
             client.target(baseUri)
                     .path("/administrators")
@@ -93,6 +115,8 @@ public class AdministratorManager implements Serializable {
    
     public String updateAdmin(){
         try {
+            //addHeaderBASIC();
+            
             client.target(baseUri)
                     .path("/administrators")
                     .request(MediaType.APPLICATION_XML).put(Entity.xml(currentAdmin));
@@ -100,65 +124,49 @@ public class AdministratorManager implements Serializable {
             FacesExceptionHandler.handleException(e, "Problem updating template in method updateAdmin", logger);
             return null;
         }
-        return "/users/list.xhtml?facelet-redirect=true";
+        return "admin_index?faces-redirect=true";
     }
    
     public String removeAdmin(ActionEvent event){
         try {
+            //addHeaderBASIC();
+            
             UIParameter param = (UIParameter) event.getComponent().findComponent("deleteAdminId");
             String username = param.getValue().toString();
-            client.target(baseUri).path("admins/" + username).request().delete();
+            client.target(baseUri).path("administrators/" + username).request().delete();
         }
        
         catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Problem removing a template in method removeAdmin", logger);
             return null;
         }
-        return "index?faces-redirect=true";
+        return "admin_index?faces-redirect=true";
     }
 
     
-    private void addHeaderBASIC() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        Application app = context.getApplication();
-        UserManager userManager = app.evaluateExpressionGet(context, "#{userManager}", UserManager.class);
-        
-        String username = userManager.getUsername();
-        String password = userManager.getPassword();
-        
-        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(username, password);
-        client.register(feature);
-    }
-    
-    
     public List<StudentDTO> getAllStudents() {
         try {
-            addHeaderBASIC();
+            //addHeaderBASIC();
             
             return client.target(baseUri)
-                        .path("students")
-                        .request(MediaType.APPLICATION_JSON)
+                        .path("/students")
+                        .request(MediaType.APPLICATION_XML)
                         .get(new GenericType<List<StudentDTO>>() {});
-        } catch (EJBException e) {
-            logger.warning(e.getMessage());
-            return null;
         } catch (Exception e) {
-            logger.warning("Unexpected error. Try again latter!");
+            String em = e.getMessage();
+            logger.warning(e.getMessage());
             return null;
         }
     }
     
-    private <T> Entity<T> asJson(T instance) {
-        return Entity.entity(instance, MediaType.APPLICATION_JSON);
-    }
     
     public String create() {
         try {
-            addHeaderBASIC();
+            //addHeaderBASIC();
             
             Response response = client.target(baseUri)
                                     .path("students")
-                                    .request(MediaType.APPLICATION_JSON)
+                                    .request(MediaType.APPLICATION_XML)
                                     .post(asJson(newStudent));
             
             if (response.getStatus() != 200) {
@@ -175,11 +183,11 @@ public class AdministratorManager implements Serializable {
     
     public String update() {
         try {
-            addHeaderBASIC();
+            //addHeaderBASIC();
             
             Response response = client.target(baseUri)
                                     .path("students")
-                                    .request(MediaType.APPLICATION_JSON)
+                                    .request(MediaType.APPLICATION_XML)
                                     .put(asJson(currentStudent));
             
             if (response.getStatus() != 200) {
@@ -187,16 +195,16 @@ public class AdministratorManager implements Serializable {
             }
             
             currentStudent.clear();
-            return "/index?faces-redirect=true";
+            return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             logger.warning(e.getMessage());
         }
-        return "/admin/students/update";
+        return "/admin/admin_students_update";
     }
 
     public String removeStudent(ActionEvent event) {
         try {
-            addHeaderBASIC();
+            //addHeaderBASIC();
             
             UIParameter param = (UIParameter) event.getComponent().findComponent("deleteStudentId");
             String username = param.getValue().toString();
@@ -211,7 +219,7 @@ public class AdministratorManager implements Serializable {
 
     public List<CourseDTO> getAllCourses() {
         try {
-            addHeaderBASIC();
+            //addHeaderBASIC();
             
             return client.target(baseUri)
                         .path("courses")
@@ -229,7 +237,7 @@ public class AdministratorManager implements Serializable {
             UIParameter param = (UIParameter) event.getComponent().findComponent("deleteCourseId");
             Integer code = (Integer) param.getValue();
             
-            addHeaderBASIC();
+            //addHeaderBASIC();
             
             client.target(baseUri).path("courses/" + code).request().delete();
             
@@ -242,6 +250,22 @@ public class AdministratorManager implements Serializable {
     
     public Client getClient() {
         return client;
+    }
+    
+    
+    public Collection<SubjectDTO> getCurrentStudentSubjects() {
+        Collection<SubjectDTO> subjects = null;
+        try {
+            subjects = client.target(URILookup.getBaseAPI())
+                    .path("/subjects/student_subjects")
+                    .path(currentStudent.getUsername())
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<Collection<SubjectDTO>>() {
+                    });
+        } catch (Exception e) {
+            logger.warning("Problem getting student's subjects.");
+        }
+        return subjects;
     }
 /*
     private static final Logger logger = Logger.getLogger("web.AdministratorManager");

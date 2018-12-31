@@ -43,14 +43,14 @@
                     required="true"
                     requiredMessage="Error: Email cannot be empty"
                     value="#{administratorManager.currentStudent.email}" >
-                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                    <!--<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />-->
                 </h:inputText>                    
                 <h:message for="email" errorStyle="color:red" />
 
                 <h:commandButton
                     id="submit"
                     value="Update"
-                    action="#{administratorManager.updateStudentREST2()}" />
+                    action="#{administratorManager.updateAdmin}" />
                 <h:message for="submit" errorStyle="color:red" />
 
             </h:panelGrid>

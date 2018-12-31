@@ -72,34 +72,6 @@
 
         <br/><br/>
         
-        <h:form enctype="multipart/form-data">
-            <p:growl id="messages" showDetail="true" />
-            <p:fileUpload value="#{uploadManager.file}" mode="simple" skinSimple="true"/>
-            <p:commandButton
-                value="Submit" 
-                ajax="false" 
-                actionListener="#{uploadManager.upload}" 
-                action="#{administratorManager.uploadDocument}"/>
-        </h:form>
-
-        <br/>
-
-        <h:form rendered="${not empty administratorManager.documents}">
-
-            <h:outputLabel for="document" value="Student document: " />
-            <h:selectOneMenu id="document" value="#{downloadManager.documentId}" >
-                <f:selectItems 
-                    value="${administratorManager.documents}" 
-                    var="doc" 
-                    itemValue="${doc.id}" 
-                    itemLabel="${doc.desiredName}" />
-            </h:selectOneMenu>
-            <br></br>
-
-            <p:commandButton value="Download" ajax="false">
-                <p:fileDownload value="#{downloadManager.file}" />
-            </p:commandButton>
-        </h:form>
 
         <br/>
 
