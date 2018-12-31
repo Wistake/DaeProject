@@ -284,9 +284,9 @@ public class AdministratorManager implements Serializable {
 
     private Client client;
     
-    private TemplateDTO templateDTO;
+    private TemplateDTO currentTemplate;
     
-    private TemplateDTO newTemplate;
+    private TemplateDTO newTemplate;    
     
     
     @ManagedProperty("#{userManager}")
@@ -324,6 +324,7 @@ public class AdministratorManager implements Serializable {
         }
         return null;
     }
+    
     
     public String createTemplate() {
         try {
@@ -431,9 +432,9 @@ public class AdministratorManager implements Serializable {
         try {
             client.target(URILookup.getBaseAPI())
                     .path("/templates/updateREST1")
-                    .path(templateDTO.getDescricao())
+                    .path(currentTemplate.getDescricao())
                     .request(MediaType.APPLICATION_XML)
-                    .put(Entity.xml(templateDTO.getIdName()));
+                    .put(Entity.xml(currentTemplate.getIdName()));
             return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", logger);
@@ -446,7 +447,7 @@ public class AdministratorManager implements Serializable {
             client.target(URILookup.getBaseAPI())
                     .path("/templates/updateREST2")
                     .request(MediaType.APPLICATION_XML)
-                    .put(Entity.xml(templateDTO));
+                    .put(Entity.xml(currentTemplate));
             return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", logger);
@@ -454,7 +455,6 @@ public class AdministratorManager implements Serializable {
         return null;
     }
     
-
     public String updateStudentREST2() {
         try {
             client.target(URILookup.getBaseAPI())
@@ -508,6 +508,21 @@ public class AdministratorManager implements Serializable {
                     .delete();
         } catch (Exception e) {
             logger.warning("Problem removing a admin in method removeAdmin.");
+        }
+    }
+    
+    public void removeTemplate(ActionEvent event) {
+        try {
+            UIParameter param = (UIParameter) event.getComponent().findComponent("deleteTemplateId");
+            String id = param.getValue().toString();
+
+            client.target(URILookup.getBaseAPI())
+                    .path("/templates/remove")
+                    .path(id)
+                    .request(MediaType.APPLICATION_XML)
+                    .delete();
+        } catch (Exception e) {
+            logger.warning("Problem removing a template in method removeTemplate.");
         }
     }
 
@@ -569,7 +584,7 @@ public class AdministratorManager implements Serializable {
     }
     
     private void clearNewTemplate() {
-        newTemplate.setIdName(0);
+        newTemplate.setIdName(null);
         newTemplate.setDescricao(null);
     }
 
@@ -601,17 +616,13 @@ public class AdministratorManager implements Serializable {
         this.newStudent = newStudent;
     }
 
-    public TemplateDTO getTemplateDTO() {
-        return templateDTO;
+    public TemplateDTO getCurrentTemplate() {
+        return currentTemplate;
     }
 
-    public void setTemplateDTO(TemplateDTO templateDTO) {
-        this.templateDTO = templateDTO;
+    public void setCurrentTemplate(TemplateDTO currentTemplate) {
+        this.currentTemplate = currentTemplate;
     }
-    
-    
-    
-    
 
     public UIComponent getComponent() {
         return component;

@@ -6,94 +6,108 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+/**
+ *
+ * @author lucas
+ */
 @Entity
-@Table(name = "CONFIGURATIONS")
+@Table(name = "CONFIGURATION", uniqueConstraints
+        = @UniqueConstraint(columnNames = {"DESCRICAO"}))
 @NamedQueries({
-    @NamedQuery(name = "getAllConfiguration",
-            query = "SELECT c FROM Configuration c ORDER BY c.id")})
-public class Configuration implements Serializable{
+    @NamedQuery(name = "Configuration.all"/*"getAllConfiguration"*/,
+        query = "SELECT s FROM Configuration s ORDER BY s.name")/*,
+    @NamedQuery(name = "getConfiguracao",
+        query = "SELECT s FROM Configuracao s WHERE s.id = :idConfiguracao ORDER BY s.name")  */  
+
+})
+
+public class Configuration implements Serializable {    
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private @Getter @Setter int code;
     
-    @ManyToOne
-    private Student student;
+    //@NotNull
+    @ManyToOne 
+    @JoinColumn(name = "SOFTWARE_ID")
+    private @Getter @Setter Software software;
     
-    @Column(name = "CONFIGURATION_NAME")
-    private ConfigurationState confState;
+    @NotNull(message = "Descrição não pode estar vazia!")
+    private @Getter @Setter String descricao;
     
-    @NotNull
-    @ManyToOne
-    private Software software;
+    @NotNull(message = "Nome da configuracao não pode estar vazio!")
+    private @Getter @Setter String name;
     
-    public Configuration(){
-        //listar modulos com lista
-    }
+    /*@ManyToMany(mappedBy = "configuracao", cascade = CascadeType.REMOVE)
+    private @Getter @Setter List<Modulo> modulos;*/
     
-    @NotNull
-    private String contractInfo;
+    @NotNull(message = "O estado da configuração não pode estar vazio!")
+    @Enumerated(EnumType.STRING)
+    private @Getter @Setter ConfigurationState estado;
+    
 
-    public Configuration(long id, Student student, ConfigurationState confState, Software software, String contractInfo) {
-        this();
-        this.id = id;
-        this.student = student;
-        this.confState = confState;
+   /* @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "configuracao")
+    private @Getter @Setter Template template;*/
+    
+    /*
+    @OneToMany(mappedBy = "servicos", cascade = CascadeType.REMOVE) // ManyToMany //?????????'
+    private List<Servico> servicos;
+    
+    Linceças 
+    parametrizaçoes 
+    extensoes
+    dados do contrato
+    
+   */
+
+    public Configuration() {
+       // this.modulos = new LinkedList<>();
+    }
+
+    public Configuration(String descricao, String nome, int versaoBase,ConfigurationState estado, Software software) {
+      //  this();
+        this.descricao = descricao;
+        this.name = nome;
         this.software = software;
-        this.contractInfo = contractInfo;
+        this.estado = estado;
+        this.software.addConfiguracao(this);      
     }
+    
+    
+    
+   /* public void addModulos(Modulo m){
+        modulos.add(m);
+    }*/
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public ConfigurationState getConfState() {
-        return confState;
-    }
-
-    public void setConfState(ConfigurationState confState) {
-        this.confState = confState;
-    }
-
-    public Software getSoftware() {
-        return software;
-    }
-
-    public void setSoftware(Software software) {
-        this.software = software;
-    }
-
-    public String getContractInfo() {
-        return contractInfo;
-    }
-
-    public void setContractInfo(String contractInfo) {
-        this.contractInfo = contractInfo;
-    }
- 
+    /*public Configuracao(String descricao, String name, Estado estado, Template template) {
+        this.descricao = descricao;
+        this.name = name;
+        this.estado = estado;
+        this.template = template;
+        //this.template.setConfiguracao(this);
+    }*/
+    
+    
 }

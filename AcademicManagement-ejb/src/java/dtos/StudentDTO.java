@@ -51,8 +51,8 @@ public class StudentDTO extends UserDTO{
     }
     
     @Override
-    public void reset() {
-        super.reset();
+    public void clear() {
+        super.clear();
         setCourseCode(0);
         setCourseName(null);
     }

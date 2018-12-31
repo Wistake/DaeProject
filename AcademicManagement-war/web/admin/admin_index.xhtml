@@ -99,8 +99,50 @@
                 &nbsp;
             <h:link value="New Client" outcome="admin_students_create" class="btn btn-primary"/>
             &nbsp;
-                
-                
+            <br/>
+            <h5>Templates</h5>
+                <p:dataTable
+                    var="template"
+                    summary="List of all Templates"
+                    value="#{administratorManager.allTemplates}">
+
+                    <p:column headerText="Id">
+                        <h:outputText value="${template.idName}" />
+                    </p:column>
+                    
+                    <p:column headerText="Descrição">
+                        <h:outputText value="${template.descricao}" />
+                    </p:column>
+                    
+                    <!--<p:column headerText="Software">
+                        <h:outputText value="${template}" />
+                    </p:column>-->
+                    
+                    
+                    <p:column headerText="Actions">
+                       <h:commandLink 
+                           value="Consultar" 
+                           action="admin_template_details?faces-redirect=true">
+                           <f:setPropertyActionListener
+                               target="#{administratorManager.currentTemplate}" value="#{template}" />                            
+                       </h:commandLink>
+                       &nbsp;
+                       <h:commandLink value="Update" action="admin_template_update?faces-redirect=true">
+                           <f:setPropertyActionListener target="#{administratorManager.currentTemplate}" value="#{template}" />
+                       </h:commandLink>
+                       &nbsp;
+                       <h:commandLink 
+                           value="Remove" 
+                           actionListener="#{administratorManager.removeTemplate}">
+                           <f:param name="deleteTemplateId" id="deleteTemplateId"
+                                    value="#{template.idName}" />
+                       </h:commandLink>
+                   </p:column>
+        
+                </p:dataTable>
+                <br/>
+                <h:link value="New Template" outcome="admin_templates_create" class="btn btn-primary"/>
+            &nbsp;
             </h:form>
             
             <h:outputScript library="js" name="bootstrap.min.js"/>

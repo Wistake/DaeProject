@@ -16,8 +16,8 @@ public class TeacherDTO extends UserDTO {
     }
     /*
     @Override
-    public void reset() {
-        super.reset();
+    public void clear() {
+        super.clear();
         setOffice(null);
     }    */
 

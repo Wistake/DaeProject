@@ -61,8 +61,8 @@ public class AdministratorDTO extends UserDTO{
     }
     
     @Override
-    public void reset() {
-        super.reset();
+    public void clear() {
+        super.clear();
         setCargoCode(0);
         setCargoName(null);
     }

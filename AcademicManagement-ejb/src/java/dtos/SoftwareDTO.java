@@ -5,27 +5,36 @@
  */
 package dtos;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
- * @author sergi
+ * @author lucas
  */
-public class SoftwareDTO implements DTO{
-    private long id;
-    private String baseVersion;
-    private String name;
-    
-    public void reset(){
-        id = 0;
-        name = null;
-        baseVersion = null;
+@XmlRootElement(name = "Software")
+@NoArgsConstructor
+@AllArgsConstructor
+public class SoftwareDTO implements DTO{        
+    private @Getter @Setter Integer idSoftware;
+    private @Getter @Setter String baseVersion;
+    private @Getter @Setter String name;
+    private @Getter @Setter String clienteUsername;
+
+    public SoftwareDTO(String baseVersion, String name, String clienteUsername) {
+        this(null, baseVersion, name, clienteUsername);
     }
     
     @Override
     public void clear() {
-        id = 0;
-        baseVersion = null;
-        name = null;
+        idSoftware = null;
+        baseVersion= null;
+        name= null;
+        clienteUsername= null;
     }
     
+          
 }
