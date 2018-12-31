@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -19,79 +22,66 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ *
+ * @author lucas
+ */
+
 
 @Entity
+@Table(name = "SOFTWARES",
+        uniqueConstraints
+        = @UniqueConstraint(columnNames = {"NAME"}))
 @NamedQueries({
-    @NamedQuery(name = "getAllSoftware",
+    @NamedQuery(name = "Software.all"/*"getAllSoftware"*/,
             query = "SELECT s FROM Software s ORDER BY s.name")})
-public class Software implements Serializable
-{
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+
+public class Software implements Serializable {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private @Getter @Setter int id;
     
     @NotNull
-    private String baseVersion;
+    private @Getter @Setter String baseVersion;
     
     @NotNull
-    private String name;
+    private @Getter @Setter String name;
     
+    //@NotNull
     @ManyToOne
-    private Template template;
+    //@JoinColumn(name = "CLIENTE_USERNAME")
+    private @Getter @Setter Client client;
     
-    @NotNull
+    //@NotNull
     @OneToMany(mappedBy = "software", cascade = CascadeType.REMOVE)
-    private List<Configuration> configuration;
+    private @Getter @Setter List<Configuration> configuracoes;
     
-    
-    public Software(){
-        
+    /*@OneToMany(mappedBy = "software", cascade = CascadeType.REMOVE)
+    private @Getter @Setter List<Contract> contratos;*/
+
+    public Software() {
+        this.configuracoes = new LinkedList<>();
+       // this.contratos = new LinkedList<>();
     }
 
-    public Software(long id, String baseVersion, String name) {
-        this.id = id;
+    public Software(String baseVersion, String name, Client cliente) {
+        this();
         this.baseVersion = baseVersion;
         this.name = name;
-    }
-
-    public Template getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(Template template) {
-        this.template = template;
-    }
-
-    public List<Configuration> getConfiguration() {
-        return configuration;
-    }
-
-    public void setConfiguration(List<Configuration> configuration) {
-        this.configuration = configuration;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getBaseVersion() {
-        return baseVersion;
-    }
-
-    public void setBaseVersion(String baseVersion) {
-        this.baseVersion = baseVersion;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.client = cliente;
+        cliente.addSoftware(this);
     }
     
+    public void addConfiguracao(Configuration c ){
+        configuracoes.add(c);
+    }
+    
+    /*public void addContrato(Contrato c){
+        contratos.add(c);
+    }*/
+
     
 }

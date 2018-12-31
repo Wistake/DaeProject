@@ -15,8 +15,8 @@ public class TeacherDTO extends UserDTO implements Serializable {
     }
     
     @Override
-    public void reset() {
-        super.reset();
+    public void clear() {
+        super.clear();
         setOffice(null);
     }    
 

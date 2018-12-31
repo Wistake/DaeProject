@@ -2,7 +2,7 @@ package dtos;
 
 import java.io.Serializable;
 
-public class UserDTO implements Serializable{
+public class UserDTO implements DTO{
 
     protected String username;
     protected String password;    
@@ -18,13 +18,7 @@ public class UserDTO implements Serializable{
         this.name = name;
         this.email = email;
     }
-    
-    public void reset() {
-        setUsername(null);
-        setPassword(null);
-        setName(null);
-        setEmail(null);
-    }        
+         
 
     public String getUsername() {
         return username;
@@ -56,5 +50,13 @@ public class UserDTO implements Serializable{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public void clear() {
+        setUsername(null);
+        setPassword(null);
+        setName(null);
+        setEmail(null);
     }
 }

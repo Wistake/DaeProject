@@ -28,8 +28,8 @@ public class StudentDTO extends UserDTO implements Serializable{
     }
     
     @Override
-    public void reset() {
-        super.reset();
+    public void clear() {
+        super.clear();
         setCourseCode(0);
         setCourseName(null);
     }

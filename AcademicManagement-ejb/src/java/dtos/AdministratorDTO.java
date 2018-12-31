@@ -32,8 +32,8 @@ public class AdministratorDTO extends UserDTO implements Serializable{
     }
     
     @Override
-    public void reset() {
-        super.reset();
+    public void clear() {
+        super.clear();
         setCargoCode(0);
         setCargoName(null);
     }

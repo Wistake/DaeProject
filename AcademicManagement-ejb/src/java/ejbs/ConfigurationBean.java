@@ -5,18 +5,17 @@
  */
 package ejbs;
 
-import dtos.SoftwareDTO;
-import entities.Software;
+import dtos.ConfigurationDTO;
+import entities.Configuration;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 
 /**
  *
- * @author 
+ * @author lucas
  */
 @Stateless
-@Path("/software")
-public class SoftwareBean extends BaseBean<Software, SoftwareDTO, Integer>{
+@Path("/configuration")
+public class ConfigurationBean extends BaseBean<Configuration, ConfigurationDTO, Integer>{
 
-    
 }

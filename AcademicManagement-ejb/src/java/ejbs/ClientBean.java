@@ -5,18 +5,17 @@
  */
 package ejbs;
 
-import dtos.SoftwareDTO;
-import entities.Software;
+import dtos.ClientDTO;
+import entities.Client;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 
 /**
  *
- * @author 
+ * @author lucas
  */
 @Stateless
-@Path("/software")
-public class SoftwareBean extends BaseBean<Software, SoftwareDTO, Integer>{
-
-    
+@Path("/clients")
+public class ClientBean extends BaseBean<Client, ClientDTO, String>{    
+   
 }
