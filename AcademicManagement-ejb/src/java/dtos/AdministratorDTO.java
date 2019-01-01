@@ -5,9 +5,6 @@
  */
 package dtos;
 
-import java.io.Serializable;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,25 +15,22 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AdministratorDTO extends UserDTO{
     
-    private @Getter @Setter int cargoCode;
-    private @Getter @Setter String cargoName;
+    private @Getter @Setter String cargo;
     
     public AdministratorDTO(String username,
             String password,
             String name,
             String email,
-            int cargoCode,
-            String cargoName) {
+            String cargo) {
         super(username, password, name, email);
-        this.cargoCode = cargoCode;
-        this.cargoName = cargoName;
+        this.cargo = cargo;
+        
     }
     
     @Override
     public void clear() {
-        super.clear(); //To change body of generated methods, choose Tools | Templates.
-        cargoCode = 0;
-        cargoName = null;
+        super.clear(); 
+        cargo = null;
     }
     
     

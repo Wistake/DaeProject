@@ -1,13 +1,7 @@
 package entities;
 
 import entities.UserGroup.GROUP;
-import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
@@ -23,29 +17,13 @@ import lombok.Setter;
             })
 @NoArgsConstructor
 public class Administrator extends User{
+    @NotNull(message = "Cargo não pode estar vazio!")
+    private @Getter @Setter String cargo;
     
-    @ManyToOne
-    @JoinColumn(name = "CARGO_CODE")
-    private @Getter @Setter Cargo cargo;
-    
-    public Administrator(
-            String username,
-            String password,
-            String name,
-            String email,
-            Cargo cargo) {
+    public Administrator(String username, String password, String name,String email, String cargo) {
         super(username, password, GROUP.Administrator, name, email);
         this.cargo = cargo;
-        cargo.addAdministrator(this);
+        
     }
 
-/*
-    public Cargo getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
-    }
-*/
 }

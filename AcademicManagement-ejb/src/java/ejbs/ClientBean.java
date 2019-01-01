@@ -7,8 +7,10 @@ package ejbs;
 
 import dtos.ClientDTO;
 import entities.Client;
+import entities.UserGroup;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
+import util.Encryptor;
 
 /**
  *
@@ -16,6 +18,11 @@ import javax.ws.rs.Path;
  */
 @Stateless
 @Path("/clients")
-public class ClientBean extends BaseBean<Client, ClientDTO, String>{    
-   
+public class ClientBean extends Bean<Client, ClientDTO, String>{    
+       @Override
+        protected Client create(Client entity) {
+        entity.setGroup(new UserGroup(UserGroup.GROUP.Client, entity));
+        entity.setPassword(Encryptor.hash(entity.getPassword(), "SHA-256"));
+        return super.create(entity);
+    }
 }

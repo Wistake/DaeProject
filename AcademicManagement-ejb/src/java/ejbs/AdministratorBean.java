@@ -1,33 +1,11 @@
 package ejbs;
 
 import dtos.AdministratorDTO;
-import dtos.StudentDTO;
 import entities.Administrator;
-import entities.Cargo;
-import entities.Course;
-import entities.Student;
 import entities.UserGroup;
-import exceptions.EntityDoesNotExistException;
-import exceptions.EntityExistsException;
-import exceptions.MyConstraintViolationException;
-import exceptions.Utils;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.EJBException;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.validation.ConstraintViolationException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.MediaType;
 import util.Encryptor;
 
 @Stateless
@@ -38,8 +16,17 @@ public class AdministratorBean extends Bean<Administrator, AdministratorDTO, Str
     protected Administrator create(Administrator entity) {
         entity.setGroup(new UserGroup(UserGroup.GROUP.Administrator, entity));
         entity.setPassword(Encryptor.hash(entity.getPassword(), "SHA-256"));
-        return super.create(entity); //To change body of generated methods, choose Tools | Templates.
+        return super.create(entity);
     }
+/*
+    @Override
+    public AdministratorDTO create(AdministratorDTO dto) {
+        Cargo cargo = cargoBean.findOrFail(dto.getCargoCode());
+        Administrator admin = toEntity(dto);
+        admin.setCargo(cargo);
+        admin = create(admin);        
+        return toDTO(admin);
+    }*/
     
     @Override
     protected Administrator update(Administrator entity) {

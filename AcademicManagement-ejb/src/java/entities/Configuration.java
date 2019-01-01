@@ -35,7 +35,7 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "CONFIGURATION", uniqueConstraints
-        = @UniqueConstraint(columnNames = {"DESCRICAO"}))
+        = @UniqueConstraint(columnNames = {"NAME"}))
 @NamedQueries({
     @NamedQuery(name = "Configuration.all"/*"getAllConfiguration"*/,
         query = "SELECT s FROM Configuration s ORDER BY s.name")/*,
@@ -51,11 +51,20 @@ public class Configuration implements Serializable {
     
     //@NotNull
     @ManyToOne 
-    @JoinColumn(name = "SOFTWARE_ID")
+    @JoinColumn(name = "SOFTWARE_ID", nullable = true)
     private @Getter @Setter Software software;
     
     @NotNull(message = "Descrição não pode estar vazia!")
     private @Getter @Setter String descricao;
+    
+    @NotNull(message = "A configuracao da privacidade não pode estar vazia!")
+    private @Getter @Setter String configuracaoPrivacidade;
+    
+    @NotNull(message = "A configuracao da segurança não pode estar vazia!")
+    private @Getter @Setter String configuracaoSeguranca;
+    
+    @NotNull(message = "A configuracao da conta não pode estar vazia!")
+    private @Getter @Setter String configuracaoConta;
     
     @NotNull(message = "Nome da configuracao não pode estar vazio!")
     private @Getter @Setter String name;
@@ -68,7 +77,7 @@ public class Configuration implements Serializable {
     private @Getter @Setter ConfigurationState estado;
     
 
-   /* @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "configuracao")
+   /* @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "configuration")
     private @Getter @Setter Template template;*/
     
     /*
@@ -86,7 +95,7 @@ public class Configuration implements Serializable {
        // this.modulos = new LinkedList<>();
     }
 
-    public Configuration(String descricao, String nome, int versaoBase,ConfigurationState estado, Software software) {
+    public Configuration(String descricao, String nome,ConfigurationState estado, Software software) {
       //  this();
         this.descricao = descricao;
         this.name = nome;
@@ -101,12 +110,12 @@ public class Configuration implements Serializable {
         modulos.add(m);
     }*/
 
-    /*public Configuracao(String descricao, String name, Estado estado, Template template) {
+    /*public Configuration(String descricao, String name, ConfigurationState estado, Template template) {
         this.descricao = descricao;
         this.name = name;
         this.estado = estado;
         this.template = template;
-        //this.template.setConfiguracao(this);
+        this.template.setConfiguration(this);
     }*/
     
     

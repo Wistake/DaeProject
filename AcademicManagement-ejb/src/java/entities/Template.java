@@ -6,72 +6,37 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+/**
+ *
+ * @author lucas
+ */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "getAllTemplates",
-            query = "SELECT t FROM Template t")})
-public class Template implements Serializable{
+@Table(name = "TEMPLATES")
+@NamedQuery(name = "Template.all", query = "SELECT t FROM Template t ")
+@NoArgsConstructor
+@AllArgsConstructor
+public class Template implements Serializable {
     
     @Id
-    private Integer idName;
-    
-    //@NotNull
-    /*@OneToMany(mappedBy = "template", cascade = CascadeType.REMOVE)
-    private List<Software> software; */
-    
-    @NotNull
-    private String descricao;
-    
-    public Template() {
-        //this.software = new LinkedList<>();
-    }
-
-    public Template(Integer idName, String descricao) {
-        this.idName = idName;
-        this.descricao = descricao;
-        //this.software = new LinkedList<>();
-    }
-    
-     
-
-    /*public List<Software> getSoftware() {
-        return software;
-    }
-
-    public void setSoftware(List<Software> software) {
-        this.software = software;
-    }
-    
-    public Integer getIdName() {
-        return idName;
-    }
-
-    public void setIdName(Integer idName) {
-        this.idName = idName;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }*/
-    
-    
-    
+    private @Getter @Setter String templateName;
+    @NotNull(message = "A descrição do template não pode estar vazio!")
+    private @Getter @Setter String descricaoT;
+    private @Getter @Setter String configuracaoPrivacidade;
+    private @Getter @Setter String configuracaoSeguranca;
+    private @Getter @Setter String configuracaoConta;
     
 }

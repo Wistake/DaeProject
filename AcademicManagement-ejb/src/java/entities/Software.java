@@ -44,10 +44,10 @@ public class Software implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private @Getter @Setter int id;
     
-    @NotNull
+    @NotNull(message = "Versão do software não pode estar vazio!")
     private @Getter @Setter String baseVersion;
     
-    @NotNull
+    @NotNull(message = "Nome do software não pode estar vazio!")
     private @Getter @Setter String name;
     
     //@NotNull

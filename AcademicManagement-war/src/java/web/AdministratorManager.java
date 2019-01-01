@@ -1,10 +1,9 @@
 package web;
 
 import dtos.AdministratorDTO;
-import dtos.CourseDTO;
+import dtos.ClientDTO;
 import dtos.DocumentDTO;
 import dtos.StudentDTO;
-import dtos.SubjectDTO;
 import dtos.TemplateDTO;
 import ejbs.TemplateBean;
 import java.io.Serializable;
@@ -47,8 +46,8 @@ public class AdministratorManager implements Serializable {
             
     private @Getter @Setter UIComponent component;
     
-    private @Getter @Setter StudentDTO newStudent;
-    private @Getter @Setter StudentDTO currentStudent;
+    private @Getter @Setter ClientDTO newStudent;
+    private @Getter @Setter ClientDTO currentStudent;
     
     private @Getter @Setter AdministratorDTO currentAdmin;
     private @Getter @Setter AdministratorDTO newAdmin;
@@ -58,8 +57,8 @@ public class AdministratorManager implements Serializable {
     public AdministratorManager() {
         currentAdmin = new AdministratorDTO();
         newAdmin = new AdministratorDTO();
-        newStudent = new StudentDTO();
-        currentStudent = new StudentDTO();
+        newStudent = new ClientDTO();
+        currentStudent = new ClientDTO();
         client = ClientBuilder.newClient();
         //newTemplate = new TemplateDTO();
     }
@@ -144,14 +143,14 @@ public class AdministratorManager implements Serializable {
     }
 
     
-    public List<StudentDTO> getAllStudents() {
+    public List<ClientDTO> getAllStudents() {
         try {
             //addHeaderBASIC();
             
             return client.target(baseUri)
-                        .path("/students")
+                        .path("/clients/")
                         .request(MediaType.APPLICATION_XML)
-                        .get(new GenericType<List<StudentDTO>>() {});
+                        .get(new GenericType<List<ClientDTO>>() {});
         } catch (Exception e) {
             String em = e.getMessage();
             logger.warning(e.getMessage());
@@ -217,7 +216,7 @@ public class AdministratorManager implements Serializable {
         }
     }
 
-    public List<CourseDTO> getAllCourses() {
+  /*  public List<CourseDTO> getAllCourses() {
         try {
             //addHeaderBASIC();
             
@@ -246,14 +245,14 @@ public class AdministratorManager implements Serializable {
             logger.warning(e.getMessage());
             return "/index";
         }
-    }
+    }*/
     
     public Client getClient() {
         return client;
     }
     
     
-    public Collection<SubjectDTO> getCurrentStudentSubjects() {
+   /* public Collection<SubjectDTO> getCurrentStudentSubjects() {
         Collection<SubjectDTO> subjects = null;
         try {
             subjects = client.target(URILookup.getBaseAPI())
@@ -266,7 +265,7 @@ public class AdministratorManager implements Serializable {
             logger.warning("Problem getting student's subjects.");
         }
         return subjects;
-    }
+    }*/
 /*
     private static final Logger logger = Logger.getLogger("web.AdministratorManager");
     
