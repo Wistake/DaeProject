@@ -17,10 +17,10 @@ import util.Encryptor;
  * @author lucas
  */
 @Stateless
-@Path("/clients")
+@Path("clients")
 public class ClientBean extends Bean<Client, ClientDTO, String>{    
-       @Override
-        protected Client create(Client entity) {
+    @Override
+    protected Client create(Client entity) {
         entity.setGroup(new UserGroup(UserGroup.GROUP.Client, entity));
         entity.setPassword(Encryptor.hash(entity.getPassword(), "SHA-256"));
         return super.create(entity);

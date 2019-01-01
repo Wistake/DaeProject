@@ -65,15 +65,15 @@
                     </p:column>
 
                     <p:column headerText="Morada">
-                        <h:outputText value="${student.name}" />
+                        <h:outputText value="${student.morada}" />
                     </p:column>
 
                     <p:column headerText="Pessoa de Contato">
-                        <h:outputText value="${student.email}" />
+                        <h:outputText value="${student.pessoaContacto}" />
                     </p:column>
 
                     <p:column headerText="Empresa">
-                        <h:outputText value="${student.courseName}" />
+                        <h:outputText value="${student.empresa}" />
                     </p:column>                
 
                     <p:column headerText="Actions">
@@ -107,16 +107,21 @@
                     value="#{administratorManager.allTemplates}">
 
                     <p:column headerText="Id">
-                        <h:outputText value="${template.idName}" />
+                        <h:outputText value="${template.templateName}" />
                     </p:column>
-                    
+                    <p:column headerText="Id">
+                        <h:outputText value="${template.configuracaoConta}" />
+                    </p:column>
+                    <p:column headerText="Id">
+                        <h:outputText value="${template.configuracaoPrivacidade}" />
+                    </p:column>
+                    <p:column headerText="Id">
+                        <h:outputText value="${template.configuracaoSeguranca}" />
+                    </p:column>
                     <p:column headerText="Descrição">
-                        <h:outputText value="${template.descricao}" />
+                        <h:outputText value="${template.descricaoT}" />
                     </p:column>
-                    
-                    <!--<p:column headerText="Software">
-                        <h:outputText value="${template}" />
-                    </p:column>-->
+                   
                     
                     
                     <p:column headerText="Actions">
@@ -135,7 +140,7 @@
                            value="Remove" 
                            actionListener="#{administratorManager.removeTemplate}">
                            <f:param name="deleteTemplateId" id="deleteTemplateId"
-                                    value="#{template.idName}" />
+                                    value="#{template.templateName}" />
                        </h:commandLink>
                    </p:column>
         

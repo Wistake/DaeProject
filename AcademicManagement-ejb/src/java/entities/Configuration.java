@@ -76,9 +76,6 @@ public class Configuration implements Serializable {
     @Enumerated(EnumType.STRING)
     private @Getter @Setter ConfigurationState estado;
     
-
-   /* @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "configuration")
-    private @Getter @Setter Template template;*/
     
     /*
     @OneToMany(mappedBy = "servicos", cascade = CascadeType.REMOVE) // ManyToMany //?????????'
@@ -108,14 +105,6 @@ public class Configuration implements Serializable {
     
    /* public void addModulos(Modulo m){
         modulos.add(m);
-    }*/
-
-    /*public Configuration(String descricao, String name, ConfigurationState estado, Template template) {
-        this.descricao = descricao;
-        this.name = name;
-        this.estado = estado;
-        this.template = template;
-        this.template.setConfiguration(this);
     }*/
     
     

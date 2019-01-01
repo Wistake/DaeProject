@@ -63,7 +63,7 @@ public abstract class Bean<E extends Serializable, D extends DTO, PK> {
     }
     
     @GET
-    @RolesAllowed({"Administrator"})
+//    @RolesAllowed({"Administrator"})
     public List<D> all() {
         String className = entityClass.getSimpleName();
         String namedQuery = className + ".all";

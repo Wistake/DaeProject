@@ -53,6 +53,7 @@ public class AdministratorManager implements Serializable {
     private @Getter @Setter AdministratorDTO newAdmin;
     
     private @Getter @Setter TemplateDTO newTemplate;
+    private @Getter @Setter TemplateDTO currentTemplate;
 
     public AdministratorManager() {
         currentAdmin = new AdministratorDTO();
@@ -144,19 +145,21 @@ public class AdministratorManager implements Serializable {
 
     
     public List<ClientDTO> getAllStudents() {
-        try {
-            //addHeaderBASIC();
-            
-            return client.target(baseUri)
-                        .path("/clients/")
+        try {   
+             //addHeaderBASIC();
+             
+             return client.target(baseUri)
+                        .path("/clients")
                         .request(MediaType.APPLICATION_XML)
                         .get(new GenericType<List<ClientDTO>>() {});
+            
         } catch (Exception e) {
             String em = e.getMessage();
             logger.warning(e.getMessage());
             return null;
         }
     }
+    
     
     
     public String create() {
@@ -213,6 +216,49 @@ public class AdministratorManager implements Serializable {
         } catch (Exception e) {
             logger.warning(e.getMessage());
             return "/index";
+        }
+    }
+    
+    public List<TemplateDTO> getAllTemplates() {     
+        try {
+            
+           return client.target(baseUri)
+                    .path("/templates")
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<List<TemplateDTO>>() {});
+        } catch (Exception e) {
+            logger.warning("Problem getting all templates in method getAllTemplates."+e.getMessage());
+            return null;
+        }
+        
+    }
+    
+    public String createTemplate() {
+        try {
+            client.target(URILookup.getBaseAPI())
+                    .path("/templates/create")
+                    .request(MediaType.APPLICATION_XML)
+                    .post(Entity.xml(newTemplate));
+            //clearNewTemplate();
+            return "faces/admin_index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", component, logger);
+        }
+        return null;
+    }
+    
+    public void removeTemplate(ActionEvent event) {
+        try {
+            UIParameter param = (UIParameter) event.getComponent().findComponent("deleteTemplateId");
+            String id = param.getValue().toString();
+
+            client.target(URILookup.getBaseAPI())
+                    .path("/templates/remove")
+                    .path(id)
+                    .request(MediaType.APPLICATION_XML)
+                    .delete();
+        } catch (Exception e) {
+            logger.warning("Problem removing a template in method removeTemplate.");
         }
     }
 

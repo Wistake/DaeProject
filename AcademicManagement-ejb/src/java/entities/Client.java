@@ -25,7 +25,7 @@ import lombok.Setter;
  */
 @Entity
 //@Table(name = "CLIENTS")
-@NamedQuery(name = "getAllClient", query = "SELECT s FROM Client s ORDER BY s.name")
+@NamedQuery(name = "Client.all", query = "SELECT s FROM Client s ORDER BY s.name")
 public class Client extends User {
     
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

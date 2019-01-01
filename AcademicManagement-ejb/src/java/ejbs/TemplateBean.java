@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
  * @author sergi
  */
 @Stateless
-@Path("/templates")
-public class TemplateBean extends Bean<Template, TemplateDTO, Integer>{
+@Path("templates")
+public class TemplateBean extends Bean<Template, TemplateDTO, String>{
     
 }

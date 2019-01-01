@@ -6,13 +6,9 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -26,7 +22,7 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "TEMPLATES")
-@NamedQuery(name = "Template.all", query = "SELECT t FROM Template t ")
+@NamedQuery(name = "Template.all", query = "SELECT t FROM Template t ORDER BY t.templateName")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Template implements Serializable {
