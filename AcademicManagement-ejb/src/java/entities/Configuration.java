@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +23,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -51,7 +53,7 @@ public class Configuration implements Serializable {
     
     //@NotNull
     @ManyToOne 
-    @JoinColumn(name = "SOFTWARE_ID", nullable = true)
+    @JoinColumn(name = "SOFTWARE_ID")
     private @Getter @Setter Software software;
     
     @NotNull(message = "Descrição não pode estar vazia!")
@@ -69,8 +71,8 @@ public class Configuration implements Serializable {
     @NotNull(message = "Nome da configuracao não pode estar vazio!")
     private @Getter @Setter String name;
     
-    /*@ManyToMany(mappedBy = "configuracao", cascade = CascadeType.REMOVE)
-    private @Getter @Setter List<Modulo> modulos;*/
+    @OneToMany(mappedBy = "configuration", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private @Getter @Setter List<Modulo> modulos;
     
     @NotNull(message = "O estado da configuração não pode estar vazio!")
     @Enumerated(EnumType.STRING)
@@ -89,23 +91,21 @@ public class Configuration implements Serializable {
    */
 
     public Configuration() {
-       // this.modulos = new LinkedList<>();
+        this.modulos = new LinkedList<>();
     }
 
     public Configuration(String descricao, String nome,ConfigurationState estado, Software software) {
-      //  this();
+        this();
         this.descricao = descricao;
         this.name = nome;
         this.software = software;
         this.estado = estado;
         this.software.addConfiguracao(this);      
     }
-    
-    
-    
-   /* public void addModulos(Modulo m){
+
+    public void addModulos(Modulo m){
         modulos.add(m);
-    }*/
+    }
     
     
 }

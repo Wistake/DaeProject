@@ -3,6 +3,7 @@ package ejbs;
 import dtos.AdministratorDTO;
 import dtos.ClientDTO;
 import dtos.ConfigurationDTO;
+import dtos.ModuloDTO;
 import dtos.SoftwareDTO;
 import dtos.StudentDTO;
 import dtos.TemplateDTO;
@@ -21,26 +22,25 @@ import javax.ejb.Startup;
 public class ConfigBean {
 
     private static final Logger logger = Logger.getLogger("ejbs.ConfigBean");
-
     @EJB
     private ClientBean clientBean;
     @EJB
     private StudentBean studentBean;
-    
     @EJB
     private AdministratorBean administratorBean;
-   
     @EJB
     private TemplateBean templateBean;
     @EJB
     private SoftwareBean softwareBean;
     @EJB
     private ConfigurationBean configuracaoBean;
+    @EJB
+    private ModuloBean moduloBean;
 
     @PostConstruct
     public void populateDB() {
 
-        try {          
+       // try {          
             administratorBean.create(new AdministratorDTO("a1", "a1", "a1", "a1@ipleiria.pt", "Chefe"));
             administratorBean.create(new AdministratorDTO("a2", "a2", "a2", "a2@ipleiria.pt", "Sub-Chefe"));
             administratorBean.create(new AdministratorDTO("a3", "a3", "a3", "a3@ipleiria.pt", "Diretor"));
@@ -55,11 +55,12 @@ public class ConfigBean {
             SoftwareDTO s3 = softwareBean.create(new SoftwareDTO("v.1.1", "solftware3", c2.getUsername()));
             SoftwareDTO s4 = softwareBean.create(new SoftwareDTO("v.1.5", "solftware4", c2.getUsername()));
 
-            ConfigurationDTO conf1 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "descricao1", "configuracao1", ConfigurationState.ACTIVE, "Don't share my information", "Allow all my employees", "Basic"));
-            ConfigurationDTO conf2 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "descricao2", "configuracao2", ConfigurationState.INACTIVE, "You can sell my information xD", "Only I", "Premium"));
-            ConfigurationDTO conf3 = configuracaoBean.create(new ConfigurationDTO(s2.getIdSoftware(), "descricao3", "configuracao3", ConfigurationState.SUSPENCE, "Don't share my information", "Allow all my employees", "Basic"));
-            ConfigurationDTO conf4 = configuracaoBean.create(new ConfigurationDTO(s2.getIdSoftware(), "descricao4", "configuracao4", ConfigurationState.SUSPENCE, "Can use my data to improve the system", "Allow all my employees", "Basic"));
-            ConfigurationDTO conf5 = configuracaoBean.create(new ConfigurationDTO(s3.getIdSoftware(), "descricao5", "configuracao5", ConfigurationState.SUSPENCE, "Don't share my information", "Allow all my employees", "Basic"));            
+            ConfigurationDTO conf1 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(),  "descricao1", "Don't share my information", "Allow all my employees", "Basic", "configuracao1", ConfigurationState.ACTIVE));
+            ConfigurationDTO conf2 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(),  "descricao2",  "Can use my data to improve the system", "Allow all my employees", "Gold", "configuracao2", ConfigurationState.INACTIVE));
+            ConfigurationDTO conf3 = configuracaoBean.create(new ConfigurationDTO(s2.getIdSoftware(),  "descricao3", "All bock", "Specific people that i choose can see it", "Premium", "configuracao3", ConfigurationState.ACTIVE));
+            ConfigurationDTO conf4 = configuracaoBean.create(new ConfigurationDTO(s2.getIdSoftware(),  "descricao4", "Don't share my information", "All bock only the user can acess", "Basic", "configuracao4", ConfigurationState.SUSPENCE));
+            ConfigurationDTO conf5 = configuracaoBean.create(new ConfigurationDTO(s3.getIdSoftware(),  "descricao5", "Can use my data to improve the system", "All bock, only the user can acess", "Basic", "configuracao5", ConfigurationState.ACTIVE));
+
 
             TemplateDTO temp1 = templateBean.create(new TemplateDTO("Template1", "DescricaoTemplate1", "All bock", "Only the client can see it", "Max security accont"));
             TemplateDTO temp2 = templateBean.create(new TemplateDTO("Template2", "DescricaoTemplate2", "Can use my data to improve the system", "Allow all my employees", "Gold"));
@@ -67,6 +68,10 @@ public class ConfigBean {
             TemplateDTO temp4 = templateBean.create(new TemplateDTO("Template4", "DescricaoTemplate4", "Don't share my information", "All bock only the user can acess", "Basic"));
             TemplateDTO temp5 = templateBean.create(new TemplateDTO("Template5", "DescricaoTemplate5", "Can use my data to improve the system", "All bock, only the user can acess", "Basic"));
            
+            ModuloDTO mod1 = moduloBean.create(new ModuloDTO("Modulo1", conf1.getCode()));
+            ModuloDTO mod2 = moduloBean.create(new ModuloDTO("Modulo2", conf1.getCode()));
+            ModuloDTO mod3 = moduloBean.create(new ModuloDTO("Modulo3", conf1.getCode()));
+            ModuloDTO mod4 = moduloBean.create(new ModuloDTO("Modulo4", conf1.getCode()));
             
 
             //TemplateDTO temp5 = templateBean.create(new TemplateDTO("Template5", "DescricaoTemplate5"));
@@ -114,9 +119,9 @@ public class ConfigBean {
             //templateBean.create(new TemplateDTO(1, "Primeiro Template"));
             
 
-       } catch (Exception e) {
+      /* } catch (Exception e) {
             logger.warning(e.getMessage());
-        }
+        }*/
     }
 
 }
