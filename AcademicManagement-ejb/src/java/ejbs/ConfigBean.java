@@ -71,7 +71,7 @@ public class ConfigBean {
             ModuloDTO mod1 = moduloBean.create(new ModuloDTO("Modulo1", conf1.getCode()));
             ModuloDTO mod2 = moduloBean.create(new ModuloDTO("Modulo2", conf1.getCode()));
             ModuloDTO mod3 = moduloBean.create(new ModuloDTO("Modulo3", conf1.getCode()));
-            ModuloDTO mod4 = moduloBean.create(new ModuloDTO("Modulo4", conf1.getCode()));
+            ModuloDTO mod4 = moduloBean.create(new ModuloDTO("Modulo4", conf2.getCode()));
             
 
             //TemplateDTO temp5 = templateBean.create(new TemplateDTO("Template5", "DescricaoTemplate5"));
