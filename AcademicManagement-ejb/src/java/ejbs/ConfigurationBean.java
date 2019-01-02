@@ -47,8 +47,8 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
      
     @Override
     public ConfigurationDTO create(ConfigurationDTO dto) {
-        Configuration conf = toEntity(dto);
         Software soft = softwareBean.findOrFail(dto.getIdSoftware());
+        Configuration conf = toEntity(dto);
         conf.setSoftware(soft);
         conf = create(conf);
         return toDTO(conf);
@@ -63,11 +63,11 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
         return toDTOs(query.getResultList());
     }
 
-    /*@Override
+    @Override
     protected Configuration create(Configuration entity) {
         Configuration conf = super.create(entity);
         try {
-            sendEmailToClient(conf.getSoftware().getClient().getEmail(), "Create new configuration");
+            sendEmailToClient(conf.getSoftware().getClient().getEmail(), conf.getName(), "Create new configuration");
         } catch (MessagingException ex) {
             Logger.getLogger(ConfigurationBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -78,7 +78,7 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
     protected Configuration update(Configuration entity) {
         Configuration conf =  super.update(entity);
         try {
-            sendEmailToClient(entity.getSoftware().getClient().getEmail(), "Update a configuration");
+            sendEmailToClient(entity.getSoftware().getClient().getEmail(), conf.getName(), "Update a configuration");
         } catch (MessagingException ex) {
             Logger.getLogger(ConfigurationBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,22 +90,23 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
         Configuration conf = this.findOrFail(primaryKey);
         boolean aux = super.delete(primaryKey);
         try {
-            sendEmailToClient(conf.getSoftware().getClient().getEmail(), "Delete a configuration");
+           // System.out.println("-----------------------------> "+ conf.getSofconf.getSoftware().getClient().getEmail(),conf.getName(tware().getClient().getEmail());
+            sendEmailToClient(conf.getSoftware().getClient().getEmail(),conf.getName(), "Delete a configuration");
         } catch (MessagingException ex) {
             Logger.getLogger(ConfigurationBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return aux; //To change body of generated methods, choose Tools | Templates.
-    }*/
+    }
     
     
     
     
     
-    private void sendEmailToClient(String username, String subject) throws MessagingException {
-        Client client = clientBean.findOrFail(username);
+    private void sendEmailToClient(String email,String confName, String subject) throws MessagingException {
+        //Client client = clientBean.findOrFail(username);
         try {
 
-            emailBean.send(client.getEmail(), subject, "Hello " + client.getName()+", we "+subject+" your software.\n\n Thank you, from \n DAE_PROJECT " );
+            emailBean.send(email, subject+" "+ confName, "Hello dear client ,\n we "+subject+" '"+confName+"' in your software.\n\n Thank you, from \n DAE_PROJECT " );
         
         } catch (MessagingException  e) {
             throw e;
