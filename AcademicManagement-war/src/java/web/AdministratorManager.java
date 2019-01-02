@@ -41,9 +41,9 @@ import javax.ws.rs.core.Response;
 public class AdministratorManager implements Serializable {
     private final Logger logger = Logger.getLogger("web.AdministratorManager");
     private final String baseUri = "http://localhost:8080/AcademicManagement-war/api";
-        
+    
     private Client client;
-            
+    
     private @Getter @Setter UIComponent component;
     
     private @Getter @Setter ClientDTO newStudent;
@@ -105,11 +105,11 @@ public class AdministratorManager implements Serializable {
                     .path("/administrators")
                     .request(MediaType.APPLICATION_XML).post(Entity.xml(newAdmin));
             newAdmin.clear();
-            return "/users/list.xhtml?faces-redirect=true";
+            return "admin_index?faces-redirect=true";
         }catch(Exception e){
             FacesExceptionHandler.handleException(e, e.getMessage(), logger);
             logger.warning(e.getMessage());
-            return "admin_create_admin";
+            return "admin_index?faces-redirect=true";
         }
     }
    
@@ -137,7 +137,7 @@ public class AdministratorManager implements Serializable {
         }
        
         catch (Exception e) {
-            FacesExceptionHandler.handleException(e, "Problem removing a template in method removeAdmin", logger);
+            FacesExceptionHandler.handleException(e, "Problem removing a Admin in method removeAdmin", logger);
             return null;
         }
         return "admin_index?faces-redirect=true";
@@ -235,12 +235,12 @@ public class AdministratorManager implements Serializable {
     
     public String createTemplate() {
         try {
-            client.target(URILookup.getBaseAPI())
-                    .path("/templates/create")
+            client.target(baseUri)
+                    .path("/templates")
                     .request(MediaType.APPLICATION_XML)
                     .post(Entity.xml(newTemplate));
             //clearNewTemplate();
-            return "faces/admin_index?faces-redirect=true";
+            return "faces/admin/admin_index?faces-redirect=true";
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", component, logger);
         }
@@ -252,14 +252,26 @@ public class AdministratorManager implements Serializable {
             UIParameter param = (UIParameter) event.getComponent().findComponent("deleteTemplateId");
             String id = param.getValue().toString();
 
-            client.target(URILookup.getBaseAPI())
-                    .path("/templates/remove")
+            client.target(baseUri)
+                    .path("/templates")
                     .path(id)
                     .request(MediaType.APPLICATION_XML)
                     .delete();
         } catch (Exception e) {
             logger.warning("Problem removing a template in method removeTemplate.");
         }
+    }
+    
+    public String updateTemplate(){
+        try {
+            client.target(baseUri)
+                    .path("/templates/"+currentTemplate.getTemplateName())
+                    .request(MediaType.APPLICATION_XML).put(Entity.xml(currentTemplate));
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Problem updating template in method updateTemplate", logger);
+            return null;
+        }
+        return "admin_index?faces-redirect=true";
     }
 
   /*  public List<CourseDTO> getAllCourses() {
@@ -571,7 +583,6 @@ public class AdministratorManager implements Serializable {
         }
     }
 
-
     public Collection<SubjectDTO> getCurrentStudentSubjects() {
         Collection<SubjectDTO> subjects = null;
         try {
@@ -627,7 +638,7 @@ public class AdministratorManager implements Serializable {
         newStudent.setEmail(null);
         newStudent.setCourseCode(0);
     }
-    
+
     private void clearNewTemplate() {
         newTemplate.setIdName(null);
         newTemplate.setDescricao(null);
@@ -640,7 +651,7 @@ public class AdministratorManager implements Serializable {
     public void setCurrentStudent(StudentDTO currentStudent) {
         this.currentStudent = currentStudent;
     }
-    
+ 
     public AdministratorDTO getCurrentAdmin() {
         return currentAdmin;
     }

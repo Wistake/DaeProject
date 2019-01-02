@@ -9,30 +9,31 @@
     <h:body>
         <h:form>
             <h:panelGrid columns="3">
-                <h:outputLabel for="idName" value="id Name " />
+                <h:outputLabel for="templateName" value="Template Name:" />
                 <h:inputText
-                    id="idName"
+                    id="templateName"
                     size="20"
                     required="true"
-                    requiredMessage="Error: idName cannot be empty"
-                    value="#{administratorManager.newTemplate.idName}">
+                    readonly="true"
+                    requiredMessage="Error: Template name cannot be empty"
+                    value="#{administratorManager.currentTemplate.templateName}">
                 </h:inputText>
                 <h:message for="descricao" errorStyle="color:red" />
                 
-                <h:outputLabel for="descricao" value="Descrição: " />
+                <h:outputLabel for="descricaoT" value="Descrição: " />
                 <h:inputText
-                    id="descricao"
+                    id="descricaoT"
                     size="20"
                     required="true"
                     requiredMessage="Error: Descrição cannot be empty"
-                    value="#{administratorManager.newTemplate.descricao}">
+                    value="#{administratorManager.currentTemplate.descricaoT}">
                 </h:inputText>
                 <h:message for="descricao" errorStyle="color:red" />
 
                 <h:commandButton
                     id="submit"
                     value="Update"
-                    action="#{administratorManager.updateTemplateREST2()}" />
+                    action="#{administratorManager.updateTemplate()}" />
                 <h:message for="submit" errorStyle="color:red" />
             </h:panelGrid>
         </h:form>            
