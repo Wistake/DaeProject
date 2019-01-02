@@ -2,10 +2,11 @@ package ejbs;
 
 import dtos.DocumentDTO;
 import dtos.StudentDTO;
-import entities.Course;
+
 import entities.Document;
 import entities.Student;
-import entities.Subject;
+
+import entities.UserGroup;
 import exceptions.EntityDoesNotExistException;
 import exceptions.EntityExistsException;
 import exceptions.MyConstraintViolationException;
@@ -16,21 +17,19 @@ import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
-import javax.validation.ConstraintViolationException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 @Stateless
 @Path("/students")
-public class StudentBean extends Bean<Student>{
-
+public class StudentBean extends Bean<Student, StudentDTO, String>{
+    
+   /* @Override
+    protected Student create(Student entity) {
+        entity.setGroup(new UserGroup(UserGroup.GROUP.Student, entity));
+        entity.setPassword(Encryptor.hash(entity.getPassword(), "SHA-256"));
+        return super.create(entity); //To change body of generated methods, choose Tools | Templates.
+    }*/
+/*
     @POST
     @Path("/create")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -281,6 +280,6 @@ public class StudentBean extends Bean<Student>{
             throw new EJBException(e.getMessage());
         }                
     }
-    
+    */
      
 }

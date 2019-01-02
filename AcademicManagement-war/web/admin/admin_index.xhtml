@@ -24,7 +24,7 @@
                     </p:column>
                     
                     <p:column headerText="Cargo">
-                        <h:outputText value="${administrator.cargoName}" />
+                        <h:outputText value="${administrator.cargo}" />
                     </p:column>
                     
                     <p:column headerText="E-mail">
@@ -50,8 +50,8 @@
                                     value="#{administrator.username}" />
                        </h:commandLink>
                    </p:column>
-        
-                </p:dataTable>
+            </p:dataTable>
+                <h:link value="New Admin" outcome="admin_create" class="btn btn-primary"/>
                 <br/>
                 <h5>Clients</h5>
                 <p:dataTable
@@ -65,15 +65,15 @@
                     </p:column>
 
                     <p:column headerText="Morada">
-                        <h:outputText value="${student.name}" />
+                        <h:outputText value="${student.morada}" />
                     </p:column>
 
                     <p:column headerText="Pessoa de Contato">
-                        <h:outputText value="${student.email}" />
+                        <h:outputText value="${student.pessoaContacto}" />
                     </p:column>
 
                     <p:column headerText="Empresa">
-                        <h:outputText value="${student.courseName}" />
+                        <h:outputText value="${student.empresa}" />
                     </p:column>                
 
                     <p:column headerText="Actions">
@@ -94,11 +94,8 @@
                             <f:param name="deleteStudentId" id="deleteStudentId"
                                      value="#{student.username}" />
                         </h:commandLink>
-
                     </p:column>
-
                 </p:dataTable>
-                
                 &nbsp;
             <h:link value="New Client" outcome="admin_students_create" class="btn btn-primary"/>
             &nbsp;
@@ -110,19 +107,42 @@
                     value="#{administratorManager.allTemplates}">
 
                     <p:column headerText="Id">
-                        <h:outputText value="${template.idName}" />
+                        <h:outputText value="${template.templateName}" />
                     </p:column>
-                    
-                    <p:column headerText="Nome">
-                        <h:outputText value="${template.descricao}" />
+                    <p:column headerText="Id">
+                        <h:outputText value="${template.configuracaoConta}" />
                     </p:column>
+                    <p:column headerText="Id">
+                        <h:outputText value="${template.configuracaoPrivacidade}" />
+                    </p:column>
+                    <p:column headerText="Id">
+                        <h:outputText value="${template.configuracaoSeguranca}" />
+                    </p:column>
+                    <p:column headerText="Descrição">
+                        <h:outputText value="${template.descricaoT}" />
+                    </p:column>
+                   
                     
-                    <!--<p:column headerText="Software">
-                        <h:outputText value="${template}" />
-                    </p:column>-->
                     
-                    <!-- Falta das add das actions-->
-                    
+                    <p:column headerText="Actions">
+                       <h:commandLink 
+                           value="Consultar" 
+                           action="admin_template_details?faces-redirect=true">
+                           <f:setPropertyActionListener
+                               target="#{administratorManager.currentTemplate}" value="#{template}" />                            
+                       </h:commandLink>
+                       &nbsp;
+                       <h:commandLink value="Update" action="admin_template_update?faces-redirect=true">
+                           <f:setPropertyActionListener target="#{administratorManager.currentTemplate}" value="#{template}" />
+                       </h:commandLink>
+                       &nbsp;
+                       <h:commandLink 
+                           value="Remove" 
+                           actionListener="#{administratorManager.removeTemplate}">
+                           <f:param name="deleteTemplateId" id="deleteTemplateId"
+                                    value="#{template.templateName}" />
+                       </h:commandLink>
+                   </p:column>
         
                 </p:dataTable>
                 <br/>

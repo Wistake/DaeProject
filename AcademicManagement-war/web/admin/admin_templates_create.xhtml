@@ -22,7 +22,7 @@ and open the template in the editor.
                     size="20"
                     required="true"
                     requiredMessage="Error: idName cannot be empty"
-                    value="#{administratorManager.newTemplate.idName}">
+                    value="#{administratorManager.newTemplate.templateName}">
                 </h:inputText>
                 <h:message for="descricao" errorStyle="color:red" />
                 
@@ -32,22 +32,10 @@ and open the template in the editor.
                     size="20"
                     required="true"
                     requiredMessage="Error: Descrição cannot be empty"
-                    value="#{administratorManager.newTemplate.descricao}">
+                    value="#{administratorManager.newTemplate.descricaoT}">
                 </h:inputText>
                 <h:message for="descricao" errorStyle="color:red" />
-<!--
-                <h:outputLabel for="software" value="Software " />
-                <h:selectOneMenu
-                    id="software"
-                    value="#{administratorManager}" >
-                    <f:selectItems
-                        value="#{administratorManager.allCourses}"
-                        var="course"
-                        itemValue="#{course.code}"
-                        itemLabel="#{course.name}" />
-                </h:selectOneMenu>
-                <br></br> -->
-                               
+                              
 
                 <h:commandButton
                     id="submit"
@@ -55,7 +43,7 @@ and open the template in the editor.
                     binding="#{administratorManager.component}"
                     action="#{administratorManager.createTemplate()}" />
                 <h:message for="submit" errorStyle="color:red" />
-
+                
             </h:panelGrid>
 
         </h:form>

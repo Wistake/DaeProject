@@ -8,13 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "USERS_GROUPS")
+@NoArgsConstructor
 public class UserGroup implements Serializable {
 
     public static enum GROUP {
-        Administrator, Teacher, Student
+        Administrator, Teacher, Student, Client
     }
 
     @Id
@@ -25,9 +27,6 @@ public class UserGroup implements Serializable {
     @OneToOne
     @JoinColumn(name = "USERNAME")
     private User user;
-
-    public UserGroup() {
-    }
 
     public UserGroup(GROUP group_Name, User user) {
         this.group_Name = group_Name;

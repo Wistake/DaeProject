@@ -5,53 +5,32 @@
  */
 package dtos;
 
-import java.io.Serializable;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @XmlRootElement(name = "Administrator")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class AdministratorDTO extends UserDTO implements Serializable{
-    private int cargoCode;
-    private String cargoName;
+//@XmlAccessorType(XmlAccessType.FIELD)
+@NoArgsConstructor
+public class AdministratorDTO extends UserDTO{
     
-    public AdministratorDTO(){
-        
-    }
+    private @Getter @Setter String cargo;
     
     public AdministratorDTO(String username,
             String password,
             String name,
             String email,
-            int cargoCode,
-            String cargoName) {
+            String cargo) {
         super(username, password, name, email);
-        this.cargoCode = cargoCode;
-        this.cargoName = cargoName;
+        this.cargo = cargo;
+        
     }
     
     @Override
-    public void reset() {
-        super.reset();
-        setCargoCode(0);
-        setCargoName(null);
-    }
-
-    public int getCargoCode() {
-        return cargoCode;
-    }
-
-    public void setCargoCode(int cargoCode) {
-        this.cargoCode = cargoCode;
-    }
-
-    public String getCargoName() {
-        return cargoName;
-    }
-
-    public void setCargoName(String cargoName) {
-        this.cargoName = cargoName;
+    public void clear() {
+        super.clear(); 
+        cargo = null;
     }
     
     

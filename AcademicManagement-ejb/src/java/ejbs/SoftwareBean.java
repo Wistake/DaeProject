@@ -5,13 +5,30 @@
  */
 package ejbs;
 
+import dtos.SoftwareDTO;
+import entities.Client;
 import entities.Software;
-import entities.Template;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.ws.rs.Path;
 
 /**
  *
- * @author sergi
+ * @author 
  */
-public class SoftwareBean extends Bean<Software>{
+@Stateless
+@Path("/softwares")
+public class SoftwareBean extends Bean<Software, SoftwareDTO, Integer>{
+
+    @EJB
+    private ClientBean clientBean;
+    @Override
+    public SoftwareDTO create(SoftwareDTO dto) {
+        Client client = clientBean.findOrFail(dto.getClienteUsername());
+        Software soft = toEntity(dto);
+        soft.setClient(client);
+        soft = create(soft);
+        return toDTO(soft);
+    }
     
 }
