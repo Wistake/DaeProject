@@ -62,9 +62,9 @@ public abstract class Bean<E extends Serializable, D extends DTO, PK> {
         return (Class<T>) genericType.getActualTypeArguments()[index];
     }
     
+    //@RolesAllowed({"Administrator"})
     @GET
-    @RolesAllowed({"Administrator"})
-    public List<D> all() {
+        public List<D> all() {
         String className = entityClass.getSimpleName();
         String namedQuery = className + ".all";
        

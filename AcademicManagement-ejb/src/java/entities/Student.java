@@ -18,7 +18,9 @@ import lombok.Setter;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Student.all",
-            query = "SELECT s FROM Student s ORDER BY s.name")})
+            query = "SELECT s FROM Student s ORDER BY s.name"),
+    @NamedQuery(name = "Student.pass", query = "SELECT s.password FROM Student s WHERE s.username = :username"),
+            })
 public class Student extends User {
     @ManyToOne
     @JoinColumn(name = "COURSE_CODE")

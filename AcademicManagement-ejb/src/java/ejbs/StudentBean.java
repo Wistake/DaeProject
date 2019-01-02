@@ -17,6 +17,7 @@ import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -37,6 +38,23 @@ public class StudentBean extends Bean<Student, StudentDTO, String>{
         entity.setGroup(new UserGroup(UserGroup.GROUP.Student, entity));
         entity.setPassword(Encryptor.hash(entity.getPassword(), "SHA-256"));
         return super.create(entity); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    protected Student update(Student entity) {
+        entity.setGroup(new UserGroup(UserGroup.GROUP.Student, entity));
+        Query query = createNamedQuery("Student.pass").setParameter("username", entity.getUsername());
+        String encryptedPassword = (String) query.getSingleResult();
+        
+        if (! entity.getPassword().equals(encryptedPassword)) {
+            encryptPassword(entity);
+        }
+        
+        return super.update(entity);
+    }
+    
+    private void encryptPassword(Student student) {
+        student.setPassword(Encryptor.sha256(student.getPassword()));
     }
 /*
     @POST

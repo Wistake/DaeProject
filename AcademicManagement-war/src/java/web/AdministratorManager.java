@@ -185,21 +185,14 @@ public class AdministratorManager implements Serializable {
         try {
             //addHeaderBASIC();
             
-            Response response = client.target(baseUri)
-                                    .path("students")
-                                    .request(MediaType.APPLICATION_XML)
-                                    .put(asJson(currentStudent));
-            
-            if (response.getStatus() != 200) {
-                // error
-            }
-            
-            currentStudent.clear();
-            return "admin_index?faces-redirect=true";
+            client.target(baseUri)
+                    .path("/students/"+currentStudent.getUsername())
+                    .request(MediaType.APPLICATION_XML).put(Entity.xml(currentStudent));
         } catch (Exception e) {
-            logger.warning(e.getMessage());
+            FacesExceptionHandler.handleException(e, "Problem updating template in method update", logger);
+            return null;
         }
-        return "/admin/admin_students_update";
+        return "admin_index?faces-redirect=true";
     }
 
     public String removeStudent(ActionEvent event) {
