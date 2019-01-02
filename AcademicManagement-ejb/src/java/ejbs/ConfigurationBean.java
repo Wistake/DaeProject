@@ -63,7 +63,7 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
         return toDTOs(query.getResultList());
     }
 
-    @Override
+   /* @Override
     protected Configuration create(Configuration entity) {
         Configuration conf = super.create(entity);
         try {
@@ -97,7 +97,7 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
         }
         return aux; //To change body of generated methods, choose Tools | Templates.
     }
-    
+    */
     
     
     

@@ -10,10 +10,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
-@Table(name="CONFIGURATIONSTATE")
+/*@Table(name="CONFIGURATIONSTATE")
 @NamedQueries({
     @NamedQuery(name = "ConfigurationState.all",
-            query = "SELECT cs FROM Student cs ORDER BY cs.name")})
+            query = "SELECT cs FROM Student cs ORDER BY cs.name")})*/
 
 public enum ConfigurationState {
     ACTIVE, INACTIVE, SUSPENCE;
