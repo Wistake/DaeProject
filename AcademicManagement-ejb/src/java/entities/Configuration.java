@@ -88,21 +88,11 @@ public class Configuration implements Serializable {
     public Configuration() {
         this.modulos = new LinkedList<>();
     }
-
-    public Configuration(String descricao, String nome,ConfigurationState estado, Software software) {
-      //  this();
-        this.descricao = descricao;
-        this.name = nome;
-        this.software = software;
-        this.estado = estado;
-        this.software.addConfiguracao(this);      
+    
+    
+    public void addModulos(Modulo m){
+        this.modulos.add(m);
     }
-    
-    
-    
-   /* public void addModulos(Modulo m){
-        modulos.add(m);
-    }*/
 
     public Configuration(Software software, String name, String descricao, ConfigurationState estado, Integer storageCapacity) {
         this.software = software;
