@@ -211,8 +211,8 @@ public class AdministratorManager implements Serializable {
             UIParameter param = (UIParameter) event.getComponent().findComponent("deleteStudentId");
             String username = param.getValue().toString();
             
-            client.target(baseUri).path("students/" + username).request().delete();
-            return "/index?faces-redirect=true";
+            client.target(baseUri).path("clients/" + username).request().delete();
+            return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             logger.warning(e.getMessage());
             return "/index";

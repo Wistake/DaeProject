@@ -35,14 +35,14 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
      
     @Override
     public ConfigurationDTO create(ConfigurationDTO dto) {
-        Configuration conf = toEntity(dto);
         Software soft = softwareBean.findOrFail(dto.getIdSoftware());
+        Configuration conf = toEntity(dto);
         conf.setSoftware(soft);
         conf = create(conf);
         return toDTO(conf);
     }
 
-    /*@Override
+    @Override
     protected Configuration create(Configuration entity) {
         Configuration conf = super.create(entity);
         try {
@@ -69,22 +69,23 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
         Configuration conf = this.findOrFail(primaryKey);
         boolean aux = super.delete(primaryKey);
         try {
+            System.out.println("-----------------------------> "+ conf.getSoftware().getClient().getEmail());
             sendEmailToClient(conf.getSoftware().getClient().getEmail(), "Delete a configuration");
         } catch (MessagingException ex) {
             Logger.getLogger(ConfigurationBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return aux; //To change body of generated methods, choose Tools | Templates.
-    }*/
+    }
     
     
     
     
     
-    private void sendEmailToClient(String username, String subject) throws MessagingException {
-        Client client = clientBean.findOrFail(username);
+    private void sendEmailToClient(String email, String subject) throws MessagingException {
+        //Client client = clientBean.findOrFail(username);
         try {
 
-            emailBean.send(client.getEmail(), subject, "Hello " + client.getName()+", we "+subject+" your software.\n\n Thank you, from \n DAE_PROJECT " );
+            emailBean.send(email, subject, "Hello dear client ,\n we "+subject+" in your software.\n\n Thank you, from \n DAE_PROJECT " );
         
         } catch (MessagingException  e) {
             throw e;
