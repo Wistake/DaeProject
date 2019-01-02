@@ -42,7 +42,7 @@ import lombok.Setter;
 public class Software implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private @Getter @Setter int id;
+    private @Getter @Setter int idSoftware;
     
     @NotNull(message = "Versão do software não pode estar vazio!")
     private @Getter @Setter String baseVersion;

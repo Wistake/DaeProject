@@ -26,10 +26,8 @@ public class ConfigBean {
     private ClientBean clientBean;
     @EJB
     private StudentBean studentBean;
-    
     @EJB
     private AdministratorBean administratorBean;
-   
     @EJB
     private TemplateBean templateBean;
     @EJB
@@ -50,10 +48,10 @@ public class ConfigBean {
             ClientDTO c2 = clientBean.create(new ClientDTO("GOOGLE", "morada2", "pessoa2", "c2", "c2", "cliente2", "c2@mail.teste"));
             ClientDTO c3 = clientBean.create(new ClientDTO("APPLE", "morada3", "pessoa3", "c3", "c3", "cliente3", "c3@mail.teste"));
 
-            SoftwareDTO s1 = softwareBean.create(new SoftwareDTO("v.1.0", "solftware1", c1.getUsername()));
-            SoftwareDTO s2 = softwareBean.create(new SoftwareDTO("v.2.0", "solftware2", c1.getUsername()));
-            SoftwareDTO s3 = softwareBean.create(new SoftwareDTO("v.1.1", "solftware3", c2.getUsername()));
-            SoftwareDTO s4 = softwareBean.create(new SoftwareDTO("v.1.5", "solftware4", c2.getUsername()));
+            SoftwareDTO s1 = softwareBean.create(new SoftwareDTO("v.1.0", "software1", c1.getUsername()));
+            SoftwareDTO s2 = softwareBean.create(new SoftwareDTO("v.2.0", "software2", c1.getUsername()));
+            SoftwareDTO s3 = softwareBean.create(new SoftwareDTO("v.1.1", "software3", c2.getUsername()));
+            SoftwareDTO s4 = softwareBean.create(new SoftwareDTO("v.1.5", "software4", c2.getUsername()));
 
             ConfigurationDTO conf1 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "descricao1", "configuracao1", ConfigurationState.ACTIVE, "Don't share my information", "Allow all my employees", "Basic"));
             ConfigurationDTO conf2 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "descricao2", "configuracao2", ConfigurationState.INACTIVE, "You can sell my information xD", "Only I", "Premium"));
