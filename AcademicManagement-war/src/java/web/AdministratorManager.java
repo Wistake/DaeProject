@@ -70,6 +70,7 @@ public class AdministratorManager implements Serializable {
         newSoftware = new SoftwareDTO();
         currentSoftware = new SoftwareDTO();
         client = ClientBuilder.newClient();
+        newTemplate = new TemplateDTO();
         currentTemplate = new TemplateDTO();
     }
     
@@ -255,8 +256,8 @@ public class AdministratorManager implements Serializable {
             client.target(baseUri)
                     .path("/templates")
                     .request(MediaType.APPLICATION_XML)
-                    .post(Entity.xml(currentTemplate));
-            //clearNewTemplate();
+                    .post(Entity.xml(newTemplate));
+            newTemplate.clear();
            return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", component, logger);
