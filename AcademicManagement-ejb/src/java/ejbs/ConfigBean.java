@@ -51,10 +51,10 @@ public class ConfigBean {
               ClientDTO c3 = clientBean.create(new ClientDTO("APPLE", "morada3", "pessoa3", "c3", "c3", "cliente3", "c3@mail.teste"));
             
 
-            SoftwareDTO s1 = softwareBean.create(new SoftwareDTO("v.1.0", "solftware1", c1.getUsername()));
-            SoftwareDTO s2 = softwareBean.create(new SoftwareDTO("v.2.0", "solftware2", c1.getUsername()));
-            SoftwareDTO s3 = softwareBean.create(new SoftwareDTO("v.1.1", "solftware3", c2.getUsername()));
-            SoftwareDTO s4 = softwareBean.create(new SoftwareDTO("v.1.5", "solftware4", c2.getUsername()));
+            SoftwareDTO s1 = softwareBean.create(new SoftwareDTO("v.1.0", "software1", c1.getUsername()));
+            SoftwareDTO s2 = softwareBean.create(new SoftwareDTO("v.2.0", "software2", c1.getUsername()));
+            SoftwareDTO s3 = softwareBean.create(new SoftwareDTO("v.1.1", "software3", c2.getUsername()));
+            SoftwareDTO s4 = softwareBean.create(new SoftwareDTO("v.1.5", "software4", c2.getUsername()));
 
             ConfigurationDTO conf1 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "configuracao1", "descricao1", ConfigurationState.ACTIVE, 22));
             ConfigurationDTO conf2 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "configuracao2", "descricao2", ConfigurationState.INACTIVE, 55));

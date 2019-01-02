@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Software Update</title>
+    </h:head>
+    <h:body>
+
+        <h:form>
+
+            <h:panelGrid columns="3">
+
+                <h:outputLabel for="id" value="Id Software: " />
+                <h:outputText
+                    id="id"
+                    value="#{administratorManager.currentSoftware.idSoftware}" />
+                <br></br>
+
+                <h:outputLabel for="name" value="Nome: " />
+                <h:inputText
+                    id="name"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Name cannot be empty"
+                    value="#{administratorManager.currentSoftware.name}" />
+                <h:message for="name" errorStyle="color:red" />
+
+                <h:outputLabel for="baseVersion" value="Base Version: " />
+                <h:inputText
+                    id="baseVersion"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Base Version cannot be empty"
+                    value="#{administratorManager.currentSoftware.baseVersion}" >
+                </h:inputText>                    
+                <h:message for="baseVersion" errorStyle="color:red" />
+
+                <h:outputLabel for="clientId" value="Client Id: " />
+                <h:selectOneMenu
+                    id="clientId"
+                    value="#{administratorManager.currentSoftware.clienteUsername}" >
+                    <f:selectItems
+                        value="#{administratorManager.allStudents}"
+                        var="clientId"
+                        itemValue="#{clientId.username}"
+                        itemLabel="#{clientId.username}" />
+                </h:selectOneMenu>
+                <br></br> 
+                
+                <h:commandButton
+                    id="submit"
+                    value="Update"
+                    action="#{administratorManager.updateSoftware()}" />
+                <h:message for="submit" errorStyle="color:red" />
+
+            </h:panelGrid>
+
+        </h:form>            
+
+    </h:body>
+</html>
+

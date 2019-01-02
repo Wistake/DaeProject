@@ -4,7 +4,6 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:composition template="../templates/skeleton.xhtml">
         <ui:define name="main">
@@ -49,8 +48,8 @@
                            <f:param name="deleteAdminId" id="deleteAdminId"
                                     value="#{administrator.username}" />
                        </h:commandLink>
-                   </p:column>
-            </p:dataTable>
+                    </p:column>
+                </p:dataTable>
                 <h:link value="New Admin" outcome="admin_create" class="btn btn-primary"/>
                 <br/>
                 <h5>Clients</h5>
@@ -148,6 +147,52 @@
                 </p:dataTable>
                 <br/>
                 <h:link value="New Template" outcome="admin_templates_create" class="btn btn-primary"/>
+            &nbsp;
+            
+            <br/>
+            <h5>Softwares</h5>
+                <p:dataTable
+                    var="software"
+                    summary="List of all Softwares"
+                    value="#{administratorManager.allSoftwares}">
+
+                    <p:column headerText="Id">
+                        <h:outputText value="${software.idSoftware}" />
+                    </p:column>
+                    <p:column headerText="Nome">
+                        <h:outputText value="${software.name}" />
+                    </p:column>
+                    <p:column headerText="Base Version">
+                        <h:outputText value="${software.baseVersion}" />
+                    </p:column>
+                    <p:column headerText="Cliente Name">
+                        <h:outputText value="${software.clienteUsername}" />
+                    </p:column>
+                    
+                    <p:column headerText="Actions">
+                       <h:commandLink 
+                           value="Consultar" 
+                           action="admin_software_details?faces-redirect=true">
+                           <f:setPropertyActionListener
+                               target="#{administratorManager.currentSoftware}" value="#{software}" />                            
+                       </h:commandLink>
+                       &nbsp;
+                       <h:commandLink value="Update" action="admin_software_update?faces-redirect=true">
+                           <f:setPropertyActionListener target="#{administratorManager.currentSoftware}" value="#{software}" />
+                       </h:commandLink>
+                       &nbsp;
+                       <h:commandLink 
+                           value="Remove" 
+                           actionListener="#{administratorManager.removeSoftware}">
+                           <f:param name="deleteSoftwareId" id="deleteSoftwareId"
+                                    value="#{software.idSoftware}" />
+                       </h:commandLink>
+                       
+                   </p:column>
+        
+                </p:dataTable>
+                <br/>
+                <h:link value="New Software" outcome="admin_softwares_create" class="btn btn-primary"/>
             &nbsp;
             </h:form>
             

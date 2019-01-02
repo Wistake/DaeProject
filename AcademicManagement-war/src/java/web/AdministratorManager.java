@@ -3,6 +3,7 @@ package web;
 import dtos.AdministratorDTO;
 import dtos.ClientDTO;
 import dtos.DocumentDTO;
+import dtos.SoftwareDTO;
 import dtos.StudentDTO;
 import dtos.TemplateDTO;
 import ejbs.TemplateBean;
@@ -56,18 +57,28 @@ public class AdministratorManager implements Serializable {
     
     private @Getter @Setter TemplateDTO newTemplate;
     private @Getter @Setter TemplateDTO currentTemplate;
+    
+    private @Getter @Setter SoftwareDTO newSoftware;
+    private @Getter @Setter SoftwareDTO currentSoftware;
 
     public AdministratorManager() {
         currentAdmin = new AdministratorDTO();
         newAdmin = new AdministratorDTO();
         newStudent = new ClientDTO();
         currentStudent = new ClientDTO();
+        
+        newSoftware = new SoftwareDTO();
+        currentSoftware = new SoftwareDTO();
         client = ClientBuilder.newClient();
         currentTemplate = new TemplateDTO();
     }
     
     private <T> Entity<T> asJson(T instance) {
         return Entity.entity(instance, MediaType.APPLICATION_JSON);
+    }
+    
+    public Client getClient() {
+        return client;
     }
     
     @PostConstruct
@@ -280,10 +291,59 @@ public class AdministratorManager implements Serializable {
         return "admin_index?faces-redirect=true";
     }
     
-     public Client getClient() {
-        return client;
+    public List<SoftwareDTO> getAllSoftwares() {     
+        try {
+            
+           return client.target(baseUri)
+                    .path("/softwares")
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<List<SoftwareDTO>>() {});
+        } catch (Exception e) {
+            logger.warning("Problem getting all templates in method getAllSoftwares."+e.getMessage());
+            return null;
+        }
     }
     
+    public String createSoftware() {
+        try {
+            client.target(baseUri)
+                    .path("/softwares")
+                    .request(MediaType.APPLICATION_XML)
+                    .post(Entity.xml(newSoftware));
+            //clearNewTemplate();
+            return "admin_index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", component, logger);
+        }
+        return null;
+    }
+    
+    public void removeSoftware(ActionEvent event) {
+        try {
+            UIParameter param = (UIParameter) event.getComponent().findComponent("deleteSoftwareId");
+            String id = param.getValue().toString();
+
+            client.target(baseUri)
+                    .path("/softwares")
+                    .path(id)
+                    .request(MediaType.APPLICATION_XML)
+                    .delete();
+        } catch (Exception e) {
+            logger.warning("Problem removing a template in method removeSoftware.");
+        }
+    }
+    
+    public String updateSoftware(){
+        try {
+            client.target(baseUri)
+                    .path("/softwares/"+currentSoftware.getIdSoftware())
+                    .request(MediaType.APPLICATION_XML).put(Entity.xml(currentSoftware));
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Problem updating software in method updateSoftware", logger);
+            return null;
+        }
+        return "admin_index?faces-redirect=true";
+    }
 
   /*  public List<CourseDTO> getAllCourses() {
         try {
@@ -316,7 +376,7 @@ public class AdministratorManager implements Serializable {
         }
     }*/
     
-   
+    
     
    /* public Collection<SubjectDTO> getCurrentStudentSubjects() {
         Collection<SubjectDTO> subjects = null;

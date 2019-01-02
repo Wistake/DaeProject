@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Software Update</title>
+    </h:head>
+    <h:body>
+
+        <h:panelGrid columns="2">
+
+            <h:outputLabel for="id" value="Id Software: " />
+            <h:outputText
+                id="id"
+                value="#{administratorManager.currentSoftware.idSoftware}" />
+
+            <h:outputLabel for="nome" value="Nome: " />
+            <h:outputText
+                id="nome"
+                value="#{administratorManager.currentSoftware.name}" />
+
+            <h:outputLabel for="baseVersion" value="Base Version: " />
+            <h:outputText
+                id="baseVersion"
+                value="#{administratorManager.currentSoftware.baseVersion}" />
+            
+            <h:outputLabel for="clientId" value="Client Id: " />
+            <h:outputText
+                id="clientId"
+                value="#{administratorManager.currentSoftware.clienteUsername}" />
+
+        </h:panelGrid>
+
+        <br/>
+        <h:link 
+            value="Return to main page" 
+            outcome="admin_index"/>        
+    </h:body>
+</html>
+
