@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -60,12 +61,12 @@ public class Software implements Serializable {
     @OneToMany(mappedBy = "software", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private @Getter @Setter List<Configuration> configuracoes;
     
-    /*@OneToMany(mappedBy = "software", cascade = CascadeType.REMOVE)
-    private @Getter @Setter List<Contract> contratos;*/
+    @ManyToMany
+    protected @Getter @Setter List<License> licenses;
 
     public Software() {
         this.configuracoes = new LinkedList<>();
-       // this.contratos = new LinkedList<>();
+        this.licenses = new LinkedList<>();
     }
 
     public Software(String baseVersion, String name, Client cliente) {
@@ -78,6 +79,10 @@ public class Software implements Serializable {
     
     public void addConfiguracao(Configuration c ){
         configuracoes.add(c);
+    }
+    
+    public void addLicense(License c ){
+        licenses.add(c);
     }
     
     /*public void addContrato(Contrato c){

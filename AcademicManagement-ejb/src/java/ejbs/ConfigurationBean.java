@@ -9,7 +9,7 @@ import dtos.ConfigurationDTO;
 import dtos.TemplateDTO;
 import entities.Client;
 import entities.Configuration;
-import entities.ConfigurationState;
+import helpers.ConfigurationState;
 import entities.Software;
 import entities.Template;
 import exceptions.EntityDoesNotExistException;

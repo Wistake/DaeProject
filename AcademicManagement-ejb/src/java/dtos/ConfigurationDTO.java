@@ -5,7 +5,7 @@
  */
 package dtos;
 
-import entities.ConfigurationState;
+import helpers.ConfigurationState;
 import javax.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

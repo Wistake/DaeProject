@@ -3,14 +3,16 @@ package ejbs;
 import dtos.AdministratorDTO;
 import dtos.ClientDTO;
 import dtos.ConfigurationDTO;
+import dtos.LicenseDTO;
 import dtos.ModuloDTO;
 import dtos.SoftwareDTO;
 import dtos.StudentDTO;
 import dtos.TemplateDTO;
-import entities.ConfigurationState;
+import helpers.ConfigurationState;
 import exceptions.EntityDoesNotExistException;
 import exceptions.EntityExistsException;
 import exceptions.MyConstraintViolationException;
+import helpers.LicenseState;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -36,19 +38,21 @@ public class ConfigBean {
     private ConfigurationBean configuracaoBean;
     @EJB
     private ModuloBean moduloBean;
+    @EJB
+    private LicenseBean licenseBean;
 
     @PostConstruct
     public void populateDB() {
 
-      /*  try {  */        
+        try {       
             administratorBean.create(new AdministratorDTO("a1", "a1", "a1", "a1@ipleiria.pt", "Chefe"));
             administratorBean.create(new AdministratorDTO("a2", "a2", "a2", "a2@ipleiria.pt", "Sub-Chefe"));
             administratorBean.create(new AdministratorDTO("a3", "a3", "a3", "a3@ipleiria.pt", "Diretor"));
             
             //ClientDTO c1 = clientBean.create(new ClientDTO("XPTO", "morada1", "pessoa1", "c1", "c1", "cliente1", "sergiotrindade100@gmail.com"));
-              ClientDTO c1 = clientBean.create(new ClientDTO("XPTO", "morada1", "pessoa1", "c1", "c1", "cliente1", "c1@mail.teste"));
-              ClientDTO c2 = clientBean.create(new ClientDTO("GOOGLE", "morada2", "pessoa2", "c2", "c2", "cliente2", "c2@mail.teste"));
-              ClientDTO c3 = clientBean.create(new ClientDTO("APPLE", "morada3", "pessoa3", "c3", "c3", "cliente3", "c3@mail.teste"));
+            ClientDTO c1 = clientBean.create(new ClientDTO("XPTO", "morada1", "pessoa1", "c1", "c1", "cliente1", "c1@mail.teste"));
+            ClientDTO c2 = clientBean.create(new ClientDTO("GOOGLE", "morada2", "pessoa2", "c2", "c2", "cliente2", "c2@mail.teste"));
+            ClientDTO c3 = clientBean.create(new ClientDTO("APPLE", "morada3", "pessoa3", "c3", "c3", "cliente3", "c3@mail.teste"));
             
 
             SoftwareDTO s1 = softwareBean.create(new SoftwareDTO("v.1.0", "software1", c1.getUsername()));
@@ -71,12 +75,15 @@ public class ConfigBean {
             ModuloDTO mod1 = moduloBean.create(new ModuloDTO("Modulo1", conf1.getCode()));
             ModuloDTO mod2 = moduloBean.create(new ModuloDTO("Modulo2", conf1.getCode()));
             ModuloDTO mod3 = moduloBean.create(new ModuloDTO("Modulo3", conf2.getCode()));
-
-       /*    
+            
+            LicenseDTO license1 = licenseBean.create(new LicenseDTO("License1", "2-2-2020", "10-10-2030", LicenseState.ACTIVE));
+            
+            softwareBean.enrollLicenseInSoftware(s1.getIdSoftware(), license1.getId());
+           
        } catch (Exception e) {
             logger.warning(e.getMessage());
         }
-        */
+        
     }
 
 }

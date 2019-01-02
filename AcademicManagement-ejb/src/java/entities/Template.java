@@ -5,6 +5,7 @@
  */
 package entities;
 
+import helpers.ConfigurationState;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;

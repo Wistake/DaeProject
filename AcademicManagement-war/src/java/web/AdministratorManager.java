@@ -7,7 +7,7 @@ import dtos.SoftwareDTO;
 import dtos.StudentDTO;
 import dtos.TemplateDTO;
 import ejbs.TemplateBean;
-import entities.ConfigurationState;
+import helpers.ConfigurationState;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
