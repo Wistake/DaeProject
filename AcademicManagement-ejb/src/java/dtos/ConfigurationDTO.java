@@ -20,25 +20,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConfigurationDTO implements DTO{
+    private @Getter @Setter Integer code;
     private @Getter @Setter Integer idSoftware;
-    private @Getter @Setter Integer idConfig;
-    private @Getter @Setter String descricao;
     private @Getter @Setter String name;
+    private @Getter @Setter String descricao;
     private @Getter @Setter ConfigurationState estado;
-    private @Getter @Setter String configuracaoPrivacidade;
-    private @Getter @Setter String configuracaoSeguranca;
-    private @Getter @Setter String configuracaoConta;
+    private @Getter @Setter Integer storageCapacity;
 
-    public ConfigurationDTO(Integer idSoftware, String descricao, String name, ConfigurationState estado, String configuracaoPrivacidade, String configuracaoSeguranca, String configuracaoConta) {
-        this(idSoftware, null, descricao, name, estado, configuracaoPrivacidade, configuracaoSeguranca, configuracaoConta);
+    public ConfigurationDTO(Integer idSoftware, String name, String descricao, ConfigurationState estado, Integer storageCapacity) {
+        this(null, idSoftware, name, descricao, estado, storageCapacity);
     }
 
     @Override
     public void clear() {
-        descricao= null;
-        name= null;
-        estado= null;
+        code = null;
         idSoftware = null;
-        idConfig = null;
+        name= null;
+        descricao= null;
+        estado= null;
+        storageCapacity = null;
     }
 }

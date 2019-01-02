@@ -31,8 +31,8 @@ public class Template implements Serializable {
     private @Getter @Setter String templateName;
     @NotNull(message = "A descrição do template não pode estar vazio!")
     private @Getter @Setter String descricaoT;
-    private @Getter @Setter String configuracaoPrivacidade;
-    private @Getter @Setter String configuracaoSeguranca;
-    private @Getter @Setter String configuracaoConta;
-    
+    private @Getter @Setter String nameConfig;
+    private @Getter @Setter String descricaoConfig;
+    private @Getter @Setter ConfigurationState state;
+    private @Getter @Setter Integer storageCapacity;
 }

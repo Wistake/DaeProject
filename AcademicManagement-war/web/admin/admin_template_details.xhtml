@@ -11,16 +11,36 @@
 
         <h:panelGrid columns="2">
 
-            <h:outputLabel for="idName" value="Template Name: " />
+            <h:outputLabel for="templateName" value="Template Name: " />
             <h:outputText
-                id="idName"
+                id="templateName"
                 value="#{administratorManager.currentTemplate.templateName}" />
 
-            <h:outputLabel for="descricao" value="Descrição: " />
+            <h:outputLabel for="descricaoT" value="Descrição: " />
             <h:outputText
-                id="descricao"
+                id="descricaoT"
                 value="#{administratorManager.currentTemplate.descricaoT}" />
-
+            
+            <h:outputLabel for="nameConfig" value="Nome da Configuração: " />
+            <h:outputText
+                id="nameConfig"
+                value="#{administratorManager.currentTemplate.nameConfig}" />
+            
+            <h:outputLabel for="descricaoConfig" value="Descrição da Configuração: " />
+            <h:outputText
+                id="descricaoConfig"
+                value="#{administratorManager.currentTemplate.descricaoConfig}" />
+            
+            <h:outputLabel for="storageCapacity" value="Capacidade de Armazenamento: " />
+            <h:outputText
+                id="storageCapacity"
+                value="#{administratorManager.currentTemplate.storageCapacity}" />
+            
+            <h:outputLabel for="state" value="Estado: " />
+            <h:outputText
+                id="state"
+                value="#{administratorManager.currentTemplate.state}" />           
+        
         </h:panelGrid>
 
         <br/>
