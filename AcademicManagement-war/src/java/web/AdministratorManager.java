@@ -6,6 +6,7 @@ import dtos.DocumentDTO;
 import dtos.StudentDTO;
 import dtos.TemplateDTO;
 import ejbs.TemplateBean;
+import entities.ConfigurationState;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -32,6 +33,7 @@ import javax.ejb.EJBException;
 //import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
+import javax.ws.rs.core.Configuration;
 
 import javax.ws.rs.core.Response;
 
@@ -61,7 +63,7 @@ public class AdministratorManager implements Serializable {
         newStudent = new ClientDTO();
         currentStudent = new ClientDTO();
         client = ClientBuilder.newClient();
-        //newTemplate = new TemplateDTO();
+        currentTemplate = new TemplateDTO();
     }
     
     private <T> Entity<T> asJson(T instance) {
@@ -233,18 +235,22 @@ public class AdministratorManager implements Serializable {
         
     }
     
+    public ConfigurationState[] getAllStates(){
+        return ConfigurationState.values();
+    }
+    
     public String createTemplate() {
         try {
             client.target(baseUri)
                     .path("/templates")
                     .request(MediaType.APPLICATION_XML)
-                    .post(Entity.xml(newTemplate));
+                    .post(Entity.xml(currentTemplate));
             //clearNewTemplate();
-            return "faces/admin/admin_index?faces-redirect=true";
+           return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", component, logger);
+            return "admin_index?faces-redirect=true";
         }
-        return null;
     }
     
     public void removeTemplate(ActionEvent event) {
@@ -273,6 +279,11 @@ public class AdministratorManager implements Serializable {
         }
         return "admin_index?faces-redirect=true";
     }
+    
+     public Client getClient() {
+        return client;
+    }
+    
 
   /*  public List<CourseDTO> getAllCourses() {
         try {
@@ -305,10 +316,7 @@ public class AdministratorManager implements Serializable {
         }
     }*/
     
-    public Client getClient() {
-        return client;
-    }
-    
+   
     
    /* public Collection<SubjectDTO> getCurrentStudentSubjects() {
         Collection<SubjectDTO> subjects = null;

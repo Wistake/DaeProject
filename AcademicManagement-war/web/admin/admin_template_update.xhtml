@@ -9,16 +9,16 @@
     <h:body>
         <h:form>
             <h:panelGrid columns="3">
-                <h:outputLabel for="templateName" value="Template Name:" />
+                <h:outputLabel for="templateName" value="Template Name: " />
                 <h:inputText
                     id="templateName"
                     size="20"
                     required="true"
                     readonly="true"
-                    requiredMessage="Error: Template name cannot be empty"
+                    requiredMessage="Error: Template Name cannot be empty"
                     value="#{administratorManager.currentTemplate.templateName}">
                 </h:inputText>
-                <h:message for="descricao" errorStyle="color:red" />
+                <h:message for="templateName" errorStyle="color:red" />
                 
                 <h:outputLabel for="descricaoT" value="Descrição: " />
                 <h:inputText
@@ -28,7 +28,49 @@
                     requiredMessage="Error: Descrição cannot be empty"
                     value="#{administratorManager.currentTemplate.descricaoT}">
                 </h:inputText>
-                <h:message for="descricao" errorStyle="color:red" />
+                <h:message for="descricaoT" errorStyle="color:red" />
+
+                <h:outputLabel for="nameConfig" value="Nome Configuracao: " />
+                <h:inputText
+                    id="nameConfig"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Nome Configuracao cannot be empty"
+                    value="#{administratorManager.currentTemplate.nameConfig}">
+                </h:inputText>
+                <h:message for="nameConfig" errorStyle="color:red" />
+                
+                <h:outputLabel for="descricaoConfig" value="Descrição Configuracao: " />
+                <h:inputText
+                    id="descricaoConfig"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Descricao Configuracao cannot be empty"
+                    value="#{administratorManager.currentTemplate.descricaoConfig}">
+                </h:inputText>
+                <h:message for="descricaoConfig" errorStyle="color:red" />
+                
+                <h:outputLabel for="storageCapacity" value="Capacidade de armazenamento disponivel: " />
+                <h:inputText
+                    id="storageCapacity"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Capacidade de armazenamento cannot be empty"
+                    value="#{administratorManager.currentTemplate.storageCapacity}">
+                </h:inputText>
+                <h:message for="storageCapacity" errorStyle="color:red" />
+
+                <h:outputLabel for="state" value="Estado: " />
+                <h:selectOneMenu
+                    id="state"
+                    value="#{administratorManager.currentTemplate.state}" >
+                    <f:selectItems
+                        value="#{administratorManager.allStates}"
+                        var="state"
+                        itemValue="#{state}"
+                        itemLabel="#{state}" />
+                </h:selectOneMenu>
+                <br></br> 
 
                 <h:commandButton
                     id="submit"

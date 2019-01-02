@@ -56,28 +56,23 @@ public class Configuration implements Serializable {
     @JoinColumn(name = "SOFTWARE_ID")
     private @Getter @Setter Software software;
     
-    @NotNull(message = "Descrição não pode estar vazia!")
-    private @Getter @Setter String descricao;
-    
-    @NotNull(message = "A configuracao da privacidade não pode estar vazia!")
-    private @Getter @Setter String configuracaoPrivacidade;
-    
-    @NotNull(message = "A configuracao da segurança não pode estar vazia!")
-    private @Getter @Setter String configuracaoSeguranca;
-    
-    @NotNull(message = "A configuracao da conta não pode estar vazia!")
-    private @Getter @Setter String configuracaoConta;
-    
     @NotNull(message = "Nome da configuracao não pode estar vazio!")
     private @Getter @Setter String name;
     
     @OneToMany(mappedBy = "configuration", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private @Getter @Setter List<Modulo> modulos;
+    @NotNull(message = "Descrição não pode estar vazia!")
+    private @Getter @Setter String descricao;
+    
+    /*@ManyToMany(mappedBy = "configuracao", cascade = CascadeType.REMOVE)
+    private @Getter @Setter List<Modulo> modulos;*/
     
     @NotNull(message = "O estado da configuração não pode estar vazio!")
     @Enumerated(EnumType.STRING)
     private @Getter @Setter ConfigurationState estado;
     
+    @NotNull(message = "Storage Capacity não pode estar vazia!")
+    private @Getter @Setter Integer storageCapacity;
     
     /*
     @OneToMany(mappedBy = "servicos", cascade = CascadeType.REMOVE) // ManyToMany //?????????'
@@ -95,16 +90,27 @@ public class Configuration implements Serializable {
     }
 
     public Configuration(String descricao, String nome,ConfigurationState estado, Software software) {
-        this();
+      //  this();
         this.descricao = descricao;
         this.name = nome;
         this.software = software;
         this.estado = estado;
         this.software.addConfiguracao(this);      
     }
-
-    public void addModulos(Modulo m){
+    
+    
+    
+   /* public void addModulos(Modulo m){
         modulos.add(m);
+    }*/
+
+    public Configuration(Software software, String name, String descricao, ConfigurationState estado, Integer storageCapacity) {
+        this.software = software;
+        this.name = name;
+        this.descricao = descricao;
+        this.estado = estado;
+        this.storageCapacity = storageCapacity;
+        this.software.addConfiguracao(this);
     }
     
     

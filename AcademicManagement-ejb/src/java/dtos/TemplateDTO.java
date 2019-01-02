@@ -5,6 +5,7 @@
  */
 package dtos;
 
+import entities.ConfigurationState;
 import javax.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,16 +20,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TemplateDTO implements DTO {
+    //Template
     private @Getter @Setter String templateName;
     private @Getter @Setter String descricaoT;
-    private @Getter @Setter String configuracaoPrivacidade;
-    private @Getter @Setter String configuracaoSeguranca;
-    private @Getter @Setter String configuracaoConta;
+    //Configuracao
+    private @Getter @Setter String nameConfig;
+    private @Getter @Setter String descricaoConfig;
+    private @Getter @Setter Integer storageCapacity;
+    private @Getter @Setter ConfigurationState state;
 
     @Override
     public void clear() {
+        //template
         templateName=null;
         descricaoT=null;
+        //configuracao
+        nameConfig = null;
+        descricaoConfig=null;
+        storageCapacity=null;
+        state=null;
     }
-    
 }

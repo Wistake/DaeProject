@@ -6,16 +6,27 @@
 package ejbs;
 
 import dtos.ConfigurationDTO;
+import dtos.TemplateDTO;
 import entities.Client;
 import entities.Configuration;
+import entities.ConfigurationState;
 import entities.Software;
+import entities.Template;
 import exceptions.EntityDoesNotExistException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
+import javax.persistence.Query;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -32,6 +43,7 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
     
     @EJB
     SoftwareBean softwareBean;
+    
      
     @Override
     public ConfigurationDTO create(ConfigurationDTO dto) {
@@ -40,6 +52,15 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
         conf.setSoftware(soft);
         conf = create(conf);
         return toDTO(conf);
+    }
+    
+    @GET
+    @Path("/state/{state}/{username}/")    
+    public List<ConfigurationDTO> getClientConfigWithId(@PathParam("username") String username, @PathParam("state") String state) {
+        Query query = createNamedQuery("getConfigsWithStateForClient");
+        query.setParameter("username", username);
+        query.setParameter("state", ConfigurationState.valueOf(state));
+        return toDTOs(query.getResultList());
     }
 
     /*@Override
