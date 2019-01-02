@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,7 +57,7 @@ public class Software implements Serializable {
     private @Getter @Setter Client client;
     
     //@NotNull
-    @OneToMany(mappedBy = "software", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "software", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private @Getter @Setter List<Configuration> configuracoes;
     
     /*@OneToMany(mappedBy = "software", cascade = CascadeType.REMOVE)
