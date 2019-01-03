@@ -26,9 +26,11 @@ public class ConfigurationDTO implements DTO{
     private @Getter @Setter String descricao;
     private @Getter @Setter ConfigurationState estado;
     private @Getter @Setter Integer storageCapacity;
+    private @Getter @Setter String clientId;
+    
 
-    public ConfigurationDTO(Integer idSoftware, String name, String descricao, ConfigurationState estado, Integer storageCapacity) {
-        this(null, idSoftware, name, descricao, estado, storageCapacity);
+    public ConfigurationDTO(Integer idSoftware, String name, String descricao, ConfigurationState estado, Integer storageCapacity, String clientId) {
+        this(null, idSoftware, name, descricao, estado, storageCapacity, clientId);
     }
 
     @Override
@@ -39,5 +41,6 @@ public class ConfigurationDTO implements DTO{
         descricao= null;
         estado= null;
         storageCapacity = null;
+        clientId = null;
     }
 }

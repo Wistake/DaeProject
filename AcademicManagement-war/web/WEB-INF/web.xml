@@ -46,6 +46,8 @@
             <url-pattern>/api/students/*</url-pattern>
             <url-pattern>/api/administrators/*</url-pattern>
             <url-pattern>/api/templates/*</url-pattern>
+            <url-pattern>/api/softwares/*</url-pattern>
+            <url-pattern>/api/configurations/*</url-pattern>
             <url-pattern>/students/*</url-pattern>
             <url-pattern>/administrators/*</url-pattern>
             <url-pattern>/templates/*</url-pattern>

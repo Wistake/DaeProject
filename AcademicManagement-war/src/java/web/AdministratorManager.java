@@ -2,6 +2,7 @@ package web;
 
 import dtos.AdministratorDTO;
 import dtos.ClientDTO;
+import dtos.ConfigurationDTO;
 import dtos.DocumentDTO;
 import dtos.SoftwareDTO;
 import dtos.StudentDTO;
@@ -60,6 +61,11 @@ public class AdministratorManager implements Serializable {
     
     private @Getter @Setter SoftwareDTO newSoftware;
     private @Getter @Setter SoftwareDTO currentSoftware;
+    
+    private @Getter @Setter ConfigurationDTO newConfig;
+    private @Getter @Setter ConfigurationDTO currentConfig;
+    
+    
 
     public AdministratorManager() {
         currentAdmin = new AdministratorDTO();
@@ -82,6 +88,7 @@ public class AdministratorManager implements Serializable {
         return client;
     }
     
+    
     @PostConstruct
     private void init() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -93,6 +100,23 @@ public class AdministratorManager implements Serializable {
         
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(username, password);
         client.register(feature);
+    }
+    
+    public void cloneConfig(ActionEvent event){
+        /*verificar se a funcao está bem
+        try {
+            UIParameter param = (UIParameter) event.getComponent().findComponent("username");
+            String id = param.getValue().toString();
+            
+            currentConfig.getClientId();
+            client.target(baseUri)
+                    .path("/configurations")
+                    .path(id)
+                    .request(MediaType.APPLICATION_XML)
+                    .post(Entity.xml(currentConfig));
+        } catch (Exception e) {
+            logger.warning("Problem removing a template in method cloneConfig.");
+        }*/
     }
     
     public List<AdministratorDTO> getAllAdministrators(){
@@ -345,6 +369,21 @@ public class AdministratorManager implements Serializable {
         }
         return "admin_index?faces-redirect=true";
     }
+    
+    public List<ConfigurationDTO> getAllConfigurations() {     
+        try {
+            
+           return client.target(baseUri)
+                    .path("/configurations")
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<List<ConfigurationDTO>>() {});
+        } catch (Exception e) {
+            logger.warning("Problem getting all templates in method getAllConfigurations."+e.getMessage());
+            return null;
+        }
+    }
+    
+    
 
   /*  public List<CourseDTO> getAllCourses() {
         try {

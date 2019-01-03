@@ -54,13 +54,13 @@ public class ConfigBean {
             SoftwareDTO s1 = softwareBean.create(new SoftwareDTO("v.1.0", "software1", c1.getUsername()));
             SoftwareDTO s2 = softwareBean.create(new SoftwareDTO("v.2.0", "software2", c1.getUsername()));
             SoftwareDTO s3 = softwareBean.create(new SoftwareDTO("v.1.1", "software3", c2.getUsername()));
-            SoftwareDTO s4 = softwareBean.create(new SoftwareDTO("v.1.5", "software4", c2.getUsername()));
+            SoftwareDTO s4 = softwareBean.create(new SoftwareDTO("v.1.5", "software4", c3.getUsername()));
 
-            ConfigurationDTO conf1 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "configuracao1", "descricao1", ConfigurationState.ACTIVE, 22));
-            ConfigurationDTO conf2 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "configuracao2", "descricao2", ConfigurationState.INACTIVE, 55));
-            ConfigurationDTO conf3 = configuracaoBean.create(new ConfigurationDTO(s2.getIdSoftware(), "configuracao3", "descricao3", ConfigurationState.SUSPENCE, 70));
-            ConfigurationDTO conf4 = configuracaoBean.create(new ConfigurationDTO(s2.getIdSoftware(), "configuracao4", "descricao4", ConfigurationState.SUSPENCE, 10));
-            ConfigurationDTO conf5 = configuracaoBean.create(new ConfigurationDTO(s3.getIdSoftware(), "configuracao5", "descricao5", ConfigurationState.SUSPENCE, 5));
+            ConfigurationDTO conf1 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "configuracao1", "descricao de: "+s1.getClienteUsername(), ConfigurationState.ACTIVE, 22, c1.getUsername()));
+            //ConfigurationDTO conf2 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "configuracao2", "descricao de: "+s1.getClienteUsername(), ConfigurationState.INACTIVE, 55, c1.getUsername()));
+            //ConfigurationDTO conf3 = configuracaoBean.create(new ConfigurationDTO(s4.getIdSoftware(), "configuracao3", "descricao de: "+s4.getClienteUsername(), ConfigurationState.SUSPENCE, 70, c3.getUsername()));
+            //ConfigurationDTO conf4 = configuracaoBean.create(new ConfigurationDTO(s2.getIdSoftware(), "configuracao4", "descricao de: "+s2.getClienteUsername(), ConfigurationState.SUSPENCE, 10, c1.getUsername()));
+            //ConfigurationDTO conf5 = configuracaoBean.create(new ConfigurationDTO(s3.getIdSoftware(), "configuracao5", "descricao de: "+s3.getClienteUsername(), ConfigurationState.SUSPENCE, 5, c2.getUsername()));
 
             TemplateDTO temp1 = templateBean.create(new TemplateDTO("Template1", "DescricaoTemplate1", "Config1", "descricaoConfig1", 11, ConfigurationState.ACTIVE));
             TemplateDTO temp2 = templateBean.create(new TemplateDTO("Template2", "DescricaoTemplate2", "Config2", "descricaoConfig2", 22, ConfigurationState.ACTIVE));
@@ -70,7 +70,7 @@ public class ConfigBean {
             
             ModuloDTO mod1 = moduloBean.create(new ModuloDTO("Modulo1", conf1.getCode()));
             ModuloDTO mod2 = moduloBean.create(new ModuloDTO("Modulo2", conf1.getCode()));
-            ModuloDTO mod3 = moduloBean.create(new ModuloDTO("Modulo3", conf2.getCode()));
+            //ModuloDTO mod3 = moduloBean.create(new ModuloDTO("Modulo3", conf2.getCode()));
 
        /*    
        } catch (Exception e) {
