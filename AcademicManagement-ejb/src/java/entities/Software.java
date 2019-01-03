@@ -6,6 +6,7 @@
 
 package entities;
 
+import dtos.SoftwareDTO;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +39,10 @@ import lombok.Setter;
         = @UniqueConstraint(columnNames = {"NAME"}))
 @NamedQueries({
     @NamedQuery(name = "Software.all"/*"getAllSoftware"*/,
-            query = "SELECT s FROM Software s ORDER BY s.name")})
+            query = "SELECT s FROM Software s ORDER BY s.name"),
+    @NamedQuery(name = "Software.client"/*"getAllSoftware"*/,
+            query = "SELECT s FROM Software s WHERE s.client.username = :username ORDER BY s.name ")
+})
 
 public class Software implements Serializable {
     @Id
@@ -73,12 +77,13 @@ public class Software implements Serializable {
         this.baseVersion = baseVersion;
         this.name = name;
         this.client = cliente;
-        cliente.addSoftware(this);
+        this.client.addSoftware(this);
     }
     
     public void addConfiguracao(Configuration c ){
-        configuracoes.add(c);
+        this.configuracoes.add(c);
     }
+    
     
     /*public void addContrato(Contrato c){
         contratos.add(c);

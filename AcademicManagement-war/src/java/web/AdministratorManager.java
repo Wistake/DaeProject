@@ -337,6 +337,21 @@ public class AdministratorManager implements Serializable {
         }
     }
     
+    public List<SoftwareDTO> getSoftwaresOfClients() {     
+        try {
+            
+           return client.target(baseUri)
+                    .path("/softwares/clients/"+currentClient.getUsername())
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<List<SoftwareDTO>>() {});
+        } catch (Exception e) {
+            logger.warning("Problem getting all templates in method getAllSoftwares."+e.getMessage());
+            return null;
+        }
+    }
+    
+    
+    
     public String createSoftware() {
         try {
             client.target(baseUri)

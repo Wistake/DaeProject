@@ -52,7 +52,6 @@ public class ConfigBean {
             
 
             SoftwareDTO s1 = softwareBean.create(new SoftwareDTO("v.1.0", "software1", c1.getUsername()));
-            //softwareBean.addToClient(s1.getIdSoftware(), c1.getUsername());
             SoftwareDTO s2 = softwareBean.create(new SoftwareDTO("v.2.0", "software2", c1.getUsername()));
             SoftwareDTO s3 = softwareBean.create(new SoftwareDTO("v.1.1", "software3", c2.getUsername()));
             SoftwareDTO s4 = softwareBean.create(new SoftwareDTO("v.1.5", "software4", c2.getUsername()));
