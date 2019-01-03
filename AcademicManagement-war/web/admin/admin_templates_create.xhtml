@@ -22,7 +22,7 @@ and open the template in the editor.
                     size="20"
                     required="true"
                     requiredMessage="Error: Template Name cannot be empty"
-                    value="#{administratorManager.currentTemplate.templateName}">
+                    value="#{administratorManager.newTemplate.templateName}">
                 </h:inputText>
                 <h:message for="templateName" errorStyle="color:red" />
                 
@@ -32,7 +32,7 @@ and open the template in the editor.
                     size="20"
                     required="true"
                     requiredMessage="Error: Descrição cannot be empty"
-                    value="#{administratorManager.currentTemplate.descricaoT}">
+                    value="#{administratorManager.newTemplate.descricaoT}">
                 </h:inputText>
                 <h:message for="descricaoT" errorStyle="color:red" />
 
@@ -42,7 +42,7 @@ and open the template in the editor.
                     size="20"
                     required="true"
                     requiredMessage="Error: Nome Configuracao cannot be empty"
-                    value="#{administratorManager.currentTemplate.nameConfig}">
+                    value="#{administratorManager.newTemplate.nameConfig}">
                 </h:inputText>
                 <h:message for="nameConfig" errorStyle="color:red" />
                 
@@ -52,7 +52,7 @@ and open the template in the editor.
                     size="20"
                     required="true"
                     requiredMessage="Error: Descricao Configuracao cannot be empty"
-                    value="#{administratorManager.currentTemplate.descricaoConfig}">
+                    value="#{administratorManager.newTemplate.descricaoConfig}">
                 </h:inputText>
                 <h:message for="descricaoConfig" errorStyle="color:red" />
                 
@@ -62,14 +62,14 @@ and open the template in the editor.
                     size="20"
                     required="true"
                     requiredMessage="Error: Capacidade de armazenamento cannot be empty"
-                    value="#{administratorManager.currentTemplate.storageCapacity}">
+                    value="#{administratorManager.newTemplate.storageCapacity}">
                 </h:inputText>
                 <h:message for="storageCapacity" errorStyle="color:red" />
 
                 <h:outputLabel for="state" value="Estado: " />
                 <h:selectOneMenu
                     id="state"
-                    value="#{administratorManager.currentTemplate.state}" >
+                    value="#{administratorManager.newTemplate.state}" >
                     <f:selectItems
                         value="#{administratorManager.allStates}"
                         var="state"
