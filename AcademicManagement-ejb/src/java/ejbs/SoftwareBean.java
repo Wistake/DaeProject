@@ -8,9 +8,15 @@ package ejbs;
 import dtos.SoftwareDTO;
 import entities.Client;
 import entities.Software;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -28,15 +34,18 @@ public class SoftwareBean extends Bean<Software, SoftwareDTO, Integer>{
         Software soft = toEntity(dto);
         soft.setClient(client);
         soft = create(soft);
-         
-
+        
         return toDTO(soft);
     }   
     
-    public void addToClient(Integer softwareID, String username){
-        Client client = clientBean.findOrFail(username);
-        Software software = findOrFail(softwareID);
+    @GET
+    @Produces({MediaType.APPLICATION_XML})
+    @Path("/clients/{username}")
+    public List<SoftwareDTO> getSoftwaresOfClients(@PathParam("username") String username){
+        Query query = createNamedQuery("Software.client");
+        query.setParameter("username", username);
         
-        client.addSoftware(software);
+        return toDTOs(query.getResultList());
     }
 }
+

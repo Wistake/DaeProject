@@ -44,7 +44,7 @@
             <p:dataTable
                 var="software"
                 summary="List of all Softwares"
-                value="#{administratorManager.currentClient.softwares}">
+                value="#{administratorManager.softwaresOfClients}">
 
                 <p:column headerText="SoftwareID">
                     <h:outputText value="${software.idSoftware}" />
@@ -58,14 +58,8 @@
                     <h:outputText value="${software.baseVersion}" />
                 </p:column>
 
-                <p:column headerText="Software Configuration">
-                    <h:outputText value="${software.configuracoes}" />
-                </p:column>
-
             </p:dataTable>
 
-       
-       
         <br/><br/>
 
         <h:link 

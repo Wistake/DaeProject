@@ -20,7 +20,6 @@ import lombok.Setter;
 
 @XmlRootElement(name = "Client")
 
-
 public class ClientDTO extends UserDTO{        
     private @Getter @Setter String empresa;
     private @Getter @Setter String morada;
@@ -38,8 +37,7 @@ public class ClientDTO extends UserDTO{
     public ClientDTO() {
         this.softwares = new LinkedList<>();
     }
-    
-    
+
     @Override
     public void clear() {
         super.clear(); 
