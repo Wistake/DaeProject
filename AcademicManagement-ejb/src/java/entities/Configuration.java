@@ -40,8 +40,11 @@ import lombok.Setter;
         = @UniqueConstraint(columnNames = {"NAME"}))
 @NamedQueries({
     @NamedQuery(name = "Configuration.all"/*"getAllConfiguration"*/,
-        query = "SELECT s FROM Configuration s ORDER BY s.name")/*,
-    @NamedQuery(name = "getConfiguracao",
+        query = "SELECT s FROM Configuration s ORDER BY s.name"),
+    @NamedQuery(name = "clientConfigs",
+            query = "SELECT c FROM Configuration c WHERE c.client.username = :username"),
+        
+    /*@NamedQuery(name = "getConfiguracao",
         query = "SELECT s FROM Configuracao s WHERE s.id = :idConfiguracao ORDER BY s.name")  */  
 
 })
@@ -74,6 +77,10 @@ public class Configuration implements Serializable {
     @NotNull(message = "Storage Capacity não pode estar vazia!")
     private @Getter @Setter Integer storageCapacity;
     
+    @ManyToOne
+    @NotNull
+    private @Getter @Setter Client client;
+    
     /*
     @OneToMany(mappedBy = "servicos", cascade = CascadeType.REMOVE) // ManyToMany //?????????'
     private List<Servico> servicos;
@@ -94,13 +101,14 @@ public class Configuration implements Serializable {
         this.modulos.add(m);
     }
 
-    public Configuration(Software software, String name, String descricao, ConfigurationState estado, Integer storageCapacity) {
+    public Configuration(Software software, String name, String descricao, ConfigurationState estado, Integer storageCapacity, Client client) {
         this.software = software;
         this.name = name;
         this.descricao = descricao;
         this.estado = estado;
         this.storageCapacity = storageCapacity;
         this.software.addConfiguracao(this);
+        this.client = client;
     }
     
     

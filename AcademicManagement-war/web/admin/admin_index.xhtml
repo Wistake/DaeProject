@@ -194,12 +194,78 @@
                            <f:param name="deleteSoftwareId" id="deleteSoftwareId"
                                     value="#{software.idSoftware}" />
                        </h:commandLink>
+                       <h:commandLink 
+                           value="Add Modules" class="btn btn-primary"
+                           actionListener="#{administratorManager}">
+                           <f:param name="addModules" id="addModules"
+                                    value="#{administratorManager}" />
+                        </h:commandLink>
                        
                    </p:column>
         
                 </p:dataTable>
                 <br/>
                 <h:link value="New Software" outcome="admin_softwares_create" class="btn btn-primary"/>
+                &nbsp;
+                <br/>
+            <h5>Configurações</h5>
+                <p:dataTable
+                    var="configs"
+                    summary="List of all Configurations"
+                    value="#{administratorManager.allConfigurations}">
+
+                    <p:column headerText="Id">
+                        <h:outputText value="${configs.code}" />
+                    </p:column>
+                    <p:column headerText="Nome">
+                        <h:outputText value="${configs.name}" />
+                    </p:column>
+                    <p:column headerText="Id Software">
+                        <h:outputText value="${configs.idSoftware}" />
+                    </p:column>
+                    <p:column headerText="Clone:">
+                        <h:selectOneMenu
+                        id="clientId"
+                        value="#{administratorManager.newConfig.clientUsername}" >
+                        <f:selectItems
+                            value="#{administratorManager.allStudents}"
+                            var="clientId"
+                            itemValue="#{clientId.username}"
+                            itemLabel="#{clientId.name}" />
+                        </h:selectOneMenu>
+                        
+                        <h:commandLink 
+                           value="Clone to Client" class="btn btn-primary"
+                           actionListener="#{administratorManager.cloneConfig}">
+                           <f:param name="username" id="username"
+                                    value="#{administratorManager.newSoftware.clienteUsername}" />
+                        </h:commandLink>
+                    </p:column>
+                    
+                    <p:column headerText="Actions">
+                       <h:commandLink 
+                           value="Consultar" 
+                           action="admin_config_details?faces-redirect=true">
+                           <f:setPropertyActionListener
+                               target="#{administratorManager.currentConfig}" value="#{configs}" />                            
+                       </h:commandLink>
+                        &nbsp;
+                       <h:commandLink value="Update" action="admin_config_update?faces-redirect=true">
+                           <f:setPropertyActionListener target="#{administratorManager.currentConfig}" value="#{configs}" />
+                       </h:commandLink>
+                        &nbsp;
+                       <h:commandLink 
+                           value="Remove" 
+                           actionListener="#{administratorManager.removeConfig}">
+                           <f:param name="deleteSoftwareId" id="deleteSoftwareId"
+                                    value="#{configs.code}" />
+                       </h:commandLink>
+                        
+                   </p:column>
+        
+                </p:dataTable>
+                <br/>
+                <h:link value="New Configurations" outcome="admin_configs_create" class="btn btn-primary"/>
             &nbsp;
             </h:form>
             

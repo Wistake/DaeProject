@@ -25,6 +25,7 @@ public class ClientDTO extends UserDTO{
     private @Getter @Setter String morada;
     private @Getter @Setter String pessoaContacto;
     private @Getter @Setter List<Software> softwares;
+    private @Getter @Setter List<ConfigurationDTO> configs;
 
     public ClientDTO(String empresa, String morada, String pessoaContacto, String username, String password, String name, String email) {
         super(username, password, name, email);
@@ -36,6 +37,7 @@ public class ClientDTO extends UserDTO{
 
     public ClientDTO() {
         this.softwares = new LinkedList<>();
+        this.configs = new LinkedList<>();
     }
 
     @Override
@@ -45,5 +47,6 @@ public class ClientDTO extends UserDTO{
         morada = null;
         pessoaContacto = null;
         softwares = new LinkedList<>();
+        configs = null;
     }
 }

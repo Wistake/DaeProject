@@ -44,13 +44,25 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
     @EJB
     SoftwareBean softwareBean;
     
+    @GET
+    @Path("client/{username}")
+    public List<ConfigurationDTO> getClientsConfigs(@PathParam("username") String username){
+        Query query = createNamedQuery("clientConfigs");
+        query.setParameter("username", username);
+        return toDTOs(query.getResultList());
+        
+    }
+    
      
     @Override
     public ConfigurationDTO create(ConfigurationDTO dto) {
         Software soft = softwareBean.findOrFail(dto.getIdSoftware());
+        Client client = clientBean.findOrFail(dto.getClientUsername());
         Configuration conf = toEntity(dto);
         conf.setSoftware(soft);
+        conf.setClient(client);
         conf = create(conf);
+        //client.addConfiguration(conf);
         return toDTO(conf);
     }
     
