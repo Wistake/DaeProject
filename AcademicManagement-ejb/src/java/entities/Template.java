@@ -7,9 +7,12 @@ package entities;
 
 import helpers.ConfigurationState;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,8 +27,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "TEMPLATES")
 @NamedQuery(name = "Template.all", query = "SELECT t FROM Template t ORDER BY t.templateName")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Template implements Serializable {
     
     @Id
@@ -36,4 +37,25 @@ public class Template implements Serializable {
     private @Getter @Setter String descricaoConfig;
     private @Getter @Setter ConfigurationState state;
     private @Getter @Setter Integer storageCapacity;
+    
+    @OneToMany(mappedBy = "template")
+    public @Getter @Setter List<SupportMaterial> supportMaterials;
+
+    public Template() {
+        this.supportMaterials = new LinkedList<>();
+    }
+
+    public Template(String templateName, String descricaoT, String nameConfig, String descricaoConfig, ConfigurationState state, Integer storageCapacity) {
+        this();
+        this.templateName = templateName;
+        this.descricaoT = descricaoT;
+        this.nameConfig = nameConfig;
+        this.descricaoConfig = descricaoConfig;
+        this.state = state;
+        this.storageCapacity = storageCapacity;
+    }
+    
+    public void addSupportMaterials(SupportMaterial s){
+        this.supportMaterials.add(s);
+    }
 }

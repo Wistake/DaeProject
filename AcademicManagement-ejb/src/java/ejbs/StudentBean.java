@@ -1,9 +1,9 @@
 package ejbs;
 
-import dtos.DocumentDTO;
+import dtos.SupportMaterialDTO;
 import dtos.StudentDTO;
 
-import entities.Document;
+import entities.SupportMaterial;
 import entities.Student;
 
 import entities.UserGroup;
@@ -178,7 +178,7 @@ public class StudentBean extends Bean<Student, StudentDTO, String>{
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void addDocument(
             @PathParam("username") String username,
-            DocumentDTO doc)
+            SupportMaterialDTO doc)
             throws EntityDoesNotExistException {
         try {
             Student student = em.find(Student.class, username);
@@ -186,7 +186,7 @@ public class StudentBean extends Bean<Student, StudentDTO, String>{
                 throw new EntityDoesNotExistException("There is no student with such username.");
             }
 
-            Document document = new Document(doc.getFilepath(), doc.getDesiredName(), doc.getMimeType(), student);
+            SupportMaterial document = new SupportMaterial(doc.getFilepath(), doc.getDesiredName(), doc.getMimeType(), student);
             em.persist(document);
             student.addDocument(document);
 
@@ -201,13 +201,13 @@ public class StudentBean extends Bean<Student, StudentDTO, String>{
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/document/{id}")        
-    public DocumentDTO getDocument(@PathParam("id") int id) throws EntityDoesNotExistException {
-        Document doc = em.find(Document.class, id);
+    public SupportMaterialDTO getDocument(@PathParam("id") int id) throws EntityDoesNotExistException {
+        SupportMaterial doc = em.find(SupportMaterial.class, id);
             
         if (doc == null)
             throw new EntityDoesNotExistException();
 
-        return toDTO(doc, DocumentDTO.class);
+        return toDTO(doc, SupportMaterialDTO.class);
     }
 
     @GET
@@ -215,8 +215,8 @@ public class StudentBean extends Bean<Student, StudentDTO, String>{
     @Path("/documents/{username}")            
     public Collection<DocumentDTO> getDocuments(@PathParam("username") String username) throws EntityDoesNotExistException {
         try {
-            List<Document> docs = em.createNamedQuery("getDocumentsOfStudent", Document.class).setParameter("username", username).getResultList();
-            return toDTOs(docs, DocumentDTO.class);
+            List<Document> docs = em.createNamedQuery("getDocumentsOfStudent", SupportMaterial.class).setParameter("username", username).getResultList();
+            return toDTOs(docs, SupportMaterialDTO.class);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }

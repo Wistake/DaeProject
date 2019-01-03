@@ -2,7 +2,7 @@ package web;
 
 import dtos.AdministratorDTO;
 import dtos.ClientDTO;
-import dtos.DocumentDTO;
+import dtos.SupportMaterialDTO;
 import dtos.SoftwareDTO;
 import dtos.StudentDTO;
 import dtos.TemplateDTO;
@@ -401,7 +401,7 @@ public class AdministratorManager implements Serializable {
 
     private StudentDTO newStudent;
     
-    private DocumentDTO document;
+    private SupportMaterialDTO document;
 
     private String filePath;
 
@@ -668,7 +668,7 @@ public class AdministratorManager implements Serializable {
 
     public String uploadDocument() {
         try {
-            document = new DocumentDTO(uploadManager.getCompletePathFile(), uploadManager.getFilename(), uploadManager.getFile().getContentType());
+            document = new SupportMaterialDTO(uploadManager.getCompletePathFile(), uploadManager.getFilename(), uploadManager.getFile().getContentType());
 
             client.target(URILookup.getBaseAPI())
                     .path("/students/addDocument")
@@ -772,11 +772,11 @@ public class AdministratorManager implements Serializable {
         this.uploadManager = uploadManager;
     }
 
-    public DocumentDTO getDocument() {
+    public SupportMaterialDTO getDocument() {
         return document;
     }
 
-    public void setDocument(DocumentDTO document) {
+    public void setDocument(SupportMaterialDTO document) {
         this.document = document;
     }
 

@@ -1,6 +1,6 @@
 package web;
 
-import dtos.DocumentDTO;
+import dtos.SupportMaterialDTO;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -35,13 +35,13 @@ public class DownloadManager implements Serializable {
     }
 
     public StreamedContent getFile() {
-        DocumentDTO document = null;
+        SupportMaterialDTO document = null;
         try {
             document = administratorManager.getClient().target(URILookup.getBaseAPI())
                     .path("/students/document")
                     .path(Integer.toString(documentId))
                     .request(MediaType.APPLICATION_XML)
-                    .get(DocumentDTO.class);
+                    .get(SupportMaterialDTO.class);
 
             InputStream in = new FileInputStream(document.getFilepath());
 

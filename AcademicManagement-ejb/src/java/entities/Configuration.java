@@ -62,11 +62,9 @@ public class Configuration implements Serializable {
     
     @OneToMany(mappedBy = "configuration", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private @Getter @Setter List<Modulo> modulos;
+    
     @NotNull(message = "Descrição não pode estar vazia!")
     private @Getter @Setter String descricao;
-    
-    /*@ManyToMany(mappedBy = "configuracao", cascade = CascadeType.REMOVE)
-    private @Getter @Setter List<Modulo> modulos;*/
     
     @NotNull(message = "O estado da configuração não pode estar vazio!")
     @Enumerated(EnumType.STRING)
@@ -74,6 +72,9 @@ public class Configuration implements Serializable {
     
     @NotNull(message = "Storage Capacity não pode estar vazia!")
     private @Getter @Setter Integer storageCapacity;
+    
+    @OneToMany(mappedBy = "configuration")
+    public @Getter @Setter List<SupportMaterial> supportMaterials;
     
     /*
     @OneToMany(mappedBy = "servicos", cascade = CascadeType.REMOVE) // ManyToMany //?????????'
@@ -88,14 +89,20 @@ public class Configuration implements Serializable {
 
     public Configuration() {
         this.modulos = new LinkedList<>();
+        this.supportMaterials = new LinkedList<>();
     }
     
     
     public void addModulos(Modulo m){
         this.modulos.add(m);
     }
+    
+    public void addSupportMaterials(SupportMaterial s){
+        this.supportMaterials.add(s);
+    }
 
     public Configuration(Software software, String name, String descricao, ConfigurationState estado, Integer storageCapacity) {
+        this();
         this.software = software;
         this.name = name;
         this.descricao = descricao;
@@ -103,6 +110,5 @@ public class Configuration implements Serializable {
         this.storageCapacity = storageCapacity;
         this.software.addConfiguracao(this);
     }
-    
-    
+
 }

@@ -52,12 +52,9 @@ public class Software implements Serializable {
     @NotNull(message = "Nome do software não pode estar vazio!")
     private @Getter @Setter String name;
     
-    //@NotNull
     @ManyToOne
-    //@JoinColumn(name = "CLIENTE_USERNAME")
-    private @Getter @Setter Client client;
+    private @Getter @Setter Client client;  
     
-    //@NotNull
     @OneToMany(mappedBy = "software", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private @Getter @Setter List<Configuration> configuracoes;
     

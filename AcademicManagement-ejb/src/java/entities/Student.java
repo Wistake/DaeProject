@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,10 +27,10 @@ public class Student extends User {
     
     @NotNull
     @ManyToMany(mappedBy = "students")
-    private @Getter @Setter List<Subject> subjects;*/
+    private @Getter @Setter List<Subject> subjects;
 
     @OneToMany(mappedBy = "student")
-    private @Getter @Setter List<Document> documents;
+    private @Getter @Setter List<SupportMaterial> documents;
     
     public Student() {
         //subjects = new LinkedList<>();
@@ -43,13 +42,13 @@ public class Student extends User {
             String password,
             String name,
             String email
-           /* Course course*/) {
+           /* Course course) {
         super(username, password, GROUP.Student, name, email);
         //this.course = course;
        /* course.addStudent(this);
-        subjects = new LinkedList<>();*/
+        subjects = new LinkedList<>();
         documents = new LinkedList<>();
-    }
+    }*/
     
 /*
     @ManyToOne
@@ -113,11 +112,11 @@ public class Student extends User {
         this.documents = documents;
     }
     
-    public void addDocument(Document document) {
+    public void addDocument(SupportMaterial document) {
         this.documents.add(document);
     }
     
-    public void removeDocument(Document document) {
+    public void removeDocument(SupportMaterial document) {
         this.documents.remove(document);
     }    
     */
