@@ -2,13 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
     <h:head>
         <title>Client Details</title>
     </h:head>
     <h:body>
-
+        <h:form>
         <h:panelGrid columns="2">
 
             <h:outputLabel for="username" value="Username: " />
@@ -57,16 +59,24 @@
                 <p:column headerText="Software Base Version">
                     <h:outputText value="${software.baseVersion}" />
                 </p:column>
-
+                
+                    <p:column headerText="Configurations">
+                        <h:commandLink 
+                            value="Aceder á Configuração" 
+                            action="admin_configs_details?faces-redirect=true">
+                            <f:setPropertyActionListener
+                                target="#{administratorManager.currentSoftware}" value="#{software}" />                            
+                        </h:commandLink>
+                    </p:column> 
             </p:dataTable>
-
+             
         <br/><br/>
 
         <h:link 
             value="Return to main page" 
             outcome="admin_index"/> 
         </h:panelGrid>
-
+            </h:form>
     </h:body>
 </html>
 
