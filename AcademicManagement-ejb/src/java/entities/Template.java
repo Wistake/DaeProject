@@ -38,15 +38,15 @@ public class Template implements Serializable {
     private @Getter @Setter ConfigurationState state;
     private @Getter @Setter Integer storageCapacity;
     
-    @OneToMany(mappedBy = "template")
-    public @Getter @Setter List<SupportMaterial> supportMaterials;
+    /*@OneToMany(mappedBy = "template")
+    public @Getter @Setter List<SupportMaterial> supportMaterials;*/
 
     public Template() {
-        this.supportMaterials = new LinkedList<>();
+       // this.supportMaterials = new LinkedList<>();
     }
 
     public Template(String templateName, String descricaoT, String nameConfig, String descricaoConfig, ConfigurationState state, Integer storageCapacity) {
-        this();
+       // this();
         this.templateName = templateName;
         this.descricaoT = descricaoT;
         this.nameConfig = nameConfig;
@@ -55,7 +55,7 @@ public class Template implements Serializable {
         this.storageCapacity = storageCapacity;
     }
     
-    public void addSupportMaterials(SupportMaterial s){
+   /* public void addSupportMaterials(SupportMaterial s){
         this.supportMaterials.add(s);
-    }
+    }*/
 }

@@ -34,8 +34,8 @@ public class SupportMaterial implements Serializable {
     @ManyToOne(cascade = CascadeType.REMOVE)
     private @Getter @Setter Configuration configuration;
     
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private @Getter @Setter Template template;
+    /*@ManyToOne(cascade = CascadeType.REMOVE)
+    private @Getter @Setter Template template;*/
 
     public SupportMaterial(String filepath, String desiredName, String mimeType, Configuration configuration) {
         this.filepath = filepath;
@@ -45,13 +45,13 @@ public class SupportMaterial implements Serializable {
         this.configuration.addSupportMaterials(this);
     }
 
-    public SupportMaterial(String filepath, String desiredName, String mimeType, Template template) {
+    /*public SupportMaterial(String filepath, String desiredName, String mimeType, Template template) {
         this.filepath = filepath;
         this.desiredName = desiredName;
         this.mimeType = mimeType;
         this.template = template;
         this.template.addSupportMaterials(this);
-    }
+    }*/
     
 
 

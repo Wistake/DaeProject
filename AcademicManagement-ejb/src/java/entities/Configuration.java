@@ -73,7 +73,7 @@ public class Configuration implements Serializable {
     @NotNull(message = "Storage Capacity não pode estar vazia!")
     private @Getter @Setter Integer storageCapacity;
     
-    @OneToMany(mappedBy = "configuration")
+    @OneToMany(mappedBy = "configuration" , cascade = CascadeType.REMOVE)
     public @Getter @Setter List<SupportMaterial> supportMaterials;
     
     /*

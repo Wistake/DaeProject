@@ -22,7 +22,7 @@ import javax.ws.rs.Path;
 @Path("templates")
 public class TemplateBean extends Bean<Template, TemplateDTO, String>{
 
-  /*  @Override
+    @Override
     @RolesAllowed({"Administrator"})
     public TemplateDTO create(TemplateDTO dto) {
         return super.create(dto); //To change body of generated methods, choose Tools | Templates.
@@ -51,7 +51,7 @@ public class TemplateBean extends Bean<Template, TemplateDTO, String>{
     @PermitAll
     public TemplateDTO retrieve(String primaryKey) {
         return super.retrieve(primaryKey); //To change body of generated methods, choose Tools | Templates.
-    }*/
+    }
     
     
     
