@@ -54,25 +54,32 @@
                 <br/>
                 <h5>Clients</h5>
                 <p:dataTable
-                    var="student"
-                    summary="List of all students"
-                    value="#{administratorManager.allStudents}">
+                    var="client"
+                    summary="List of all Clients"
+                    value="#{administratorManager.allClients}">
 
-                    
                     <p:column headerText="Username">
-                        <h:outputText value="${student.username}" />
+                        <h:outputText value="${client.username}" />
+                    </p:column>
+                    
+                    <p:column headerText="Name">
+                        <h:outputText value="${client.name}" />
+                    </p:column>
+                    
+                    <p:column headerText="Email">
+                        <h:outputText value="${client.email}" />
                     </p:column>
 
                     <p:column headerText="Morada">
-                        <h:outputText value="${student.morada}" />
+                        <h:outputText value="${client.morada}" />
                     </p:column>
 
                     <p:column headerText="Pessoa de Contato">
-                        <h:outputText value="${student.pessoaContacto}" />
+                        <h:outputText value="${client.pessoaContacto}" />
                     </p:column>
 
                     <p:column headerText="Empresa">
-                        <h:outputText value="${student.empresa}" />
+                        <h:outputText value="${client.empresa}" />
                     </p:column>                
 
                     <p:column headerText="Actions">
@@ -80,18 +87,18 @@
                             value="Consultar" 
                             action="admin_students_details?faces-redirect=true">
                             <f:setPropertyActionListener
-                                target="#{administratorManager.currentStudent}" value="#{student}" />                            
+                                target="#{administratorManager.currentClient}" value="#{client}" />                            
                         </h:commandLink>
                         &nbsp;
                         <h:commandLink value="Update" action="admin_students_update?faces-redirect=true">
-                            <f:setPropertyActionListener target="#{administratorManager.currentStudent}" value="#{student}" />
+                            <f:setPropertyActionListener target="#{administratorManager.currentClient}" value="#{client}" />
                         </h:commandLink>
                         &nbsp;
                         <h:commandLink 
                             value="Remove" 
-                            actionListener="#{administratorManager.removeStudent}">
-                            <f:param name="deleteStudentId" id="deleteStudentId"
-                                     value="#{student.username}" />
+                            actionListener="#{administratorManager.removeClient}">
+                            <f:param name="deleteClientId" id="deleteClientId"
+                                     value="#{client.username}" />
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>

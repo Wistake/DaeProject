@@ -17,7 +17,7 @@
                     size="20"
                     required="true"
                     requiredMessage="Error: Username cannot be empty"
-                    value="#{administratorManager.newStudent.username}">
+                    value="#{administratorManager.newClient.username}">
                     <f:validator validatorId="usernameValidator"/>
                 </h:inputText>
                 <h:message for="username" errorStyle="color:red" />
@@ -28,7 +28,7 @@
                     size="20"
                     required="true"
                     requiredMessage="Error: Password cannot be empty"
-                    value="#{administratorManager.newStudent.password}" />
+                    value="#{administratorManager.newClient.password}" />
                 <h:message for="password" errorStyle="color:red" />
 
                 <h:outputLabel for="name" value="Name: " />
@@ -37,7 +37,7 @@
                     size="20"
                     required="true"
                     requiredMessage="Error: Name cannot be empty"
-                    value="#{administratorManager.newStudent.name}" />
+                    value="#{administratorManager.newClient.name}" />
                 <h:message for="name" errorStyle="color:red" />
 
                 <h:outputLabel for="email" value="Email: " />
@@ -46,29 +46,45 @@
                     size="20"
                     required="true"
                     requiredMessage="Error: Email cannot be empty"
-                    value="#{administratorManager.newStudent.email}" >
-                    <!--<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />-->
-                </h:inputText>                    
-
+                    value="#{administratorManager.newClient.email}" >
+-               </h:inputText>
                 <h:message for="email" errorStyle="color:red" />
-
-                <h:outputLabel for="course" value="Serviço: " />
-                <h:selectOneMenu
-                    id="course"
-                    value="#{administratorManager.newStudent.courseCode}" >
-                    <f:selectItems
-                        value="#{administratorManager.allCourses}"
-                        var="course"
-                        itemValue="#{course.code}"
-                        itemLabel="#{course.name}" />
-                </h:selectOneMenu>
-                <br></br>                
+                
+                <h:outputLabel for="empresa" value="Empresa: " />
+                <h:inputText
+                    id="empresa"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Empresa cannot be empty"
+                    value="#{administratorManager.newClient.empresa}" >
+                </h:inputText>
+                <h:message for="empresa" errorStyle="color:red" />
+                
+                <h:outputLabel for="morada" value="Morada: " />
+                <h:inputText
+                    id="morada"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Morada cannot be empty"
+                    value="#{administratorManager.newClient.morada}" >
+                </h:inputText>
+                <h:message for="morada" errorStyle="color:red" />
+                
+                <h:outputLabel for="pessoaContacto" value="Contacto: " />
+                <h:inputText
+                    id="pessoaContacto"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Morada cannot be empty"
+                    value="#{administratorManager.newClient.pessoaContacto}" >
+                </h:inputText>
+                <h:message for="pessoaContacto" errorStyle="color:red" />
 
                 <h:commandButton
                     id="submit"
                     value="Create"
                     binding="#{administratorManager.component}"
-                    action="#{administratorManager.createStudent()}" />
+                    action="#{administratorManager.createClient()}" />
                 <h:message for="submit" errorStyle="color:red" />
 
             </h:panelGrid>
@@ -77,4 +93,3 @@
 
     </h:body>
 </html>
-

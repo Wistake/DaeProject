@@ -5,6 +5,9 @@
  */
 package dtos;
 
+import entities.Software;
+import java.util.LinkedList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,18 +19,26 @@ import lombok.Setter;
  */
 
 @XmlRootElement(name = "Client")
-@NoArgsConstructor
+
+
 public class ClientDTO extends UserDTO{        
     private @Getter @Setter String empresa;
     private @Getter @Setter String morada;
     private @Getter @Setter String pessoaContacto;
+    private @Getter @Setter List<Software> softwares;
 
     public ClientDTO(String empresa, String morada, String pessoaContacto, String username, String password, String name, String email) {
         super(username, password, name, email);
         this.empresa = empresa;
         this.morada = morada;
         this.pessoaContacto = pessoaContacto;
+        this.softwares = new LinkedList<>();
     }
+
+    public ClientDTO() {
+        this.softwares = new LinkedList<>();
+    }
+    
     
     @Override
     public void clear() {
@@ -35,7 +46,6 @@ public class ClientDTO extends UserDTO{
         empresa = null;
         morada = null;
         pessoaContacto = null;
+        softwares = new LinkedList<>();
     }
-    
-    
 }

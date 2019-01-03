@@ -28,7 +28,15 @@ public class SoftwareBean extends Bean<Software, SoftwareDTO, Integer>{
         Software soft = toEntity(dto);
         soft.setClient(client);
         soft = create(soft);
+         
+
         return toDTO(soft);
-    }
+    }   
     
+    public void addToClient(Integer softwareID, String username){
+        Client client = clientBean.findOrFail(username);
+        Software software = findOrFail(softwareID);
+        
+        client.addSoftware(software);
+    }
 }

@@ -45,10 +45,10 @@
                     id="clientId"
                     value="#{administratorManager.newSoftware.clienteUsername}" >
                     <f:selectItems
-                        value="#{administratorManager.allStudents}"
+                        value="#{administratorManager.allClients}"
                         var="clientId"
                         itemValue="#{clientId.username}"
-                        itemLabel="#{clientId.username}" />
+                        itemLabel="#{clientId.name}" />
                 </h:selectOneMenu>
                 <br></br>                 
 

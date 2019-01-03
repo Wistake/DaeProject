@@ -49,8 +49,8 @@ public class AdministratorManager implements Serializable {
     
     private @Getter @Setter UIComponent component;
     
-    private @Getter @Setter ClientDTO newStudent;
-    private @Getter @Setter ClientDTO currentStudent;
+    private @Getter @Setter ClientDTO newClient;
+    private @Getter @Setter ClientDTO currentClient;
     
     private @Getter @Setter AdministratorDTO currentAdmin;
     private @Getter @Setter AdministratorDTO newAdmin;
@@ -64,8 +64,8 @@ public class AdministratorManager implements Serializable {
     public AdministratorManager() {
         currentAdmin = new AdministratorDTO();
         newAdmin = new AdministratorDTO();
-        newStudent = new ClientDTO();
-        currentStudent = new ClientDTO();
+        newClient = new ClientDTO();
+        currentClient = new ClientDTO();
         
         newSoftware = new SoftwareDTO();
         currentSoftware = new SoftwareDTO();
@@ -116,7 +116,8 @@ public class AdministratorManager implements Serializable {
            
             client.target(baseUri)
                     .path("/administrators")
-                    .request(MediaType.APPLICATION_XML).post(Entity.xml(newAdmin));
+                    .request(MediaType.APPLICATION_XML)
+                    .post(Entity.xml(newAdmin));
             newAdmin.clear();
             return "admin_index?faces-redirect=true";
         }catch(Exception e){
@@ -157,7 +158,7 @@ public class AdministratorManager implements Serializable {
     }
 
     
-    public List<ClientDTO> getAllStudents() {
+    public List<ClientDTO> getAllClients() {
         try {   
              //addHeaderBASIC();
              
@@ -174,7 +175,7 @@ public class AdministratorManager implements Serializable {
     }
     
     
-    
+    /*
     public String create() {
         try {
             //addHeaderBASIC();
@@ -195,33 +196,64 @@ public class AdministratorManager implements Serializable {
         }
         return "/admin/students/create";
     }
+    */
     
-    public String update() {
+     public String createClient() {
+        try {
+            client.target(baseUri)
+                    .path("/clients")
+                    .request(MediaType.APPLICATION_XML)
+                    .post(Entity.xml(newClient));
+            newClient.clear();
+            return "admin_index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Unexpected error! Try again latter!", component, logger);
+            return "admin_index?faces-redirect=true";
+        }
+    }
+     
+     public String updateClient(){
+        try {
+            //addHeaderBASIC();
+            
+            client.target(baseUri)
+                    .path("/clients/"+currentClient.getUsername())
+                    .request(MediaType.APPLICATION_XML).put(Entity.xml(currentClient));
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Problem updating client in method updateClient", logger);
+            return null;
+        }
+        return "admin_index?faces-redirect=true";
+    }
+    
+    
+    /*
+    public String updateClient() {
         try {
             //addHeaderBASIC();
             
             Response response = client.target(baseUri)
                                     .path("students")
                                     .request(MediaType.APPLICATION_XML)
-                                    .put(asJson(currentStudent));
+                                    .put(asJson(currentClient));
             
             if (response.getStatus() != 200) {
                 // error
             }
             
-            currentStudent.clear();
+            currentClient.clear();
             return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             logger.warning(e.getMessage());
         }
         return "/admin/admin_students_update";
     }
-
-    public String removeStudent(ActionEvent event) {
+*/
+    public String removeClient(ActionEvent event) {
         try {
             //addHeaderBASIC();
             
-            UIParameter param = (UIParameter) event.getComponent().findComponent("deleteStudentId");
+            UIParameter param = (UIParameter) event.getComponent().findComponent("deleteClientId");
             String username = param.getValue().toString();
             
             client.target(baseUri).path("clients/" + username).request().delete();

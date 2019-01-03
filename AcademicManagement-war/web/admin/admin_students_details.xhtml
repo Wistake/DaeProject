@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Client Details</title>
     </h:head>
     <h:body>
 
@@ -14,70 +14,64 @@
             <h:outputLabel for="username" value="Username: " />
             <h:outputText
                 id="username"
-                value="#{administratorManager.currentStudent.username}" />
+                value="#{administratorManager.currentClient.username}" />
 
             <h:outputLabel for="name" value="Name: " />
             <h:outputText
                 id="name"
-                value="#{administratorManager.currentStudent.name}" />
+                value="#{administratorManager.currentClient.name}" />
 
             <h:outputLabel for="email" value="Email: " />
             <h:outputText
                 id="email"
-                value="#{administratorManager.currentStudent.email}" />
+                value="#{administratorManager.currentClient.email}" />
+            
+            <h:outputLabel for="empresa" value="Empresa: " />
+            <h:outputText
+                id="empresa"
+                value="#{administratorManager.currentClient.empresa}" />
+            
+            <h:outputLabel for="morada" value="Morada: " />
+            <h:outputText
+                id="morada"
+                value="#{administratorManager.currentClient.morada}" />
+            
+            <h:outputLabel for="pessoaContacto" value="Contacto: " />
+            <h:outputText
+                id="pessoaContacto"
+                value="#{administratorManager.currentClient.pessoaContacto}" />
+             <br/><br/><br/>
+            <p:dataTable
+                var="software"
+                summary="List of all Softwares"
+                value="#{administratorManager.currentClient.softwares}">
 
-        </h:panelGrid>
+                <p:column headerText="SoftwareID">
+                    <h:outputText value="${software.idSoftware}" />
+                </p:column>
 
-        <h:dataTable
-            var="subject"
-            summary="List of all student's subjects"
-            value="#{administratorManager.currentStudentSubjects}"
-            rules="all"
-            cellpadding="5">
+                <p:column headerText="Software Name">
+                    <h:outputText value="${software.name}" />
+                </p:column>
 
-            <f:facet name="header">
-                <h:outputText value="Student's Subjects" />
-            </f:facet>
+                <p:column headerText="Software Base Version">
+                    <h:outputText value="${software.baseVersion}" />
+                </p:column>
 
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Code" />
-                </f:facet>
-                <h:outputText value="#{subject.code}" />
-                <!--Falta validar o formato-->
-            </h:column>
+                <p:column headerText="Software Configuration">
+                    <h:outputText value="${software.configuracoes}" />
+                </p:column>
 
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Name" />
-                </f:facet>
-                <h:outputText value="#{subject.name}" />
-            </h:column>
+            </p:dataTable>
 
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Course Year" />
-                </f:facet>
-                <h:outputText value="#{subject.courseYear}" />
-            </h:column>                        
-
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Scholar Year" />
-                </f:facet>
-                <h:outputText value="#{subject.scholarYear}" />
-            </h:column>                        
-
-        </h:dataTable>
-
+       
+       
         <br/><br/>
-        
-
-        <br/>
 
         <h:link 
             value="Return to main page" 
-            outcome="admin_index"/>        
+            outcome="admin_index"/> 
+        </h:panelGrid>
 
     </h:body>
 </html>

@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
+import javax.persistence.NamedQueries;
 
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,7 +26,10 @@ import lombok.Setter;
  */
 @Entity
 //@Table(name = "CLIENTS")
-@NamedQuery(name = "Client.all", query = "SELECT s FROM Client s ORDER BY s.name")
+@NamedQueries({
+@NamedQuery(name = "Client.all", query = "SELECT s FROM Client s ORDER BY s.name"),
+@NamedQuery(name = "Client.pass", query = "SELECT c.password FROM Client c WHERE c.username = :username")
+})
 public class Client extends User {
     
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
