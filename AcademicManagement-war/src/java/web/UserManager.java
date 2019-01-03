@@ -36,6 +36,9 @@ public class UserManager implements Serializable {
         if (isUserInRole("Administrator")) {
             return "/faces/admin/admin_index?faces-redirect=true";
         }
+        if (isUserInRole("Client")) {
+            return "/faces/client/client_index?faces-redirect=true";
+        }
         if (isUserInRole("Student")) {
             return "/faces/student/student_list_subjects?faces-redirect=true";
         }

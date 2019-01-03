@@ -40,8 +40,11 @@ import lombok.Setter;
         = @UniqueConstraint(columnNames = {"NAME"}))
 @NamedQueries({
     @NamedQuery(name = "Configuration.all"/*"getAllConfiguration"*/,
-        query = "SELECT s FROM Configuration s ORDER BY s.name")/*,
-    @NamedQuery(name = "getConfiguracao",
+        query = "SELECT s FROM Configuration s ORDER BY s.name"),
+    @NamedQuery(name = "clientConfigs",
+            query = "SELECT c FROM Configuration c WHERE c.client.username = :username"),
+        
+    /*@NamedQuery(name = "getConfiguracao",
         query = "SELECT s FROM Configuracao s WHERE s.id = :idConfiguracao ORDER BY s.name")  */  
 
 })

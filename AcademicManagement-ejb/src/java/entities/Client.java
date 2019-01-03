@@ -61,6 +61,10 @@ public class Client extends User {
     public void addSoftware(Software s){
         this.softwares.add(s);
     }  
+    
+    public void addConfiguration(Configuration c){
+        this.configs.add(c);
+    }
         
     
 }

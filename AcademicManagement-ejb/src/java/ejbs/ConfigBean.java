@@ -57,7 +57,7 @@ public class ConfigBean {
             SoftwareDTO s4 = softwareBean.create(new SoftwareDTO("v.1.5", "software4", c3.getUsername()));
 
             ConfigurationDTO conf1 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "configuracao1", "descricao de: "+s1.getClienteUsername(), ConfigurationState.ACTIVE, 22, c1.getUsername()));
-            //ConfigurationDTO conf2 = configuracaoBean.create(new ConfigurationDTO(s1.getIdSoftware(), "configuracao2", "descricao de: "+s1.getClienteUsername(), ConfigurationState.INACTIVE, 55, c1.getUsername()));
+            ConfigurationDTO conf2 = configuracaoBean.create(new ConfigurationDTO(s3.getIdSoftware(), "configuracao2", "descricao de: "+s3.getClienteUsername(), ConfigurationState.INACTIVE, 55, c2.getUsername()));
             //ConfigurationDTO conf3 = configuracaoBean.create(new ConfigurationDTO(s4.getIdSoftware(), "configuracao3", "descricao de: "+s4.getClienteUsername(), ConfigurationState.SUSPENCE, 70, c3.getUsername()));
             //ConfigurationDTO conf4 = configuracaoBean.create(new ConfigurationDTO(s2.getIdSoftware(), "configuracao4", "descricao de: "+s2.getClienteUsername(), ConfigurationState.SUSPENCE, 10, c1.getUsername()));
             //ConfigurationDTO conf5 = configuracaoBean.create(new ConfigurationDTO(s3.getIdSoftware(), "configuracao5", "descricao de: "+s3.getClienteUsername(), ConfigurationState.SUSPENCE, 5, c2.getUsername()));

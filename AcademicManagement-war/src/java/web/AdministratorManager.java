@@ -141,7 +141,6 @@ public class AdministratorManager implements Serializable {
     public String createAdmin(){
         try{
             //addHeaderBASIC();
-           
             client.target(baseUri)
                     .path("/administrators")
                     .request(MediaType.APPLICATION_XML).post(Entity.xml(newAdmin));

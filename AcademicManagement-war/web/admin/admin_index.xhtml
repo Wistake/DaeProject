@@ -187,6 +187,12 @@
                            <f:param name="deleteSoftwareId" id="deleteSoftwareId"
                                     value="#{software.idSoftware}" />
                        </h:commandLink>
+                       <h:commandLink 
+                           value="Add Modules" class="btn btn-primary"
+                           actionListener="#{administratorManager}">
+                           <f:param name="addModules" id="addModules"
+                                    value="#{administratorManager}" />
+                        </h:commandLink>
                        
                    </p:column>
         
@@ -247,12 +253,7 @@
                            <f:param name="deleteSoftwareId" id="deleteSoftwareId"
                                     value="#{configs.code}" />
                        </h:commandLink>
-                        <h:commandLink 
-                           value="Add Modules" class="btn btn-primary"
-                           actionListener="#{administratorManager}">
-                           <f:param name="addModules" id="addModules"
-                                    value="#{administratorManager}" />
-                        </h:commandLink>
+                        
                    </p:column>
         
                 </p:dataTable>
