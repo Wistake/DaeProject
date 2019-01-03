@@ -75,6 +75,9 @@ public class AdministratorManager implements Serializable {
         
         newSoftware = new SoftwareDTO();
         currentSoftware = new SoftwareDTO();
+        
+        newConfig = new ConfigurationDTO();
+        currentConfig = new ConfigurationDTO();
         client = ClientBuilder.newClient();
         newTemplate = new TemplateDTO();
         currentTemplate = new TemplateDTO();
@@ -381,6 +384,25 @@ public class AdministratorManager implements Serializable {
             logger.warning("Problem getting all templates in method getAllConfigurations."+e.getMessage());
             return null;
         }
+    }
+    
+    public String createConfiguration() {
+        newConfig.setStorageCapacity(currentTemplate.getStorageCapacity());
+        newConfig.setDescricao(currentTemplate.getDescricaoT());
+        newConfig.setName(currentTemplate.getNameConfig());
+        System.out.println("---------------------------"+newConfig.getName());
+        System.out.println("---------------------------"+newConfig.getStorageCapacity());
+        try {
+            client.target(baseUri)
+                    .path("/configurations")
+                    .request(MediaType.APPLICATION_XML)
+                    .post(Entity.xml(newConfig));
+            //clearNewTemplate();
+            return "admin_index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Unexpected error-createConfiguration! Try again latter!", component, logger);
+        }
+        return null;
     }
     
     
