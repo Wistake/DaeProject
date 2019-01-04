@@ -60,14 +60,6 @@
                     <h:outputText value="${software.baseVersion}" />
                 </p:column>
                 
-                    <p:column headerText="Configurations">
-                        <h:commandLink 
-                            value="Aceder á Configuração" 
-                            action="admin_configs_details?faces-redirect=true">
-                            <f:setPropertyActionListener
-                                target="#{administratorManager.currentSoftware}" value="#{software}" />                            
-                        </h:commandLink>
-                    </p:column> 
             </p:dataTable>
              
         <br/><br/>

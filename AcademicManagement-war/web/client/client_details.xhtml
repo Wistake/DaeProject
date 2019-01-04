@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Configurations Details</title>
+    </h:head>
+    <h:body>
+
+        <h:panelGrid columns="2">
+
+            <h:outputLabel for="id" value="Id: " />
+            <h:outputText
+                id="id"
+                value="#{clientManager.currentConfig.code}" />
+
+            <h:outputLabel for="idSoft" value="Software Id: " />
+            <h:outputText
+                id="idSoft"
+                value="#{clientManager.currentConfig.idSoftware}" />
+
+            <h:outputLabel for="name" value="Nome Configuration: " />
+            <h:outputText
+                id="name"
+                value="#{clientManager.currentConfig.name}" />
+            
+            <h:outputLabel for="descricao" value="Descrição: " />
+            <h:outputText
+                id="descricao"
+                value="#{clientManager.currentConfig.descricao}" />
+            
+            <h:outputLabel for="state" value="Estado: " />
+            <h:outputText
+                id="state"
+                value="#{clientManager.currentConfig.estado}" />
+            
+            <h:outputLabel for="manual" value="Manual Utilizador: " />
+            <h:outputText
+                id="manual"
+                value="#{clientManager.currentConfig.manualUtilizador}" />
+            
+            <h:outputLabel for="materiais" value="Materiais Marketing: " />
+            <h:outputText
+                id="materiais"
+                value="#{clientManager.currentConfig.materiaisMarketing}" />
+            
+            <h:outputLabel for="storage" value="Storage Capacity: " />
+            <h:outputText
+                id="storage"
+                value="#{clientManager.currentConfig.storageCapacity}" />
+            
+            <h:outputLabel for="tutoriais" value="Tutoriais: " />
+            <h:outputText
+                id="tutoriais"
+                value="#{clientManager.currentConfig.tutoriais}" />
+
+            
+            
+
+        </h:panelGrid>
+       
+    </h:body>
+</html>
+

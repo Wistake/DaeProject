@@ -153,7 +153,7 @@
                            value="Remove" 
                            actionListener="#{administratorManager.removeTemplate}">
                            <f:param name="deleteTemplateId" id="deleteTemplateId"
-                                    value="#{template.templateName}" />
+                                    value="#{template.codeT}" />
                        </h:commandLink>
                        &nbsp;
                        <h:commandLink value="Make Configuration" class="btn btn-primary" action="admin_configs_create_template?faces-redirect=true">

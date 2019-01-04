@@ -17,31 +17,26 @@
                     <p:column headerText="Id">
                         <h:outputText value="${configs.clientUsername}" />
                     </p:column>
-                    <p:column headerText="Nome">
+                    <p:column headerText="Code">
                         <h:outputText value="${configs.code}" />
                     </p:column>
-                    <p:column headerText="Id Software">
+                    <p:column headerText="Descricao">
                         <h:outputText value="${configs.descricao}" />
                     </p:column>
-                    <p:column headerText="Id Software">
-                        <h:outputText value="${configs.estado}" />
-                    </p:column>
-                    <p:column headerText="Id Software">
-                        <h:outputText value="${configs.idSoftware}" />
-                    </p:column>
-                    <p:column headerText="Id Software">
-                        <h:outputText value="${configs.name}" />
-                    </p:column>
-                    <p:column headerText="Id Software">
-                        <h:outputText value="${configs.storageCapacity}" />
-                    </p:column>
+                    
+                    <p:column headerText="Actions">
+                       <h:commandLink 
+                           value="Consultar" 
+                           action="client_details?faces-redirect=true">
+                           <f:setPropertyActionListener
+                               target="#{clientManager.currentConfig}" value="#{configs}" />                            
+                       </h:commandLink>
+                   </p:column>
                     
                     
                 </p:dataTable>
                 
-                <h:commandLink value="logout" action="index_login?faces-redirect=true" class="btn btn-primary">
-                    <f:setPropertyActionListener target="#{userManager.logout}" value="#{logout}" />
-                </h:commandLink>
+            <h:commandButton value="Logoff" action="#{userManager.logout()}" />
                 
             </h:form>
             
