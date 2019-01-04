@@ -7,6 +7,8 @@ package ejbs;
 
 import dtos.TemplateDTO;
 import entities.Template;
+import java.util.List;
+import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 

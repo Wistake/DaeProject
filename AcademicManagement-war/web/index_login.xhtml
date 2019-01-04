@@ -14,7 +14,11 @@
                 <h:outputLabel for="passwordInput">Password: </h:outputLabel>
                 <h:inputSecret id="passwordInput" value="#{userManager.password}" required="true" />
                 <h:commandButton value="Login" action="#{userManager.login}" />
+                
             </h:panelGrid>
+        </h:form>
+        <h:form>
+        <h:commandButton value="Guest" action="faces/guest?faces-redirect=true" />
         </h:form>
         <h:outputScript library="js" name="bootstrap.min.js"/>
     </h:body>

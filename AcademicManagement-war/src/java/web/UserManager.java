@@ -1,6 +1,8 @@
 package web;
 
+import dtos.TemplateDTO;
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -9,6 +11,11 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import lombok.Getter;
+import lombok.Setter;
 
 @ManagedBean
 @SessionScoped
@@ -16,11 +23,28 @@ public class UserManager implements Serializable {
 
     private String username;
     private String password;
+    
+    private final String baseUri = "http://localhost:8080/AcademicManagement-war/api";
+     
+     private Client client;
 
     private boolean loginFlag = true;
     private static final Logger logger = Logger.getLogger("web.UserManager");
 
     public UserManager() {
+    }
+    
+    public List<TemplateDTO> getAllTemplates(){
+         try {
+            
+           return client.target(baseUri)
+                    .path("/templates")
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<List<TemplateDTO>>() {});
+        } catch (Exception e) {
+            logger.warning("Problem getting all templates in method getAllTemplates."+e.getMessage());
+            return null;
+        }
     }
 
     public String login() {
