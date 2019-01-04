@@ -30,6 +30,9 @@ public class Client extends User {
     
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private @Getter @Setter List<Software> softwares;
+    
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private @Getter @Setter List<License> licenses;
 
     @NotNull(message = "Nome da empresa não pode estar vazio!")
     private @Getter @Setter String empresa;
@@ -39,9 +42,12 @@ public class Client extends User {
     
     @NotNull(message = "Pessoa de contacto não pode estar vazio!")
     private @Getter @Setter String pessoaContacto;
+    
+    
 
     protected Client() {
         this.softwares = new LinkedList<>();
+        this.licenses = new LinkedList<>();
     }
 
     public Client(String empresa, String morada, String pessoaContacto, String username, String password, String name, String email) {
@@ -50,11 +56,16 @@ public class Client extends User {
         this.morada = morada;
         this.pessoaContacto = pessoaContacto;
         this.softwares = new LinkedList<>();
+        this.licenses = new LinkedList<>();
     }
     
     public void addSoftware(Software s){
         this.softwares.add(s);
-    }  
+    } 
+    
+    public void addLicense(License l){
+        this.licenses.add(l);
+    }
         
     
 }

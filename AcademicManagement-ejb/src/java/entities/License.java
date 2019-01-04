@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -45,15 +46,20 @@ public class License implements Serializable {
     
     @ManyToMany(mappedBy = "licenses", cascade = CascadeType.ALL)
     private @Getter @Setter List<Software> softwares;
+    
+    @ManyToOne
+    private @Getter @Setter Client client;
 
     public License() {
         softwares = new LinkedList<>();
     }
     
-    public License(String name, String endDate) {
+    public License(String name, String endDate, Client client) {
         this();
         this.name = name;
         this.endDate = endDate;
+        this.client = client;
+        this.client.addLicense(this);
     }
     
     public void addSoftware(Software s){

@@ -76,9 +76,14 @@ public class ConfigBean {
             ModuloDTO mod2 = moduloBean.create(new ModuloDTO("Modulo2", conf1.getCode()));
             ModuloDTO mod3 = moduloBean.create(new ModuloDTO("Modulo3", conf2.getCode()));
             
-            LicenseDTO license1 = licenseBean.create(new LicenseDTO("License1", "2-2-2020", "10-10-2030", LicenseState.ACTIVE));
+            LicenseDTO license1 = licenseBean.create(new LicenseDTO("License1", "2-2-2020", "10-10-2030", LicenseState.ACTIVE, c1.getUsername()));
+            LicenseDTO license2 = licenseBean.create(new LicenseDTO("License2", "2-2-2029", "10-10-2040", LicenseState.ACTIVE, c2.getUsername()));
             
             softwareBean.enrollLicenseInSoftware(s1.getIdSoftware(), license1.getId());
+            softwareBean.enrollLicenseInSoftware(s2.getIdSoftware(), license1.getId());
+            
+            softwareBean.enrollLicenseInSoftware(s3.getIdSoftware(), license2.getId());
+            softwareBean.enrollLicenseInSoftware(s4.getIdSoftware(), license2.getId());
            
        } catch (Exception e) {
             logger.warning(e.getMessage());

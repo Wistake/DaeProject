@@ -26,10 +26,12 @@ public class LicenseDTO implements DTO{
     private @Getter @Setter String endDate;
     private @Getter @Setter String initDate;
     private @Getter @Setter LicenseState state;
+    private @Getter @Setter String clientUsername;
 
-    public LicenseDTO(String name, String endDate, String initDate, LicenseState state) {
-        this(null, name, endDate, initDate, state);
+    public LicenseDTO(String name, String endDate, String initDate, LicenseState state, String clientUsername) {
+        this(null, name, endDate, initDate, state, clientUsername);
     }
+   
 
     @Override
     public void clear() {
@@ -38,6 +40,7 @@ public class LicenseDTO implements DTO{
         endDate = null;
         initDate = null;
         state = null;
+        clientUsername=null;
     }
 
     
