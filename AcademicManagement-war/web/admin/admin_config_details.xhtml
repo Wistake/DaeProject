@@ -5,31 +5,32 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Software Details</title>
+        <title>Configurations Details</title>
     </h:head>
     <h:body>
 
         <h:panelGrid columns="2">
 
-            <h:outputLabel for="id" value="Id Software: " />
+            <h:outputLabel for="id" value="Id: " />
             <h:outputText
                 id="id"
-                value="#{administratorManager.currentSoftware.idSoftware}" />
+                value="#{administratorManager.currentConfig.code}" />
 
-            <h:outputLabel for="nome" value="Nome: " />
+            <h:outputLabel for="idSoft" value="Software Id: " />
             <h:outputText
-                id="nome"
-                value="#{administratorManager.currentSoftware.name}" />
+                id="idSoft"
+                value="#{administratorManager.currentConfig.idSoftware}" />
 
-            <h:outputLabel for="baseVersion" value="Base Version: " />
+            <h:outputLabel for="name" value="Nome Configuration: " />
             <h:outputText
-                id="baseVersion"
-                value="#{administratorManager.currentSoftware.baseVersion}" />
+                id="name"
+                value="#{administratorManager.currentConfig.name}" />
             
-            <h:outputLabel for="clientId" value="Client Id: " />
+            <h:outputLabel for="descricao" value="Descrição: " />
             <h:outputText
-                id="clientId"
-                value="#{administratorManager.currentSoftware.clienteUsername}" />
+                id="descricao"
+                value="#{administratorManager.currentConfig.descricao}" />
+            
 
         </h:panelGrid>
 
