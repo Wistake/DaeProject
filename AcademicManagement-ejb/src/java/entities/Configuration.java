@@ -76,10 +76,6 @@ public class Configuration implements Serializable {
     @NotNull(message = "Storage Capacity não pode estar vazia!")
     private @Getter @Setter Integer storageCapacity;
     
-   /* @ManyToOne
-    @NotNull
-    private @Getter @Setter Client client;*/
-    
     /*
     @OneToMany(mappedBy = "servicos", cascade = CascadeType.REMOVE) // ManyToMany //?????????'
     private List<Servico> servicos;
@@ -100,14 +96,13 @@ public class Configuration implements Serializable {
         this.modulos.add(m);
     }
 
-    public Configuration(Software software, String name, String descricao, ConfigurationState estado, Integer storageCapacity){//, Client client) {
+    public Configuration(Software software, String name, String descricao, ConfigurationState estado, Integer storageCapacity){
         this.software = software;
         this.name = name;
         this.descricao = descricao;
         this.estado = estado;
         this.storageCapacity = storageCapacity;
         this.software.addConfiguracao(this);
-    //    this.client = client;
     }
     
     

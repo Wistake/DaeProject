@@ -43,14 +43,9 @@ public class Client extends User {
     
     @NotNull(message = "Pessoa de contacto não pode estar vazio!")
     private @Getter @Setter String pessoaContacto;
-    
-   /* @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private @Getter @Setter List<Configuration> configs;*/
 
     protected Client() {
-        this.softwares = new LinkedList<>();
-      //  this.configs = new LinkedList<>();
-        
+        this.softwares = new LinkedList<>(); 
     }
 
     public Client(String empresa, String morada, String pessoaContacto, String username, String password, String name, String email) {
@@ -59,16 +54,9 @@ public class Client extends User {
         this.morada = morada;
         this.pessoaContacto = pessoaContacto;
         this.softwares = new LinkedList<>();
-       // this.configs = new LinkedList<>();
     }
     
     public void addSoftware(Software s){
         this.softwares.add(s);
     }  
-    
-   /* public void addConfiguration(Configuration c){
-        this.configs.add(c);
-    }*/
-        
-    
 }

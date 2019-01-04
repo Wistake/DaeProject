@@ -64,9 +64,7 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
         }
         Configuration conf = toEntity(dto);
         conf.setSoftware(soft);
-     //   conf.setClient(client);
         conf = create(conf);
-        //client.addConfiguration(conf);
         return toDTO(conf);
     }
     
