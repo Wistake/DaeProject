@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Update Template</title>
+        <title>Template Template</title>
     </h:head>
     <h:body>
         <h:form>
@@ -14,7 +14,6 @@
                     id="templateName"
                     size="20"
                     required="true"
-                    readonly="true"
                     requiredMessage="Error: Template Name cannot be empty"
                     value="#{administratorManager.currentTemplate.templateName}">
                 </h:inputText>
@@ -25,40 +24,40 @@
                     id="descricaoT"
                     size="20"
                     required="true"
-                    requiredMessage="Error: Descrição cannot be empty"
+                    requiredMessage="Error: Template descrição cannot be empty"
                     value="#{administratorManager.currentTemplate.descricaoT}">
                 </h:inputText>
                 <h:message for="descricaoT" errorStyle="color:red" />
-
-                <h:outputLabel for="nameConfig" value="Nome Configuracao: " />
-                <h:inputText
-                    id="nameConfig"
-                    size="20"
-                    required="true"
-                    requiredMessage="Error: Nome Configuracao cannot be empty"
-                    value="#{administratorManager.currentTemplate.nameConfig}">
-                </h:inputText>
-                <h:message for="nameConfig" errorStyle="color:red" />
                 
-                <h:outputLabel for="descricaoConfig" value="Descrição Configuracao: " />
+                <h:outputLabel for="descricaoConfig" value="Descrição da Configuração: " />
                 <h:inputText
                     id="descricaoConfig"
                     size="20"
                     required="true"
-                    requiredMessage="Error: Descricao Configuracao cannot be empty"
+                    requiredMessage="Error: Template cannot be empty"
                     value="#{administratorManager.currentTemplate.descricaoConfig}">
                 </h:inputText>
                 <h:message for="descricaoConfig" errorStyle="color:red" />
                 
-                <h:outputLabel for="storageCapacity" value="Capacidade de armazenamento disponivel: " />
+                <h:outputLabel for="manual" value="Manual de Utilizador: " />
                 <h:inputText
-                    id="storageCapacity"
+                    id="manual"
                     size="20"
                     required="true"
-                    requiredMessage="Error: Capacidade de armazenamento cannot be empty"
-                    value="#{administratorManager.currentTemplate.storageCapacity}">
+                    requiredMessage="Error: Template cannot be empty"
+                    value="#{administratorManager.currentTemplate.manualUtilizador}">
                 </h:inputText>
-                <h:message for="storageCapacity" errorStyle="color:red" />
+                <h:message for="manual" errorStyle="color:red" />
+                
+                <h:outputLabel for="materiais" value="Materiais de Marketing: " />
+                <h:inputText
+                    id="materiais"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Template cannot be empty"
+                    value="#{administratorManager.currentTemplate.materiaisMarketing}">
+                </h:inputText>
+                <h:message for="materiais" errorStyle="color:red" />
 
                 <h:outputLabel for="state" value="Estado: " />
                 <h:selectOneMenu
@@ -71,6 +70,26 @@
                         itemLabel="#{state}" />
                 </h:selectOneMenu>
                 <br></br> 
+                
+                <h:outputLabel for="storageCapacity" value="Storage Capacity: " />
+                <h:inputText
+                    id="storageCapacity"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Template cannot be empty"
+                    value="#{administratorManager.currentTemplate.storageCapacity}">
+                </h:inputText>
+                <h:message for="storageCapacity" errorStyle="color:red" />
+                
+                <h:outputLabel for="tutoriais" value="Tutoriais: " />
+                <h:inputText
+                    id="tutoriais"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Template cannot be empty"
+                    value="#{administratorManager.currentTemplate.tutoriais}">
+                </h:inputText>
+                <h:message for="tutoriais" errorStyle="color:red" />
 
                 <h:commandButton
                     id="submit"
