@@ -341,7 +341,7 @@ public class AdministratorManager implements Serializable {
     public String updateTemplate(){
         try {
             client.target(baseUri)
-                    .path("/templates/"+currentTemplate.getTemplateName())
+                    .path("/templates/"+currentTemplate.getCodeT())
                     .request(MediaType.APPLICATION_XML).put(Entity.xml(currentTemplate));
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Problem updating template in method updateTemplate", logger);

@@ -17,6 +17,6 @@ import javax.ws.rs.Path;
  */
 @Stateless
 @Path("templates")
-public class TemplateBean extends Bean<Template, TemplateDTO, String>{
+public class TemplateBean extends Bean<Template, TemplateDTO, Integer>{
     
 }

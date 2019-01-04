@@ -34,11 +34,13 @@ public class ClientManager implements Serializable{
     private Client client;
     
     private @Getter @Setter UIComponent component;
+    private @Getter @Setter ConfigurationDTO currentConfig;
     
     //private @Getter @Setter ConfigurationDTO currentConfig;nao é preciso pq n é preciso editar, só ler
 
     public ClientManager() {
         client = ClientBuilder.newClient();
+        currentConfig = new ConfigurationDTO();
     }
     
     @PostConstruct
