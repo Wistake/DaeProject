@@ -36,8 +36,7 @@ import lombok.Setter;
  * @author lucas
  */
 @Entity
-@Table(name = "CONFIGURATION", uniqueConstraints
-        = @UniqueConstraint(columnNames = {"NAME"}))
+@Table(name = "CONFIGURATION")
 @NamedQueries({
     @NamedQuery(name = "Configuration.all"/*"getAllConfiguration"*/,
         query = "SELECT s FROM Configuration s ORDER BY s.name"),

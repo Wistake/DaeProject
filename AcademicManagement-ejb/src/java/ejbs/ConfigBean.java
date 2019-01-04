@@ -40,7 +40,7 @@ public class ConfigBean {
     @PostConstruct
     public void populateDB() {
 
-        try {        
+       // try {        
             administratorBean.create(new AdministratorDTO("a1", "a1", "a1", "a1@ipleiria.pt", "Chefe"));
             administratorBean.create(new AdministratorDTO("a2", "a2", "a2", "a2@ipleiria.pt", "Sub-Chefe"));
             administratorBean.create(new AdministratorDTO("a3", "a3", "a3", "a3@ipleiria.pt", "Diretor"));
@@ -73,9 +73,9 @@ public class ConfigBean {
             //ModuloDTO mod3 = moduloBean.create(new ModuloDTO("Modulo3", conf2.getCode()));
 
          
-       } catch (Exception e) {
+       /*} catch (Exception e) {
             logger.warning(e.getMessage());
-        }
+        }*/
         
     }
 
