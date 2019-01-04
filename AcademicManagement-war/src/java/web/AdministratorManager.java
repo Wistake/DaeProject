@@ -482,6 +482,33 @@ public class AdministratorManager implements Serializable {
         return null;
     }
     
+    public String updateConfiguration(){
+        try {
+            client.target(baseUri)
+                    .path("/configurations/"+currentConfig.getCode())
+                    .request(MediaType.APPLICATION_XML).put(Entity.xml(currentConfig));
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Problem updating configuration in method updateConfiguration", logger);
+            return null;
+        }
+        return "admin_index?faces-redirect=true";
+    }
+    
+    public void removeConfiguration(ActionEvent event) {
+        try {
+            UIParameter param = (UIParameter) event.getComponent().findComponent("deleteConfigurationId");
+            String id = param.getValue().toString();
+
+            client.target(baseUri)
+                    .path("/configurations")
+                    .path(id)
+                    .request(MediaType.APPLICATION_XML)
+                    .delete();
+        } catch (Exception e) {
+            logger.warning("Problem removing a Configuration in method removeConfiguration.");
+        }
+    }
+    
     public String createConfigurationTemplate() {
         newConfig.setClientUsername(newClient.getUsername());
         newConfig.setCode(null);

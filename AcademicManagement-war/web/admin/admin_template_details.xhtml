@@ -10,7 +10,7 @@
     <h:body>
 
         <h:panelGrid columns="2">
-
+            
             <h:outputLabel for="templateName" value="Template Name: " />
             <h:outputText
                 id="templateName"
@@ -21,25 +21,35 @@
                 id="descricaoT"
                 value="#{administratorManager.currentTemplate.descricaoT}" />
             
-            <h:outputLabel for="nameConfig" value="Nome da Configuração: " />
-            <h:outputText
-                id="nameConfig"
-                value="#{administratorManager.currentTemplate.nameConfig}" />
-            
             <h:outputLabel for="descricaoConfig" value="Descrição da Configuração: " />
             <h:outputText
                 id="descricaoConfig"
                 value="#{administratorManager.currentTemplate.descricaoConfig}" />
             
-            <h:outputLabel for="storageCapacity" value="Capacidade de Armazenamento: " />
+            <h:outputLabel for="manualUtilizador" value="Manual Utilizador: " />
             <h:outputText
-                id="storageCapacity"
-                value="#{administratorManager.currentTemplate.storageCapacity}" />
+                id="manualUtilizador"
+                value="#{administratorManager.currentTemplate.manualUtilizador}" />
+            
+            <h:outputLabel for="materiaisMarketing" value="Materiais Marketing: " />
+            <h:outputText
+                id="materiaisMarketing"
+                value="#{administratorManager.currentTemplate.materiaisMarketing}" />
             
             <h:outputLabel for="state" value="Estado: " />
             <h:outputText
                 id="state"
-                value="#{administratorManager.currentTemplate.state}" />           
+                value="#{administratorManager.currentTemplate.state}" />  
+            
+            <h:outputLabel for="storageCapacity" value="Storage Capacity: " />
+            <h:outputText
+                id="storageCapacity"
+                value="#{administratorManager.currentTemplate.storageCapacity}" /> 
+            
+            <h:outputLabel for="tutoriais" value="Tutoriais: " />
+            <h:outputText
+                id="tutoriais"
+                value="#{administratorManager.currentTemplate.tutoriais}" />
         
         </h:panelGrid>
 

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Configs Update</title>
+    </h:head>
+    <h:body>
+
+        <h:form>
+
+            <h:panelGrid columns="3">
+                
+                <h:outputLabel for="idSoft" value="Software Id " />
+                <h:selectOneMenu
+                    id="idSoft"
+                    value="#{administratorManager.currentConfig.idSoftware}" >
+                    <f:selectItems
+                        value="#{administratorManager.allConfigurations}"
+                        var="idSoft"
+                        itemValue="#{idSoft.idSoftware}"
+                        itemLabel="#{idSoft.idSoftware}" />
+                </h:selectOneMenu>
+                
+                <h:outputLabel for="name" value="Nome Configuration: " />
+                <h:inputText
+                    id="name"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Name cannot be empty"
+                    value="#{administratorManager.currentConfig.name}" />
+                <h:message for="name" errorStyle="color:red" />
+                
+                <h:outputLabel for="descricao" value="Descrição: " />
+                <h:inputText
+                    id="descricao"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: Name cannot be empty"
+                    value="#{administratorManager.currentConfig.descricao}" />
+                <h:message for="descricao" errorStyle="color:red" />
+                
+                <h:outputLabel for="state" value="Software Id " />
+                <h:selectOneMenu
+                    id="state"
+                    value="#{administratorManager.currentConfig.estado}" >
+                    <f:selectItems
+                        value="#{administratorManager.allConfigurations}"
+                        var="state"
+                        itemValue="#{state.estado}"
+                        itemLabel="#{state.estado}" />
+                </h:selectOneMenu>
+                
+                <h:outputLabel for="manual" value="Manual Utilizador: " />
+                <h:inputText
+                    id="manual"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: manualUtilizador cannot be empty"
+                    value="#{administratorManager.currentConfig.manualUtilizador}" />
+                <h:message for="manual" errorStyle="color:red" />
+                
+                <h:outputLabel for="materiais" value="Materiais Marketing: " />
+                <h:inputText
+                    id="materiais"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: materiais cannot be empty"
+                    value="#{administratorManager.currentConfig.materiaisMarketing}" />
+                <h:message for="materiais" errorStyle="color:red" />
+
+                <h:outputLabel for="storage" value="Storage Capacity: " />
+                <h:inputText
+                    id="storage"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: materiais cannot be empty"
+                    value="#{administratorManager.currentConfig.storageCapacity}" />
+                <h:message for="storage" errorStyle="color:red" />
+                
+                <h:outputLabel for="tutoriais" value="Tutoriais: " />
+                <h:inputText
+                    id="tutoriais"
+                    size="20"
+                    required="true"
+                    requiredMessage="Error: materiais cannot be empty"
+                    value="#{administratorManager.currentConfig.tutoriais}" />
+                <h:message for="tutoriais" errorStyle="color:red" />
+                
+                <h:commandButton
+                    id="submit"
+                    value="Update"
+                    action="#{administratorManager.updateConfiguration()}" />
+                <h:message for="submit" errorStyle="color:red" />
+
+            </h:panelGrid>
+
+        </h:form>            
+
+    </h:body>
+</html>
+
