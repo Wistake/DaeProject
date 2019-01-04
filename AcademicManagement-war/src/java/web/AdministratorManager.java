@@ -376,6 +376,32 @@ public class AdministratorManager implements Serializable {
         }
     }
     
+    public List<SoftwareDTO> getSoftwaresOfClientsNew() {     
+        try {
+            
+           return client.target(baseUri)
+                    .path("/softwares/clients/"+newClient.getUsername())
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<List<SoftwareDTO>>() {});
+        } catch (Exception e) {
+            logger.warning("Problem getting all templates in method getAllSoftwares."+e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<SoftwareDTO> getSoftwaresOfConfigClient() {     
+        try {
+            
+           return client.target(baseUri)
+                    .path("/softwares/clients/"+newConfig.getClientUsername())
+                    .request(MediaType.APPLICATION_XML)
+                    .get(new GenericType<List<SoftwareDTO>>() {});
+        } catch (Exception e) {
+            logger.warning("Problem getting all templates in method getAllSoftwares."+e.getMessage());
+            return null;
+        }
+    }
+    
     
     
     public String createSoftware() {
@@ -432,19 +458,52 @@ public class AdministratorManager implements Serializable {
         }
     }
     
-    public String createConfiguration() {
-        newConfig.setStorageCapacity(currentTemplate.getStorageCapacity());
-        newConfig.setDescricao(currentTemplate.getDescricaoT());
-        newConfig.setName(currentTemplate.getNameConfig());
-        System.out.println("---------------------------"+newConfig.getName());
+    public String createConfigurationCloneClient() {
+        newConfig.setClientUsername(newClient.getUsername());
+        newConfig.setCode(null);
+        System.out.println("---------------------------"+newConfig.getClientUsername());
+        System.out.println("---------------------------"+newClient.getUsername());
+        System.out.println("---------------------------"+newConfig.getIdSoftware());
+        System.out.println("---------------------------"+newConfig.getCode());
+        System.out.println("---------------------------"+newConfig.getDescricao());
+        System.out.println("---------------------------"+newConfig.getEstado());
         System.out.println("---------------------------"+newConfig.getStorageCapacity());
+        
         try {
             client.target(baseUri)
                     .path("/configurations")
                     .request(MediaType.APPLICATION_XML)
                     .post(Entity.xml(newConfig));
-            //clearNewTemplate();
-            return "admin_index?faces-redirect=true";
+            newConfig.clear();
+           return "admin_index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesExceptionHandler.handleException(e, "Unexpected error-createConfiguration! Try again latter!", component, logger);
+        }
+        return null;
+    }
+    
+    public String createConfigurationTemplate() {
+        newConfig.setClientUsername(newClient.getUsername());
+        newConfig.setCode(null);
+        newConfig.setDescricao(currentTemplate.getDescricaoConfig());
+        newConfig.setEstado(currentTemplate.getState());
+        newConfig.setStorageCapacity(currentTemplate.getStorageCapacity());
+        System.out.println("---------------------------"+newConfig.getClientUsername());
+        System.out.println("---------------------------"+newClient.getUsername());
+        System.out.println("---------------------------"+newConfig.getIdSoftware());
+        System.out.println("---------------------------"+newConfig.getCode());
+        System.out.println("---------------------------"+newConfig.getDescricao());
+        System.out.println("---------------------------"+newConfig.getEstado());
+        System.out.println("---------------------------"+newConfig.getStorageCapacity());
+        
+        try {
+            client.target(baseUri)
+                    .path("/configurations")
+                    .request(MediaType.APPLICATION_XML)
+                    .post(Entity.xml(newConfig));
+            newConfig.clear();
+            currentTemplate.clear();
+           return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             FacesExceptionHandler.handleException(e, "Unexpected error-createConfiguration! Try again latter!", component, logger);
         }

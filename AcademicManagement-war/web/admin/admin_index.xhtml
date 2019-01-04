@@ -149,6 +149,13 @@
                            <f:param name="deleteTemplateId" id="deleteTemplateId"
                                     value="#{template.templateName}" />
                        </h:commandLink>
+                       &nbsp;
+                       <h:commandLink value="Clone to Client" class="btn btn-primary" action="admin_configs_create_template?faces-redirect=true">
+                            <f:setPropertyActionListener
+                                target="#{administratorManager.currentTemplate}" value="#{template}" /> 
+
+                        </h:commandLink>
+                   
                    </p:column>
         
                 </p:dataTable>
@@ -212,7 +219,8 @@
                 <p:dataTable
                     var="configs"
                     summary="List of all Configurations"
-                    value="#{administratorManager.allConfigurations}">
+                    value="#{administratorManager.allConfigurations}"
+                    id="colunaUppdate">
 
                     <p:column headerText="Id">
                         <h:outputText value="${configs.code}" />
@@ -223,22 +231,26 @@
                     <p:column headerText="Id Software">
                         <h:outputText value="${configs.idSoftware}" />
                     </p:column>
+                  
                     <p:column headerText="Clone:">
+                        
+
                         <h:selectOneMenu
-                        id="clientId"
-                        value="#{administratorManager.newConfig.clientUsername}" >
+                        immediate="true"
+                        value="#{administratorManager.newClient.username}" >
+                        <p:ajax event="change" update="colunaUppdate" />
                         <f:selectItems
                             value="#{administratorManager.allClients}"
-                            var="clientId"
-                            itemValue="#{clientId.username}"
-                            itemLabel="#{clientId.name}" />
+                            var="client"
+                            itemValue="#{client.username}"
+                            itemLabel="#{client.name}" />
+                        
                         </h:selectOneMenu>
                         
-                        <h:commandLink 
-                           value="Clone to Client" class="btn btn-primary"
-                           actionListener="#{administratorManager.cloneConfig}">
-                           <f:param name="username" id="username"
-                                    value="#{administratorManager.newSoftware.clienteUsername}" />
+                        <h:commandLink value="Clone to Client" class="btn btn-primary" action="admin_configs_create?faces-redirect=true">
+                            <f:setPropertyActionListener
+                                target="#{administratorManager.newConfig}" value="#{configs}" /> 
+
                         </h:commandLink>
                     </p:column>
                     

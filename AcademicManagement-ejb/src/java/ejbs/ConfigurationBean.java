@@ -23,6 +23,7 @@ import javax.ejb.Stateless;
 import javax.mail.MessagingException;
 import javax.persistence.Query;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -58,9 +59,12 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
     public ConfigurationDTO create(ConfigurationDTO dto) {
         Software soft = softwareBean.findOrFail(dto.getIdSoftware());
         Client client = clientBean.findOrFail(dto.getClientUsername());
+        if(client.getSoftwares().contains(soft)){
+            return null;
+        }
         Configuration conf = toEntity(dto);
         conf.setSoftware(soft);
-        conf.setClient(client);
+     //   conf.setClient(client);
         conf = create(conf);
         //client.addConfiguration(conf);
         return toDTO(conf);
@@ -74,6 +78,8 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
         query.setParameter("state", ConfigurationState.valueOf(state));
         return toDTOs(query.getResultList());
     }
+    
+     
 /*
     @Override
     protected Configuration create(Configuration entity) {
