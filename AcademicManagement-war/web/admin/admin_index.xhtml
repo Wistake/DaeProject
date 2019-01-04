@@ -118,17 +118,23 @@
                     <p:column headerText="Descricao">
                         <h:outputText value="${template.descricaoT}" />
                     </p:column>
-                    <p:column headerText="Nome Da Configuracao">
-                        <h:outputText value="${template.nameConfig}" />
-                    </p:column>
-                    <p:column headerText="Descrição Da Configuracao">
+                    <p:column headerText="Descricao Da Configuracao">
                         <h:outputText value="${template.descricaoConfig}" />
+                    </p:column>
+                    <p:column headerText="Manual de Utilizador">
+                        <h:outputText value="${template.manualUtilizador}" />
                     </p:column>
                     <p:column headerText="Capacidade Do Armazenamento(GB)">
                         <h:outputText value="${template.storageCapacity}" />
                     </p:column>
                     <p:column headerText="Estado">
                         <h:outputText value="${template.state}" />
+                    </p:column>
+                    <p:column headerText="Marketing">
+                        <h:outputText value="${template.materiaisMarketing}" />
+                    </p:column>
+                    <p:column headerText="Tutoriais">
+                        <h:outputText value="${template.tutoriais}" />
                     </p:column>
 
                     <p:column headerText="Actions">
@@ -150,7 +156,7 @@
                                     value="#{template.templateName}" />
                        </h:commandLink>
                        &nbsp;
-                       <h:commandLink value="Clone to Client" class="btn btn-primary" action="admin_configs_create_template?faces-redirect=true">
+                       <h:commandLink value="Make Configuration" class="btn btn-primary" action="admin_configs_create_template?faces-redirect=true">
                             <f:setPropertyActionListener
                                 target="#{administratorManager.currentTemplate}" value="#{template}" /> 
 

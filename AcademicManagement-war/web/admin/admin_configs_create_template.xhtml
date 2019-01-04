@@ -47,19 +47,7 @@
                     requiredMessage="Error: Template Name cannot be empty"
                     value="#{administratorManager.newConfig.name}">
                 </h:inputText>
-                <h:message for="name" errorStyle="color:red" />
-                
-                <h:outputLabel for="descricao" value="Descrição: " />
-                <h:inputText
-                    id="descricao"
-                    size="20"
-                    required="true"
-                    requiredMessage="Error: Descrição cannot be empty"
-                    value="#{administratorManager.newConfig.descricao}">
-                </h:inputText>
-                <h:message for="descricao" errorStyle="color:red" />
-
-                
+                <h:message for="name" errorStyle="color:red" />               
 
                 <h:commandButton
                     id="submit"

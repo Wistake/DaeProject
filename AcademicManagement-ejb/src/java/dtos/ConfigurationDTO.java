@@ -26,12 +26,15 @@ public class ConfigurationDTO implements DTO{
     private @Getter @Setter String descricao;
     private @Getter @Setter ConfigurationState estado;
     private @Getter @Setter Integer storageCapacity;
+    private @Getter @Setter String materiaisMarketing;
+    private @Getter @Setter String tutoriais;
+    private @Getter @Setter String manualUtilizador;
     private @Getter @Setter String clientUsername;
-    
 
-    public ConfigurationDTO(Integer idSoftware, String name, String descricao, ConfigurationState estado, Integer storageCapacity, String clientUsername) {
-        this(null, idSoftware, name, descricao, estado, storageCapacity, clientUsername);
+    public ConfigurationDTO(Integer idSoftware, String name, String descricao, ConfigurationState estado, Integer storageCapacity, String materiaisMarketing, String tutoriais, String manualUtilizador, String clientUsername) {
+        this(null, idSoftware, name, descricao, estado, storageCapacity, materiaisMarketing, tutoriais, manualUtilizador, clientUsername);
     }
+
 
     @Override
     public void clear() {
@@ -42,5 +45,8 @@ public class ConfigurationDTO implements DTO{
         estado= null;
         storageCapacity = null;
         clientUsername = null;
+        tutoriais= null;
+        manualUtilizador= null;
+        materiaisMarketing= null;
     }
 }

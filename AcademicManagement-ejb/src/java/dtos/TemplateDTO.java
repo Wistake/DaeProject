@@ -21,23 +21,33 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TemplateDTO implements DTO {
     //Template
+    private @Getter @Setter Integer codeT;
     private @Getter @Setter String templateName;
     private @Getter @Setter String descricaoT;
     //Configuracao
-    private @Getter @Setter String nameConfig;
     private @Getter @Setter String descricaoConfig;
-    private @Getter @Setter Integer storageCapacity;
     private @Getter @Setter ConfigurationState state;
+    private @Getter @Setter Integer storageCapacity;
+    private @Getter @Setter String materiaisMarketing;
+    private @Getter @Setter String tutoriais;
+    private @Getter @Setter String manualUtilizador;
+
+    public TemplateDTO(String templateName, String descricaoT, String descricaoConfig, ConfigurationState state, Integer storageCapacity, String materiaisMarketing, String tutoriais, String manualUtilizador) {
+        this(null, templateName, descricaoT, descricaoConfig, state, storageCapacity, materiaisMarketing, tutoriais, manualUtilizador);
+    }
 
     @Override
     public void clear() {
         //template
+        codeT=null;
         templateName=null;
         descricaoT=null;
         //configuracao
-        nameConfig = null;
         descricaoConfig=null;
         storageCapacity=null;
         state=null;
+        materiaisMarketing=null;
+        tutoriais=null;
+        manualUtilizador=null;
     }
 }

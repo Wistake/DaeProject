@@ -488,6 +488,10 @@ public class AdministratorManager implements Serializable {
         newConfig.setDescricao(currentTemplate.getDescricaoConfig());
         newConfig.setEstado(currentTemplate.getState());
         newConfig.setStorageCapacity(currentTemplate.getStorageCapacity());
+        newConfig.setMateriaisMarketing(currentTemplate.getMateriaisMarketing());
+        newConfig.setManualUtilizador(currentTemplate.getManualUtilizador());
+        newConfig.setTutoriais(currentTemplate.getTutoriais());
+        
         System.out.println("---------------------------"+newConfig.getClientUsername());
         System.out.println("---------------------------"+newClient.getUsername());
         System.out.println("---------------------------"+newConfig.getIdSoftware());
