@@ -3,6 +3,7 @@ package ejbs;
 import dtos.AdministratorDTO;
 import entities.Administrator;
 import entities.UserGroup;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import javax.ws.rs.Path;
