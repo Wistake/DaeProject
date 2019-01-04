@@ -7,29 +7,36 @@
     <h:head>
         <title>Software Create</title>
     </h:head>
-    <h:body>
+    <h:body id="gridd">
         <h:form>
 
-            <h:panelGrid columns="3">
-                <h:outputLabel for="client" value="Client " />
-                <h:outputText
-                    id="client"
-                    value="#{administratorManager.newClient.username}" />
-                <br></br>
-                
-                <h:outputLabel for="idSoftware" value="Software Id: " />
+            <h:panelGrid  columns="3">
+
+                <h:outputLabel for="isClient" value="Client Id: " />
+                <h:selectOneMenu
+                    immediate="true"
+                    id="isClient"
+                    value="#{administratorManager.newConfig.clientUsername}" >
+                    <p:ajax event="change" update="idSoftware" />
+                    <f:selectItems
+                        value="#{administratorManager.allClients}"
+                        var="client"
+                        itemValue="#{client.username}"
+                        itemLabel="#{client.name}" />
+                </h:selectOneMenu>
+                                      <br></br>      
+                <h:outputLabel for="idSoftware" value="Software: " />
                 <h:selectOneMenu
                     immediate="true"
                     id="idSoftware"
                     value="#{administratorManager.newConfig.idSoftware}" >
                     <p:ajax event="change" update="@this" />
                     <f:selectItems
-                        value="#{administratorManager.softwaresOfClientsNew}"
+                        value="#{administratorManager.getSoftwaresOfConfigClient()}"
                         var="soft"
                         itemValue="#{soft.idSoftware}"
                         itemLabel="#{soft.name}" />
                 </h:selectOneMenu>
-
                 <br></br>    
                 
                 <h:outputLabel for="name" value="Configuration Name: " />
@@ -40,13 +47,13 @@
                     requiredMessage="Error: Template Name cannot be empty"
                     value="#{administratorManager.newConfig.name}">
                 </h:inputText>
-                <h:message for="name" errorStyle="color:red" />                
+                <h:message for="name" errorStyle="color:red" />               
 
                 <h:commandButton
                     id="submit"
                     value="Create"
                     binding="#{administratorManager.component}"
-                    action="#{administratorManager.createConfigurationCloneClient()}" />
+                    action="#{administratorManager.createConfigurationTemplate()}" />
                 <h:message for="submit" errorStyle="color:red" />
 
             </h:panelGrid>
