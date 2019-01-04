@@ -223,22 +223,33 @@
                     <p:column headerText="Id Software">
                         <h:outputText value="${configs.idSoftware}" />
                     </p:column>
+                    
+                    <p:column headerText="Actions">
+                       <h:commandLink 
+                           value="Consultar" 
+                           action="teste?faces-redirect=true">
+                           <f:setPropertyActionListener
+                               target="#{administratorManager.newConfig}" value="#{configs}" />                            
+                       </h:commandLink>
+                    </p:column>
+                    
+
                     <p:column headerText="Clone:">
                         <h:selectOneMenu
                         id="clientId"
                         value="#{administratorManager.newConfig.clientUsername}" >
                         <f:selectItems
                             value="#{administratorManager.allClients}"
-                            var="clientId"
-                            itemValue="#{clientId.username}"
-                            itemLabel="#{clientId.name}" />
+                            var="client"
+                            itemValue="#{client.username}"
+                            itemLabel="#{client.name}" />
                         </h:selectOneMenu>
                         
-                        <h:commandLink 
-                           value="Clone to Client" class="btn btn-primary"
-                           actionListener="#{administratorManager.cloneConfig}">
-                           <f:param name="username" id="username"
-                                    value="#{administratorManager.newSoftware.clienteUsername}" />
+                        <h:commandLink value="Clone to Client" class="btn btn-primary" action="admin_configs_create?faces-redirect=true">
+                            
+                            <f:setPropertyActionListener target="#{administratorManager.newConfig}" value="#{configs}"/>
+                            <f:setPropertyActionListener target="#{administratorManager.currentClient}" value="#{client}"/>
+
                         </h:commandLink>
                     </p:column>
                     

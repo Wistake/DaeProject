@@ -57,10 +57,10 @@ public class ConfigurationBean extends Bean<Configuration, ConfigurationDTO, Int
     @Override
     public ConfigurationDTO create(ConfigurationDTO dto) {
         Software soft = softwareBean.findOrFail(dto.getIdSoftware());
-        Client client = clientBean.findOrFail(dto.getClientUsername());
+        //Client client = clientBean.findOrFail(dto.getClientUsername());
         Configuration conf = toEntity(dto);
         conf.setSoftware(soft);
-        conf.setClient(client);
+     //   conf.setClient(client);
         conf = create(conf);
         //client.addConfiguration(conf);
         return toDTO(conf);
